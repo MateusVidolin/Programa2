@@ -1,0 +1,31 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+<div class="card-header">Professores Cadastrados</div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <th class="col-3">Nome do Professor</th>
+                    <th class="col-2">Número de Registro</th>
+                    <th class="col-2">Área</th>
+                    <th class="col-1">Categoria</th>
+                    <th class="col-1">Ano de Registro</th>
+                    <th class="col-1">Status</th>
+                    <th class="col-2">Ações</th>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td><%= professor.nome %></td>
+                            <td><%= professor.numeroRegistro %></td>
+                            <td><%= professor.area %></td>
+                            <td><%= professor.categoria %></td>
+                            <td><%= professor.ano %></td>
+                            <td><%= professor.status %></td>
+                            <td>
+                                <a href="/professors/<%= professor.id %>" class="btn btn-primary">Editar</a> 
+                                <a href="/professors/delete/<%= professor.id %>" class="btn btn-danger">Excluir</a>
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+<%- include('../partials/footer.ejs') %>

@@ -1,0 +1,51 @@
+<%- include('./partials/head.ejs') %>
+<div class="container-fluid flex border border-withe p-3 my-3">
+    <img src="views/images/logoFatec.png"class="w-25"/>
+</div>
+
+<div class="container">
+    
+    <div 
+        class="card position-absolute top-50 start-50 translate-middle"
+        style="width: 18rem;"
+    >   
+        <div class="card-header bg-primary text-white font-weight-bold">
+            Login
+        </div>
+        <div class="card-body">
+            <form method="post" action="/usuarios/login">
+                <div class="form-floating mb-3">
+                    <input
+                        type="text"
+                        name="email"
+                        class="form-control"
+                        id="email"
+                        placeholder="Digite o seu e-mail"
+                    >
+                    <label for="email">Digite o seu e-mail</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input
+                        type="password"
+                        name="senha"
+                        class="form-control"
+                        id="senha"
+                        placeholder="Digite a sua senha"
+                    >
+                    <label for="email">Digite a sua senha</label>
+                </div>
+                <br>
+                <% if(msg != '') {%>
+                    <div class="alert alert-danger">
+                        <%= msg %>
+                    </div>
+                <% } %>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>

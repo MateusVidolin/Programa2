@@ -1,0 +1,80 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">Editar Cadastro de Professores</div>
+        <div class="card-body">
+            <form method="POST" action="/professors/salvar">
+                <input type="hidden" name="id" value="<%= professor.id %>">
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="nome" 
+                        id="nome" 
+                        class="form-control" 
+                        placeholder="Nome do professor" 
+                        value="<%= professor.nome %>"
+                        required>
+                    <label for="nome">Nome do professor</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="numeroRegistro" 
+                        id="numeroRegistro" 
+                        class="form-control" 
+                        placeholder="Numero do registro" 
+                        value="<%= professor.numeroRegistro %>"
+                        required>
+                    <label for="numeroRegistro">Numero do registro</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="area" 
+                        id="area" 
+                        class="form-control" 
+                        placeholder="Area" 
+                        value="<%= professor.area %>"
+                        required>
+                    <label for="area">Numero do registro</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="categoria" 
+                        id="categoria" 
+                        class="form-control" 
+                        placeholder="Categoria" 
+                        value="<%= professor.categoria %>"
+                        required>
+                    <label for="categoria">Categoria</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="date" 
+                        name="ano" 
+                        id="ano" 
+                        class="form-control" 
+                        placeholder="Data" 
+                        value="<%= professor.ano %>"
+                        required>
+                    <label for="ano">Data de registro</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select name = "status"> 
+                        <option value = "Ativo"> Ativo</option>
+                        <option value = "Inativo"> Inativo</option>
+                </select>
+                </div>
+                <div class="form-floating mb-3">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="/professors" class="btn btn-warning">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

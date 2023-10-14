@@ -1,0 +1,80 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">Busca de Professores</div>
+        <div class="card-body">
+            <form method="POST" action="/professors/buscar">
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="nome" 
+                        id="nome" 
+                        class="form-control" 
+                        placeholder="Nome do professor" 
+                    >
+                    <label for="nome">Nome do professor</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="numeroRegistro" 
+                        id="numeroRegistro" 
+                        class="form-control" 
+                        placeholder="Numero do registro" 
+                    >
+                    <label for="numeroRegistro">Numero do registro</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="area" 
+                        id="area" 
+                        class="form-control" 
+                        placeholder="Area" 
+                    >
+                    <label for="area">Área</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="categoria" 
+                        id="categoria" 
+                        class="form-control" 
+                        placeholder="Categoria" 
+                    >
+                    <label for="categoria">Categoria</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="date" 
+                        name="ano" 
+                        id="ano" 
+                        class="form-control" 
+                        placeholder="Data" 
+                    >
+                    <label for="ano">Registrados a partir de: </label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="status" 
+                        id="status" 
+                        class="form-control" 
+                        placeholder="Status" 
+                    >
+                    <label for="status">Status</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                    <a href="/professors" class="btn btn-warning">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<%- include('../partials/footer.ejs') %>
