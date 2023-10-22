@@ -28,25 +28,45 @@ exports.renderBusca = (req, res, next) =>{
 exports.resultadoBusca = (req, res, next) =>{
     const numeroRegistro = req.body.numeroRegistro;
     const nome = req.body.nome;
-    const area = req.body.area;
-    const categoria = req.body.categoria;
-    const ano = req.body.ano;
     const status = req.body.status;
     
         Professor.findOne({
             where: {
-                numeroRegistro : numeroRegistro
+                nome : nome
             }
         }).then(professor => {
             if(professor == undefined)
             {
-                    res.redirect('/professors/busca');
+                Professor.findOne({
+                    where: {
+                        numeroRegistro: numeroRegistro
+                    }     
+                }).then(professor => {
+                        if(professor == undefined)
+                        {
+                            Professor.findOne({
+                                where: {
+                                    status: status
+                                }     
+                            }).then(professor => {
+                                    if(professor == undefined)
+                                        {
+                                            res.redirect('/professor/busca');
+                                        }
+                                        else{
+                                            res.render('professor/resultadoBusca', {professor: professor});  
+                                        }
+                                    })
+                        }
+                        else{
+                            res.render('professor/resultadoBusca', {professor: professor});  
+                        }
+                    })        
             }
-            else
-            {
-                res.render('professor/resultadoBusca', {professor: professor});
+            else{
+                res.render('professor/resultadoBusca', {professor: professor});  
             }
-        })
+        })          
     }
 
 

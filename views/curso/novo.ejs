@@ -1,0 +1,52 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Novo Curso
+        </div>
+        <div id="alerta"></div>
+        <div class="card-body">
+            <form method="post" action="/cursos">
+        <div class="form-floating mb-3">
+            <input 
+                type="text" 
+                name="nomeCurso" 
+                id="nomeCurso" 
+                class="form-control" 
+                placeholder="Nome do curso" 
+                required>
+            <label for="nomeCurso">Nome do curso</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input 
+                type="text" 
+                name="codigoCurso" 
+                id="codigoCurso" 
+                class="form-control" 
+                placeholder="Codigo do curso" 
+                required>
+            <label for="codigoCurso">Código do curso</label>
+        </div>
+        <label for="periodo">Período do curso</label>
+        <div class="form-floating mb-3">
+            <select name = "periodo"> 
+                <option value = "Null"> Selecione uma opção</option>
+                <option value = "Manhã"> Manhã</option>
+                <option value = "Tarde"> Tarde</option>
+                <option value = "Noite"> Noite</option>
+        </select>
+        </div>
+                <div class="form-floating mb-3">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="/cursos" class="btn btn-warning">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

@@ -39,13 +39,14 @@ app.use(express.urlencoded({ extended: false }));
 // Models
 const Usuario = require('./models/usuario');
 const Professor = require('./models/professor');
-//const Editora = require('./models/editora');
+const Curso = require('./models/curso');
 //const Autor = require('./models/autor');
 //const Livro = require('./models/livro');
 
 // Importar Rotas
 const usuarioRoute = require('./routes/usuarioRoute')
 const professorRoute = require('./routes/professorRoute')
+const cursoRoute = require('./routes/cursoRoute')
 
 // Rotas
 app.get('/', checkLogin, (req, res, next) => {
@@ -54,5 +55,6 @@ app.get('/', checkLogin, (req, res, next) => {
 
 app.use('/usuarios', usuarioRoute);
 app.use('/professors', professorRoute);
+app.use('/cursos', cursoRoute);
 
 module.exports = app;
