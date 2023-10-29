@@ -1,0 +1,40 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+
+<br>
+<div class="container">
+    <a href="/disciplinas/novo" class="btn btn-primary">Nova Disciplina</a>
+    <br>
+    <div class="card">
+        <div class="card-header">
+            Disciplinas Cadastradas
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <th class="col-4">Nome da disciplina</th>
+                    <th class="col-2">Código da disciplina</th>
+                    <th class="col-2">Período</th>
+                    <th class="col-2">Semestre</th>
+                    <th class="col-2">Ações</th>
+                </thead>
+                <tbody>
+                    <% disciplinas.forEach(disciplina=> { %>
+                        <tr>
+                            <td><%= disciplina.nomeDisciplina %></td>
+                            <td><%= disciplina.codigoDisciplina %></td>
+                            <td><%= disciplina.semestre %></td>
+                            <td><%= disciplina.periodo %></td>
+                            <td>
+                                <a href="/disciplinas/<%= disciplina.id %>" class="btn btn-primary">Editar</a>
+                                <a href="/disciplinas/delete/<%= disciplina.id %>" class="btn btn-danger">Excluir</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

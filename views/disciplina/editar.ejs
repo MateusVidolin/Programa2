@@ -1,0 +1,67 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Editar Disciplina
+        </div>
+        <div class="card-body">
+            <form method="post" action="/disciplinas/salvar">
+                <input type="hidden" name="id" value="<%= curso.id %>">
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="nome" 
+                        id="nome" 
+                        class="form-control" 
+                        placeholder="Nome da disciplina" 
+                        value="<%= curso.nomeDisciplina %>"
+                        required>
+                    <label for="nome">Nome da disciplina</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="codigoDisciplina" 
+                        id="codigoDisciplina" 
+                        class="form-control" 
+                        placeholder="Codigo da disciplina" 
+                        value="<%= curso.codigoDisciplina %>"
+                        required>
+                    <label for="codigoDisciplina">Código da disciplina</label>
+                </div>
+                <label for="semestre">Semestre da Disciplina</label>
+                <div class="form-floating mb-3">
+                    <select name = "semestre"> 
+                        <option value = "Null"> Selecione uma opção</option>
+                        <option value = "primeiro"> Primeiro</option>
+                        <option value = "segundo"> Segundo</option>
+                        value="<%= disciplina.semestre %>"
+                        required>
+                </select>
+                </div>
+                <div class="form-floating mb-3">
+                    <label for="periodo">Período da disciplina</label>
+                    <div class="form-floating mb-3">
+                        <select name = "periodo"> 
+                            <option value = "Null"> Selecione uma opção</option>
+                            <option value = "Manhã"> Manhã</option>
+                            <option value = "Tarde"> Tarde</option>
+                            <option value = "Noite"> Noite</option>
+                            value="<%= disciplina.periodo %>"
+                        required>
+                    </select> 
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <button type="submit" class="btn btn-primary">Alterar</button>
+                    <a href="/disciplinas" class="btn btn-warning">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

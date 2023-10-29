@@ -1,0 +1,60 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Novo Disciplina
+        </div>
+        <div id="alerta"></div>
+        <div class="card-body">
+            <form method="post" action="/disciplinas">
+        <div class="form-floating mb-3">
+            <input 
+                type="text" 
+                name="nomeDisciplina" 
+                id="nomeDisciplina" 
+                class="form-control" 
+                placeholder="Nome do Disciplina" 
+                required>
+            <label for="nomeDisciplina">Nome da Disciplina</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input 
+                type="text" 
+                name="codigoDisciplina" 
+                id="codigoDisciplina" 
+                class="form-control" 
+                placeholder="Codigo do Disciplina" 
+                required>
+            <label for="codigoDisciplina">Código da Disciplina</label>
+        </div>
+        <label for="semestre">Semestre da Disciplina</label>
+        <div class="form-floating mb-3">
+            <select name = "semestre"> 
+                <option value = "Null"> Selecione uma opção</option>
+                <option value = "primeiro"> Primeiro</option>
+                <option value = "segundo"> Segundo</option>
+        </select>
+        </div>
+        <label for="periodo">Período do Disciplina</label>
+        <div class="form-floating mb-3">
+            <select name = "periodo"> 
+                <option value = "Null"> Selecione uma opção</option>
+                <option value = "Manhã"> Manhã</option>
+                <option value = "Tarde"> Tarde</option>
+                <option value = "Noite"> Noite</option>
+        </select>
+        </div>
+                <div class="form-floating mb-3">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="/disciplinas" class="btn btn-warning">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>
