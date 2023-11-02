@@ -1,0 +1,38 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+
+<br>
+<div class="container">
+    <a href="/feriados/novo" class="btn btn-primary">Novo Feriado</a>
+    <br>
+    <div class="card">
+        <div class="card-header">
+            Feriados Cadastrados
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <th class="col-5">Nome do Feriado</th>
+                    <th class="col-3">Tipo do Feriado</th>
+                    <th class="col-2">Data</th>
+                    <th class="col-2">Ações</th>
+                </thead>
+                <tbody>
+                    <% feriados.forEach(feriado => { %>
+                        <tr>
+                            <td><%= feriado.nomeFeriado %></td>
+                            <td><%= feriado.tipo %></td>
+                            <td><%= feriado.dataFeriado %></td>
+                            <td>
+                                <a href="/feriados/<%= feriado.id %>" class="btn btn-primary">Editar</a>
+                                <a href="/feriados/delete/<%= feriado.id %>" class="btn btn-danger">Excluir</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

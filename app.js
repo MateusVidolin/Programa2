@@ -41,13 +41,14 @@ const Usuario = require('./models/usuario');
 const Professor = require('./models/professor');
 const Curso = require('./models/curso');
 const Disciplina = require('./models/disciplina');
-//const Livro = require('./models/livro');
+const Feriado = require('./models/feriado');
 
 // Importar Rotas
 const usuarioRoute = require('./routes/usuarioRoute')
 const professorRoute = require('./routes/professorRoute')
 const cursoRoute = require('./routes/cursoRoute')
 const disciplinaRoute = require('./routes/disciplinaRoute')
+const feriadoRoute = require('./routes/feriadoRoute')
 
 // Rotas
 app.get('/', checkLogin, (req, res, next) => {
@@ -58,5 +59,7 @@ app.use('/usuarios', usuarioRoute);
 app.use('/professors', professorRoute);
 app.use('/cursos', cursoRoute);
 app.use('/disciplinas', disciplinaRoute);
+app.use('/disciplinas', disciplinaRoute);
+app.use('/feriados', feriadoRoute);
 
 module.exports = app;

@@ -1,0 +1,56 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+
+<br>   
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Novo Feriado
+        </div>
+        <div id="alerta"></div>
+        <div class="card-body">
+            <form method="post" action="/feriados">
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="nomeFeriado" 
+                        id="nomeFeriado" 
+                        class="form-control" 
+                        placeholder="Nome do feriado" 
+                        required>
+                    <label for="nomeFeriado">Nome do feriado</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="date" 
+                        name="dataFeriado" 
+                        id="dataFeriado" 
+                        class="form-control" 
+                        placeholder="Data do feriado" 
+                        required>
+                    <label for="data">Data do feriado</label>
+                </div>
+                <label for="tipo">Tipo do Feriado</label>
+                    <div class="form-floating mb-3">
+                        <select name = "tipo"> 
+                            <option value = "Null"> Selecione uma opção</option>
+                            <option value = "Nacional"> Nacional</option>
+                            <option value = "Estadual"> Estadual</option>
+                            <option value = "Municipal"> Municipal</option>
+                            <option value = "Ponto Facultativo"> Ponto Facultativo</option>
+                            <option value = "Emenda"> Emenda</option>
+                            required>
+                    </select> 
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="/feriados" class="btn btn-warning">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

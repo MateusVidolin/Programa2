@@ -8,7 +8,7 @@ const Feriado = connection.define(
             type: Sequelize.STRING,
             allowNull: false
         },
-        dtaFeriado: {
+        dataFeriado: {
             type: Sequelize.DATEONLY,
             allowNull: false
         },

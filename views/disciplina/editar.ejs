@@ -9,7 +9,7 @@
         </div>
         <div class="card-body">
             <form method="post" action="/disciplinas/salvar">
-                <input type="hidden" name="id" value="<%= curso.id %>">
+                <input type="hidden" name="id" value="<%= disciplina.id %>">
                 <div class="form-floating mb-3">
                     <input 
                         type="text" 
@@ -17,7 +17,7 @@
                         id="nome" 
                         class="form-control" 
                         placeholder="Nome da disciplina" 
-                        value="<%= curso.nomeDisciplina %>"
+                        value="<%= disciplina.nomeDisciplina %>"
                         required>
                     <label for="nome">Nome da disciplina</label>
                 </div>
@@ -28,7 +28,7 @@
                         id="codigoDisciplina" 
                         class="form-control" 
                         placeholder="Codigo da disciplina" 
-                        value="<%= curso.codigoDisciplina %>"
+                        value="<%= disciplina.codigoDisciplina %>"
                         required>
                     <label for="codigoDisciplina">Código da disciplina</label>
                 </div>
@@ -42,7 +42,6 @@
                         required>
                 </select>
                 </div>
-                <div class="form-floating mb-3">
                     <label for="periodo">Período da disciplina</label>
                     <div class="form-floating mb-3">
                         <select name = "periodo"> 

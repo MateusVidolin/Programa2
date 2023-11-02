@@ -82,7 +82,7 @@ exports.update = (req, res, next) => {
 exports.delete = (req, res, next) => {
     const id = req.params.id;
 
-    Curso.destroy({
+    Disciplina.destroy({
         where: {
             id: id
         }
