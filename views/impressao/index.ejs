@@ -3,29 +3,34 @@
 
 <br>
 <div class="container">
-    <a href="/cursos/novo" class="btn btn-primary">Novo Curso</a>
+    <a href="/impressaos/novo" class="btn btn-primary">Registrar professor</a>
     <br>
     <div class="card">
         <div class="card-header">
-            Cursos Cadastrados
+            Professores registrados nas disciplinas
         </div>
         <div class="card-body">
             <table class="table table-bordered">
                 <thead>
-                    <th class="col-5">Nome do Curso</th>
-                    <th class="col-3">Código do Curso</th>
-                    <th class="col-2">Período</th>
+                    <th class="col-3">Professor</th>
+                    <th class="col-3">Disciplina</th>
+                    <th class="col-2">Ano</th>
                     <th class="col-2">Ações</th>
+                    <th class="col-2">Folha de Registro</th>    
                 </thead>
                 <tbody>
-                    <% cursos.forEach(curso => { %>
+                    <% impressaos.forEach(impressao => { %>
                         <tr>
-                            <td><%= curso.nomeCurso %></td>
-                            <td><%= curso.codigoCurso %></td>
-                            <td><%= curso.periodo %></td>
+                            <td><%= impressao.professor.nome%> - Reg.: <%= impressao.professor.numeroRegistro%></td>
+                            <td><%= impressao.disciplina.nomeDisciplina %> - Cód.: <%= impressao.disciplina.codigoDisciplina%> </td>
+                            <td><%= impressao.anoImpressao %></td>
                             <td>
-                                <a href="/cursos/<%= curso.id %>" class="btn btn-primary">Editar</a>
-                                <a href="/cursos/delete/<%= curso.id %>" class="btn btn-danger">Excluir</a>
+                                <a href="/impressaos/adicionaDisc/<%= impressao.id %>" class="btn btn-primary">Adicionar Disc.</a>
+                                <a href="/impressaos/<%= impressao.id %>" class="btn btn-primary">Editar</a>
+                                <a href="/impressaos/delete/<%= impressao.id %>" class="btn btn-danger">Excluir</a>
+                            </td>
+                            <td>
+                                <a href="/impressaos/<%= impressao.id %>" class="btn btn-primary">Gerar Folha Reg.</a>
                             </td>
                         </tr>
                     <% }) %>

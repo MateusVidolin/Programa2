@@ -1,0 +1,93 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">Novo cadastro de professor na disciplina</div>
+        <div class="card-body">
+            <form method="POST" action="/impressaos">
+                <label for="professorId">Selecione o professor</label>
+                <br>
+                <div class="form-floating mb-3">
+                    <select class="form-control" name="professorId" id="professorId">
+                        <% professors.forEach(professor => { %>
+                            <option value="<%= professor.id %>">Nome: <%= professor.nome %> - Registro: <%= professor.numeroRegistro %></option>
+                        <%})%>
+                        required>
+                    </select>
+                </div>
+                <br>
+                <label for="disciplinaId">Selecione as disciplinas</label>
+                <br>
+                <label for="disciplinaId">Disciplina</label>
+                <div class="form-floating mb-3">
+                    <select class="form-control" name="disciplinaId" id="disciplinaId">
+                        <% disciplinas.forEach(disciplina => { %>
+                            <option value="<%= disciplina.id %>">Nome: <%= disciplina.nomeDisciplina %> - Código: <%= disciplina.codigoDisciplina %> - Semestre: <%= disciplina.semestre %> - Período: <%= disciplina.periodo %></option>
+                        <%})%>
+                        required>
+                    </select>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="horarioDisc" 
+                        class="form-control" 
+                        id="horarioDisc" 
+                        placeholder="Horário da disciplina" 
+                        required>
+                    <label for="horarioDisc">Horário da disciplina</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="aulasDisc" 
+                        class="form-control" 
+                        id="aulasDisc" 
+                        placeholder="Quantidade de aulas" 
+                        required>
+                    <label for="aulasDisc">Quantidade de aulas</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="hae" 
+                        class="form-control" 
+                        id="hae" 
+                        placeholder="HAE" 
+                        required>
+                    <label for="hae">HAE</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="haec" 
+                        class="form-control" 
+                        id="haec" 
+                        placeholder="HAEC" 
+                        required>
+                    <label for="haec">HAEC</label>
+                </div>
+                <label for="tipo">Dia da semana</label>
+                    <div class="form-floating mb-3">
+                        <select name = "diaSemanaDisc"> 
+                            <option value = "Null"> Selecione uma opção</option>
+                            <option value = "Segunda-Feira"> Segunda-Feira</option>
+                            <option value = "Terça-Feira"> Terça-Feira</option>
+                            <option value = "Quarta-Feira"> Quarta-Feira</option>
+                            <option value = "Quinta-Feira"> Quinta-Feira</option>
+                            <option value = "Sexta-Feira"> Sexta-Feira</option>
+                            <option value = "Sábado"> Sábado</option>
+                            required>
+                    </select> 
+                    </div>
+                <div class="form-floating mb-3">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="/impressaos" class="btn btn-warning">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>
