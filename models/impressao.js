@@ -6,7 +6,7 @@ const Professor = require('./professor');
 const Impressao = connection.define(
     'impressao',
     {
-        IdDisciplina1:{
+        idDisciplina1:{
             type: Sequelize.INTEGER,
             allowNull: false
         },
@@ -22,7 +22,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: false
         },
-        IdDisciplina2:{
+        idDisciplina2:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -38,7 +38,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina3:{
+        idDisciplina3:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -54,7 +54,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina4:{
+        idDisciplina4:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -70,7 +70,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina5:{
+        idDisciplina5:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -86,7 +86,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina6:{
+        idDisciplina6:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -102,7 +102,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina7:{
+        idDisciplina7:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -118,7 +118,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina8:{
+        idDisciplina8:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -134,7 +134,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina9:{
+        idDisciplina9:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -150,7 +150,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina10:{
+        idDisciplina10:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -166,7 +166,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina11:{
+        idDisciplina11:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -182,7 +182,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina12:{
+        idDisciplina12:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -198,7 +198,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina13:{
+        idDisciplina13:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -214,7 +214,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina14:{
+        idDisciplina14:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
@@ -230,7 +230,7 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        IdDisciplina15:{
+        idDisciplina15:{
             type: Sequelize.INTEGER,
             allowNull: true
         },

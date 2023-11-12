@@ -4,6 +4,7 @@ const Disciplina = require('../models/disciplina');
 const Feriado = require('../models/feriado');
 const Impressao = require('../models/impressao');
 const Professor = require('../models/professor');
+const {NomeParaBanco} = require('../utilidades');
 
 //const {fmDate, DataParaBanco} = require('../utilidades');
 
@@ -77,6 +78,37 @@ exports.adicionarDisc = (req, res, next) => {
     });
 }
 
+exports.renderGeraRegistro = (req, res, next) => {
+    const id = req.params.id;
+    let nomeDisciplina1 = null;
+    let curso1 = null;
+    let ha = null; 
+    Impressao.findOne({
+        where: {
+            id: id
+        },
+        include: [
+            {
+                model: Disciplina
+            },
+            {
+                model: Professor
+            }
+        ]
+        }).then(impressao => {
+            ha = ((impressao.aulasDisc1)/2);
+            Disciplina.findByPk(impressao.idDisciplina1).then(disciplina => {
+            nomeDisciplina1 = disciplina.nomeDisciplina;
+            Curso.findByPk(disciplina.cursoId).then(curso => {
+            curso1 = curso.nomeCurso;
+
+            res.render('impressao/pagina', {impressao: impressao, nomeDisciplina1, curso1, ha});
+        });
+    });
+    });
+}
+
+
 exports.renderNovo = (req, res, next) => {
     Professor.findAll({
         order: [
@@ -131,9 +163,10 @@ exports.create = (req, res, next) => {
                 aulasDisc1: aulasDisciplina,
                 hae: hae,
                 haec: haec,
-                anoImpressao: anoImpressao
+                anoImpressao: anoImpressao,
+                idDisciplina1: disciplinaId
             }).then(() => {
-                res.redirect('/impressaos',);
+                res.redirect('/impressaos');
             })
         }
         else

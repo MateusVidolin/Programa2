@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const connection = require('../database/database');
+const Curso = require('./curso');
 
 const Disciplina = connection.define(
     'disciplina',
@@ -23,6 +24,7 @@ const Disciplina = connection.define(
     }
 );
 
+Disciplina.belongsTo(Curso);
 //Disciplina.sync({force: true});
 
 module.exports = Disciplina;

@@ -12,6 +12,7 @@ router.post('/salvarDisc', checkLogin, ImpressaoController.adicionarDisc);
 router.get('/:id', checkLogin, ImpressaoController.renderEditar);
 router.post('/salvar', checkLogin, ImpressaoController.update);
 router.get('/delete/:id', checkLogin, ImpressaoController.delete);
+router.get('/geraReg/:id', checkLogin, ImpressaoController.renderGeraRegistro);
 
 
 

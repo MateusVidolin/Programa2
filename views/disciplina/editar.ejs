@@ -32,6 +32,14 @@
                         required>
                     <label for="codigoDisciplina">Código da disciplina</label>
                 </div>
+                <div class="form-floating mb-3">
+                    <select class="form-control" name="cursoId" id="cursoId">
+                        <% cursos.forEach(curso => { %>
+                            <option value="<%= curso.id %>">Nome do curso: <%= curso.nomeCurso %> Código: <%= curso.codigoCurso %></option>
+                        <%})%>
+                        required>
+                    </select>
+                </div>
                 <label for="semestre">Semestre da Disciplina</label>
                 <div class="form-floating mb-3">
                     <select name = "semestre"> 
