@@ -1,0 +1,33 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">Mês para impressão</div>
+        <div class="card-body">
+            <form method="POST" action="/impressaos">
+                <label for="mes">Selecione o mês</label>
+                <br>
+                <div class="form-floating mb-3">
+                    <div class="form-floating mb-3">
+                        <select name = "mes"> 
+                            <option value = "Null"> Selecione uma opção</option>
+                            <option value = "Janeiro"> Janeiro</option>
+                            <option value = "Fevereiro"> Fevereiro</option>
+                            <option value = "Março"> Março</option>
+                            <option value = "Abril"> Abril</option>
+                            <option value = "Maio"> Maio</option>
+                            <option value = "Junho"> Junho</option>
+                            required>
+                    </select> 
+                    </div>
+                <div class="form-floating mb-3">
+                    <button type="submit <%= id %>" class="btn btn-primary">Salvar</button>
+                    <a href="/impressaos" class="btn btn-warning">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

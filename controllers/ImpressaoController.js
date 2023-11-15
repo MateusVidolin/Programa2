@@ -4,7 +4,7 @@ const Disciplina = require('../models/disciplina');
 const Feriado = require('../models/feriado');
 const Impressao = require('../models/impressao');
 const Professor = require('../models/professor');
-const {NomeParaBanco} = require('../utilidades');
+const {fmDate} = require('../utilidades');
 
 //const {fmDate, DataParaBanco} = require('../utilidades');
 
@@ -78,11 +78,40 @@ exports.adicionarDisc = (req, res, next) => {
     });
 }
 
+/*exports.renderSelecionaMes = (req, res, next) => {
+    const id = req.params.id;
+    console.log(id);
+    res.render('impressao/selecionarMes', {id: id});
+}
+
+exports.selecionaMes = (req, res, next) => {
+    const id = req.params.id;
+    const mes = req.body.mes;
+    console.log(id);
+    res.render('impressao/geraRegistro', {id: id, mes: mes});
+
+}*/
+
 exports.renderGeraRegistro = (req, res, next) => {
     const id = req.params.id;
     let nomeDisciplina1 = null;
     let curso1 = null;
-    let ha = null; 
+    let ha = null;
+    let mes = new Date;
+
+    mes = mes.getMonth().toString();
+    console.log(mes);
+    
+
+    switch(mes) {
+        case '10':
+            mes = 'Novembro'
+            break;
+            default: 
+            console.log('nao');
+    }
+    console.log(mes);
+
     Impressao.findOne({
         where: {
             id: id
@@ -102,7 +131,7 @@ exports.renderGeraRegistro = (req, res, next) => {
             Curso.findByPk(disciplina.cursoId).then(curso => {
             curso1 = curso.nomeCurso;
 
-            res.render('impressao/pagina', {impressao: impressao, nomeDisciplina1, curso1, ha});
+            res.render('impressao/pagina', {impressao: impressao, nomeDisciplina1, curso1, ha, mes});
         });
     });
     });

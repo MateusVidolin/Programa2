@@ -3,26 +3,24 @@
 <br>
 
 <body class="container">
-    <div>
-        <p class="h6 text-center">FATEC MOGI MIRIM  -  REGISTRO DE PRESENÇA DE DOCENTE - <span id="mesAno"></span></p>
-        <hr class="mt-1">
-        <div class="row">
+    <div class="small">
+        <p class="text-center small"><strong> FATEC MOGI MIRIM  -  REGISTRO DE PRESENÇA DE DOCENTE - <span id="mesAno"> <%= mes%></span></strong></p>
+        <div class="row small">
             <div class="col">
                 <p class="small"><strong>Prof:</strong> <%= impressao.professor.numeroRegistro%> <%= impressao.professor.nome%> <span id="nome"></span></p>
             </div>
             <div class="col">
                 <p class="small"><strong>Categoria:</strong> <%= impressao.professor.categoria%> <span id="categoria"></span></p>
             </div>
-            <div class="col ">
-                <p class="small"><strong>Curso:</strong><span id="curso1"><%= curso1%></span> <span id="curso2"></span> <span id="curso3"></span></p>
+            <div class="col">
+                <p class="small"><strong>Curso:</strong><span id="curso1"> <%= curso1%></span> <span id="curso2"></span> <span id="curso3"></span></p>
             </div>
         </div>
-        <hr class="mt-0">
-        <div class="row">
+        <div class="row small">
             <div class="col">
                 <p class="small"><strong>Disciplinas:</strong> <%= nomeDisciplina1%><span id="IdDisciplina1"></span> <span id="disciplina2"></span> <span id="disciplina3"></span></p>
             </div>
-        <div class="row">
+        <div class="row small">
             <div class="col">
                 <p class="small"><strong>Aulas:</strong> <%= impressao.aulasDisc1%> <span id="aulas"></span></p>
             </div> 
@@ -40,7 +38,7 @@
             </div>    
         </div>
         <!-- Tabela de presença -->
-        <table class="table-bordered">
+        <table class="table-bordered small">
             <thead>
                 <tr>
                     <th rowspan="2" class="small">Dia</th>
@@ -64,77 +62,55 @@
                     <th class="small">Rubrica</th>
                 </tr>
             </thead>
-            <tbody id="tabelaPresenca">
-                <!-- As linhas da tabela serão preenchidas dinamicamente com JavaScript -->
-            </tbody>
+            <tbody id="table-body" class="small">
+                <!-- Conteúdo da tabela será adicionado dinamicamente aqui -->
+                </tbody>
         </table>
     </div> 
     <div class="d-print-none"><button type="button" class="btn btn-primary" onclick="window.print()">Imprimir</button></div>
-      
-    <script>
-        // Use JavaScript para preencher as variáveis dinâmicas e a tabela de presença
-        // Obtenha o mês e ano escolhidos da outra parte do seu programa
-       /* var mesAno = "Novembro 2023"; // Substitua com o mês e ano dinâmicos
-        document.getElementById("mesAno").textContent = mesAno;
+<script>
+    // Função para preencher a tabela dinamicamente
+    function criarTabela() {
+        // Limpar o corpo da tabela
+       // $("#table-body small").empty();
 
-        var codigoProfessor = "123";
-        var nomeProfessor = "Nome do Professor";
-        var categoria = "Categoria do Professor";
-        var curso1 = "Curso 1";
-        var curso2 = "Curso 2";
-        var curso3 = "Curso 3";
-        var disciplina1 = "disciplina 1";
-        var disciplina2 = "disciplina 2";
-        var disciplina3 = "disciplina 3";
+        // Obter o mês e ano selecionados pelo usuário
+        var selectedDate = '2020/03';
+        var startDate = new Date(selectedDate + "-01");
+        var endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0);
 
-        document.getElementById("codigoProfessor").textContent = codigoProfessor;
-        document.getElementById("nomeProfessor").textContent = nomeProfessor;
-        document.getElementById("categoria").textContent = categoria;
-        document.getElementById("curso1").textContent = curso1;
-        document.getElementById("curso2").textContent = curso2;
-        document.getElementById("curso3").textContent = curso3;
-        document.getElementById("disciplina1").textContent = disciplina1;
-        document.getElementById("disciplina2").textContent = disciplina2;
-        document.getElementById("disciplina3").textContent = disciplina3;
+        // Loop para preencher os dias do mês
+        for (var day = startDate.getDate(); day <= endDate.getDate(); day++) {
+            var currentDate = new Date(startDate.getFullYear(), startDate.getMonth(), day);
+            var dayOfWeek = currentDate.toLocaleDateString('pt-br',  { weekday: 'short' });
 
-        // Preencha a tabela de presença dinamicamente com dados de exemplo
-        var tabelaPresenca = document.getElementById("tabelaPresenca");
+            // Adicionar uma nova linha à tabela
+            var newRow = "<tr>" +
+                "<td>" + day + " - " + dayOfWeek + "</td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "<td contenteditable='true'></td>" +
+                "</tr>";
 
-        for (var i = 1; i <= 30; i++) { // Substitua 30 pelo número total de dias no mês escolhido
-            var tr = document.createElement("tr");
-            var dia = document.createElement("td");
-            dia.textContent = i;
+            // Adicionar a nova linha ao corpo da tabela
+            $("#table-body").append(newRow);
+        }
+    }
 
-            // Crie células para os horários de início da manhã, tarde e noite (substitua os valores pelos horários reais)
-            var inicioManha = document.createElement("td");
-            inicioManha.textContent = "08:00";
-            var inicioTarde = document.createElement("td");
-            inicioTarde.textContent = "14:00";
-            var inicioNoite = document.createElement("td");
-            inicioNoite.textContent = "18:00";
 
-            // Crie células para a quantidade de aulas de manhã, tarde e noite (substitua os valores pelas quantidades reais)
-            var aulasManha = document.createElement("td");
-            aulasManha.textContent = "4";
-            var aulasTarde = document.createElement("td");
-            aulasTarde.textContent = "3";
-            var aulasNoite = document.createElement("td");
-            aulasNoite.textContent = "2";
-
-            // Adicione as células à linha da tabela
-            tr.appendChild(dia);
-            tr.appendChild(inicioManha);
-            tr.appendChild(aulasManha);
-            tr.appendChild(inicioTarde);
-            tr.appendChild(aulasTarde);
-            tr.appendChild(inicioNoite);
-            tr.appendChild(aulasNoite);
-
-            // Adicione a linha à tabela de presença
-            tabelaPresenca.appendChild(tr);
-        }*/
-    </script>
-
+    // Inicializar a tabela quando a página carregar
+    criarTabela();
+</script>
 
 
 <%- include('../partials/footer.ejs') %>
