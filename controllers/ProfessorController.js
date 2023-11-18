@@ -2,30 +2,34 @@ const express = require('express');
 const router = express.Router();
 const Professor = require('../models/professor');
 
-exports.renderIndex = (req, res, next) => {
+/*exports.renderIndex = (req, res, next) => {
     res.render('professor/index');
-}
+}*/
 
 exports.getAll= (req, res, next) => {
+    const msgOK = req.query.msgOK;
+    const msgNOK = req.query.msgNOK;
+
     Professor.findAll({
         order: [
             ['nome', 'ASC']
         ]
     }).then(professors => {
-        res.render('professor/index', {professors: professors});
+        res.render('professor/index', {professors: professors, msgOK, msgNOK});
     })
 }
 
 exports.renderNovo = (req, res, next) => {
+
     res.render('professor/novo');
 }
 
-exports.renderBusca = (req, res, next) =>{
+/*exports.renderBusca = (req, res, next) =>{
    
         res.render('professor/busca');
-}
+}*/
 
-exports.resultadoBusca = (req, res, next) =>{
+/*exports.resultadoBusca = (req, res, next) =>{
     const numeroRegistro = req.body.numeroRegistro;
     const nome = req.body.nome;
     const status = req.body.status;
@@ -68,7 +72,7 @@ exports.resultadoBusca = (req, res, next) =>{
             }
         })          
     }
-
+*/
 
 exports.create = (req, res, next) => {
     const numeroRegistro = req.body.numeroRegistro;
@@ -77,6 +81,8 @@ exports.create = (req, res, next) => {
     const categoria = req.body.categoria;
     const ano = req.body.ano;
     const status = req.body.status;
+    let msgOK = '1';
+    let msgNOK = '0';
 
     Professor.findOne({
         where: {
@@ -93,12 +99,12 @@ exports.create = (req, res, next) => {
                 ano: ano,
                 status: status
             }).then(() => {
-                res.redirect('/professors');
+                res.redirect('/professors/?msgOK=' + msgOK);
             })
         }
         else
         {
-            res.redirect('/professors');
+            res.redirect('/professors/?msgNOK=' + msgNOK);
         }
     })
 }
@@ -118,6 +124,8 @@ exports.update = (req, res, next) => {
     const categoria = req.body.categoria;
     const ano = req.body.ano;
     const status = req.body.status;
+    let msgOK = '1';
+    let msgNOK = '0';
 
     Professor.update({
         numeroRegistro: numeroRegistro,
@@ -132,11 +140,13 @@ exports.update = (req, res, next) => {
             id: id
         }
     }).then(() => {
-        res.redirect('/professors');
+        res.redirect('/professors/?msgOK=' + msgOK);
     });
 }
 
 exports.delete = (req, res, next) => {
+    let msgOK = '1';
+    let msgNOK = '0';
     const id = req.params.id;
 
     Professor.destroy({
@@ -144,6 +154,6 @@ exports.delete = (req, res, next) => {
             id: id
         }
     }).then(() => {
-        res.redirect('/professors');
+        res.redirect('/professors/?msgOK=' + msgOK);
     });
 }

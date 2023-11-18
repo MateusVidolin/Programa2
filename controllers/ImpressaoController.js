@@ -98,7 +98,6 @@ exports.renderGeraRegistro = (req, res, next) => {
     let curso1 = null;
     let ha = null;
     let mes = new Date;
-
     mes = mes.getMonth().toString();
     console.log(mes);
     

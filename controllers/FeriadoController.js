@@ -7,12 +7,15 @@ exports.renderIndex = (req, res, next) => {
 }
 
 exports.getAll= (req, res, next) => {
+    const msgOK = req.query.msgOK;
+    const msgNOK = req.query.msgNOK;
+
     Feriado.findAll({
         order: [
             ['nomeFeriado', 'ASC']
         ]
     }).then(feriados => {
-        res.render('feriado/index', {feriados: feriados});
+        res.render('feriado/index', {feriados: feriados, msgOK, msgNOK});
     })
 }
 
@@ -24,7 +27,9 @@ exports.renderNovo = (req, res, next) => {
 exports.create = (req, res, next) => {
     const nomeFeriado = req.body.nomeFeriado;
     const tipo = req.body.tipo;
-    const dataFeriado = req.body.dataFeriado; 
+    const dataFeriado = req.body.dataFeriado;
+    let msgOK = '1';
+    let msgNOK = '0'; 
 
     Feriado.findOne({
         where: {
@@ -38,12 +43,12 @@ exports.create = (req, res, next) => {
                 tipo: tipo,
                 dataFeriado: dataFeriado
             }).then(() => {
-                res.redirect('/feriados');
+                res.redirect('/feriados/?msgOK=' + msgOK);
             })
         }
         else
         {
-            res.redirect('/feriados');
+            res.redirect('/feriados/?msgNOK=' + msgNOK);
         }
     });
 }
@@ -59,7 +64,9 @@ exports.update = (req, res, next) => {
     const id = req.body.id;
     const nomeFeriado = req.body.nomeFeriado;
     const tipo = req.body.tipo;
-    const dataFeriado = req.body.dataFeriado; 
+    const dataFeriado = req.body.dataFeriado;
+    let msgOK = '1';
+    let msgNOK = '0';  
 
     Feriado.update({
         nomeFeriado: nomeFeriado,
@@ -71,18 +78,20 @@ exports.update = (req, res, next) => {
             id: id
         }
     }).then(() => {
-        res.redirect('/feriados');
+        res.redirect('/feriados/?msgOK=' + msgOK);
     });
 }
 
 exports.delete = (req, res, next) => {
     const id = req.params.id;
+    let msgOK = '1';
+    let msgNOK = '0'; 
 
     Feriado.destroy({
         where: {
             id: id
         }
     }).then(() => {
-        res.redirect('/feriados');
+        res.redirect('/feriados/?msgOK=' + msgOK);
     });
 }

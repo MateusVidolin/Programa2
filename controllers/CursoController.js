@@ -7,12 +7,15 @@ exports.renderIndex = (req, res, next) => {
 }
 
 exports.getAll= (req, res, next) => {
+    const msgOK = req.query.msgOK;
+    const msgNOK = req.query.msgNOK;
+
     Curso.findAll({
         order: [
             ['nomeCurso', 'ASC']
         ]
     }).then(cursos => {
-        res.render('curso/index', {cursos: cursos});
+        res.render('curso/index', {cursos: cursos, msgNOK, msgOK});
     })
 }
 
@@ -25,6 +28,8 @@ exports.create = (req, res, next) => {
     const codigoCurso = req.body.codigoCurso;
     const nomeCurso = req.body.nomeCurso;
     const periodo = req.body.periodo;
+    let msgOK = '1';
+    let msgNOK = '0';
 
     Curso.findOne({
         where: {
@@ -38,12 +43,12 @@ exports.create = (req, res, next) => {
                 nomeCurso: nomeCurso,
                 periodo: periodo
             }).then(() => {
-                res.redirect('/cursos');
+                res.redirect('/cursos/?msgOK=' + msgOK);
             })
         }
         else
         {
-            res.redirect('/cursos');
+            res.redirect('/cursos/?msgNOK=' + msgNOK);
         }
     });
 }
@@ -60,6 +65,8 @@ exports.update = (req, res, next) => {
     const codigoCurso = req.body.codigoCurso;
     const nomeCurso = req.body.nomeCurso;
     const periodo = req.body.periodo;
+    let msgOK = '1';
+    let msgNOK = '0';
 
     Curso.update({
         codigoCurso: codigoCurso,
@@ -71,18 +78,20 @@ exports.update = (req, res, next) => {
             id: id
         }
     }).then(() => {
-        res.redirect('/cursos');
+        res.redirect('/cursos/?msgOK=' + msgOK);
     });
 }
 
 exports.delete = (req, res, next) => {
     const id = req.params.id;
+    let msgOK = '1';
+    let msgNOK = '0';
 
     Curso.destroy({
         where: {
             id: id
         }
     }).then(() => {
-        res.redirect('/cursos');
+        res.redirect('/cursos/?msgOK=' + msgOK);
     });
 }

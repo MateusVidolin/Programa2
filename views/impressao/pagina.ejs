@@ -5,61 +5,62 @@
 <body class="container">
     <div class="small">
         <p class="text-center small"><strong> FATEC MOGI MIRIM  -  REGISTRO DE PRESENÇA DE DOCENTE - <span id="mesAno"> <%= mes%></span></strong></p>
+        <hr>
         <div class="row small">
-            <div class="col">
-                <p class="small"><strong>Prof:</strong> <%= impressao.professor.numeroRegistro%> <%= impressao.professor.nome%> <span id="nome"></span></p>
+            <div class="col sm-2 p-0">
+                <strong>Prof:</strong> <%= impressao.professor.numeroRegistro%> <%= impressao.professor.nome%> <span id="nome"></span>
             </div>
-            <div class="col">
-                <p class="small"><strong>Categoria:</strong> <%= impressao.professor.categoria%> <span id="categoria"></span></p>
+            <div class="col sm-2 p-0">
+                <strong>Categoria:</strong> <%= impressao.professor.categoria%> <span id="categoria"></span>
             </div>
-            <div class="col">
-                <p class="small"><strong>Curso:</strong><span id="curso1"> <%= curso1%></span> <span id="curso2"></span> <span id="curso3"></span></p>
+            <div class="col sm-2 p-0">
+                <strong>Curso:</strong><span id="curso1"> <%= curso1%></span> <span id="curso2"></span> <span id="curso3"></span>
             </div>
         </div>
         <div class="row small">
-            <div class="col">
-                <p class="small"><strong>Disciplinas:</strong> <%= nomeDisciplina1%><span id="IdDisciplina1"></span> <span id="disciplina2"></span> <span id="disciplina3"></span></p>
+            <div class="col sm-2 p-0">
+                <strong>Disciplinas:</strong> <%= nomeDisciplina1%><span id="IdDisciplina1"></span> <span id="disciplina2"></span> <span id="disciplina3"></span>
             </div>
         <div class="row small">
-            <div class="col">
-                <p class="small"><strong>Aulas:</strong> <%= impressao.aulasDisc1%> <span id="aulas"></span></p>
+            <div class="col sm-2 p-0">
+                <strong>Aulas:</strong> <%= impressao.aulasDisc1%> <span id="aulas"> </span>
             </div> 
             <div class="col">
-                <p class="small"><strong>H.A:</strong> <%= ha%><span id="ha"></span></p>
+                <strong>H.A:</strong> <%= ha%><span id="ha"></span>
             </div>
             <div class="col">
-                <p class="small"><strong>H.A.E:</strong> <%= impressao.hae%><span id="hae"></span></p>
+                <strong>H.A.E:</strong> <%= impressao.hae%><span id="hae"></span>
             </div>
             <div class="col">
-                <p class="small"><strong>H.A.E.A:</strong><span id="haeaa"></span></p>
+                <strong>H.A.E.A:</strong><span id="haeaa"></span>
             </div>
             <div class="col">
-                <p class="small"><strong>Jornada:</strong><span id="jornada"></span></p>
+                <strong>Jornada:</strong><span id="jornada"></span>
             </div>    
         </div>
         <!-- Tabela de presença -->
         <table class="table-bordered small">
             <thead>
                 <tr>
-                    <th rowspan="2" class="small">Dia</th>
-                    <th colspan="4" class="small">Manhã</th>
-                    <th colspan="4" class="small">Tarde</th>
-                    <th colspan="4" class="small">Noite</th>
-                    <th rowspan="4" class="small">Observações</th>
+                    <th rowspan="2" class="col-sm text-center" >Dia</th>
+                    <th colspan="4" class="col-sm text-center">Manhã</th>
+                    <th colspan="4" class="col-sm text-center">Tarde</th>
+                    <th colspan="4" class="col-sm text-center">Noite</th>
+                    <th rowspan="4" class="col-sm-2 text-center">Observações</th>
                 </tr>
                 <tr>
-                    <th class="small">Início</th>
-                    <th class="small">Aulas</th>
-                    <th class="small">H.A.E</th>
-                    <th class="small">Rubrica</th>
-                    <th class="small">Início</th>
-                    <th class="small">Aulas</th>
-                    <th class="small">H.A.E</th>
-                    <th class="small">Rubrica</th>
-                    <th class="small">Início</th>
-                    <th class="small">Aulas</th>
-                    <th class="small">H.A.E</th>
-                    <th class="small">Rubrica</th>
+                    <th class="col-sm">Início</th>
+                    <th class="col-sm">Aulas</th>
+                    <th class="col-sm">H.A.E</th>
+                    <th class="col-sm-2 text-center">Rubrica</th>
+                    <th class="col-sm">Início</th>
+                    <th class="col-sm">Aulas</th>
+                    <th class="col-sm">H.A.E</th>
+                    <th class="col-sm-2 text-center">Rubrica</th>
+                    <th class="col-sm">Início</th>
+                    <th class="col-sm">Aulas</th>
+                    <th class="col-sm">H.A.E</th>
+                    <th class="col-sm-2 text-center">Rubrica</th>
                 </tr>
             </thead>
             <tbody id="table-body" class="small">
@@ -72,7 +73,7 @@
     // Função para preencher a tabela dinamicamente
     function criarTabela() {
         // Limpar o corpo da tabela
-       // $("#table-body small").empty();
+       $("#table-body small").empty();
 
         // Obter o mês e ano selecionados pelo usuário
         var selectedDate = '2020/03';
@@ -84,27 +85,43 @@
             var currentDate = new Date(startDate.getFullYear(), startDate.getMonth(), day);
             var dayOfWeek = currentDate.toLocaleDateString('pt-br',  { weekday: 'short' });
 
-            // Adicionar uma nova linha à tabela
-            var newRow = "<tr>" +
-                "<td>" + day + " - " + dayOfWeek + "</td>" +
-                "<td contenteditable='true'></td>" +
-                "<td contenteditable='true'></td>" +
-                "<td contenteditable='true'></td>" +
-                "<td contenteditable='true'></td>" +
-                "<td contenteditable='true'></td>" +
-                "<td contenteditable='true'></td>" +
-                "<td contenteditable='true'></td>" +
-                "<td contenteditable='true'></td>" +
-                "<td contenteditable='true'></td>" +
-                "<td contenteditable='true'></td>" +
-                "<td contenteditable='true'></td>" +
-                "<td contenteditable='true'></td>" +
+        // Adicionar uma nova linha à tabela
+        var newRow = "<tr>" +
+                "<td>" + dayOfWeek + " - " + day + "</td>" +
+                preencherDia("Manha") +
+                preencherDia("Tarde") +
+                preencherDia("Noite") +
                 "<td contenteditable='true'></td>" +
                 "</tr>";
 
             // Adicionar a nova linha ao corpo da tabela
             $("#table-body").append(newRow);
         }
+    }
+
+    // Função para preencher as colunas com base nas variáveis do controlador
+     function preencherDia(day, turno) {
+        var inicio = null//eval("inicio" + turno);
+        var aulas = null//eval("aulas" + turno);
+        var Hae = null//eval("Hae" + turno);
+        var rubrica = isFeriado(day) ? "Feriado" : " - ";
+
+        // Verificar se as variáveis são nulas e, se for o caso, deixar o campo em branco
+        inicio = inicio !== null ? inicio : " - ";
+        aulas = aulas !== null ? aulas : " - ";
+        Hae = Hae !== null ? Hae : " - ";
+
+        return "<td contenteditable='true'>" + inicio + "</td>" +
+               "<td contenteditable='true'>" + aulas + "</td>" +
+               "<td contenteditable='true'> "+ Hae +" </td>" +
+               "<td contenteditable='true'>" + rubrica + "</td>";
+    }
+
+    // Função para verificar se é feriado
+    function isFeriado(day) {
+        // Lógica para determinar se é feriado ou não, baseado na data
+        // Pode ser implementada conforme necessário
+        return false;
     }
 
 

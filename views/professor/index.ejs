@@ -3,7 +3,46 @@
 <br>
 <div class="container">
     <a href="/professors/novo" class="btn btn-primary">Novo Professor</a>
-    <a href="/professors/busca" class="btn btn-primary">Busca Professor</a>
+    <div class="card-header">Professores Cadastrados</div>
+        <div class="card-body">
+            <% if(msgOK == '1') {%>
+                <div class="alert alert-success">
+                    <strong>:D Operação realizada com sucesso! </strong>
+                </div>
+             <% } %>
+            <% if(msgNOK == '0') {%>
+                <div class="alert alert-danger">
+                    <strong>:( Dados já existentes!</strong>             
+                </div>
+            <% } %>
+            <table class="table table-bordered">
+                <thead>
+                    <th class="col-3">Nome do Professor</th>
+                    <th class="col-2">Número de Registro</th>
+                    <th class="col-1">Área</th>
+                    <th class="col-1">Categoria</th>
+                    <th class="col-1">Data de registro</th>
+                    <th class="col-1">Status</th>
+                    <th class="col-2">Ações</th>
+                </thead>
+                <tbody>
+                    <% professors.forEach(professor => { %>
+                        <tr>
+                            <td><%= professor.nome %></td>
+                            <td><%= professor.numeroRegistro %></td>
+                            <td><%= professor.area %></td>
+                            <td><%= professor.categoria %></td>
+                            <td><%= professor.ano %></td>
+                            <td><%= professor.status %></td>
+                            <td>
+                                <a href="/professors/<%= professor.id %>" class="btn btn-primary">Editar</a> 
+                                <a href="/professors/delete/<%= professor.id %>" class="btn btn-danger">Excluir</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
     <br>
 </div>
 

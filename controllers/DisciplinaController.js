@@ -8,12 +8,15 @@ exports.renderIndex = (req, res, next) => {
 }
 
 exports.getAll= (req, res, next) => {
+    const msgOK = req.query.msgOK;
+    const msgNOK = req.query.msgNOK;
+
     Disciplina.findAll({
         order: [
             ['nomeDisciplina', 'ASC']
         ]
     }).then(disciplinas => {
-        res.render('disciplina/index', {disciplinas: disciplinas});
+        res.render('disciplina/index', {disciplinas: disciplinas, msgNOK, msgOK});
     })
 }
 
@@ -39,6 +42,8 @@ exports.create = (req, res, next) => {
     const semestre = req.body.semestre;
     const periodo = req.body.periodo;
     const cursoId = req.body.cursoId;
+    let msgOK = '1';
+    let msgNOK = '0'; 
 
     Disciplina.findOne({
         where: {
@@ -54,12 +59,12 @@ exports.create = (req, res, next) => {
                 periodo: periodo,
                 cursoId: cursoId
             }).then(() => {
-                res.redirect('/disciplinas');
+                res.redirect('/disciplinas/?msgOK=' + msgOK);
             })
         }
         else
         {
-            res.redirect('/disciplinas');
+            res.redirect('/disciplinas/?msgNOK=' + msgNOK);
         }
     });
 }
@@ -87,6 +92,8 @@ exports.update = (req, res, next) => {
     const nomeDisciplina = req.body.nomeDisciplina;
     const semestre = req.body.semestre;
     const periodo = req.body.periodo;
+    let msgOK = '1';
+    let msgNOK = '0'; 
 
     Disciplina.update({
         codigoDisciplina: codigoDisciplina,
@@ -99,18 +106,20 @@ exports.update = (req, res, next) => {
             id: id
         }
     }).then(() => {
-        res.redirect('/disciplinas');
+        res.redirect('/disciplinas/?msgOK=' + msgOK);
     });
 }
 
 exports.delete = (req, res, next) => {
     const id = req.params.id;
+    let msgOK = '1';
+    let msgNOK = '0'; 
 
     Disciplina.destroy({
         where: {
             id: id
         }
     }).then(() => {
-        res.redirect('/disciplinas');
+        res.redirect('/disciplinas/?msgOK=' + msgOK);
     });
 }
