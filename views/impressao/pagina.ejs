@@ -65,12 +65,32 @@
             </thead>
             <tbody id="table-body" class="small">
                 <!-- Conteúdo da tabela será adicionado dinamicamente aqui -->
+                <%   for(var day=1; day <= qtdDiasMes; day++) { %>
+                <tr>
+                <td> <%= day%> - <%= dayOfWeek[day] %> </td>
+                <td >  <%= inicioManha[day]%> </td> 
+               <td > <%= aulasManha[day]%> </td> 
+               <td > <%= haeManha[day]%> </td> 
+               <td > <%= rubricaManha[day]%> </td>
+               <td >  <%= inicioTarde[day]%> </td> 
+               <td > <%= aulasTarde[day]%> </td> 
+               <td > <%= haeTarde[day]%> </td> 
+               <td > <%= rubricaTarde[day]%> </td>
+               <td >  <%= inicioNoite[day]%> </td> 
+               <td > <%= aulasNoite[day]%> </td> 
+               <td > <%= haeNoite[day]%> </td> 
+               <td > <%= rubricaNoite[day]%> </td>
+               <td contenteditable='true'></td>
+               </tr>
+              <% } %>
                 </tbody>
         </table>
     </div> 
     <div class="d-print-none"><button type="button" class="btn btn-primary" onclick="window.print()">Imprimir</button></div>
 <script>
+    console.log( document.getElementsByName(dayOfWeek[1]));
     // Função para preencher a tabela dinamicamente
+    /*
     function criarTabela() {
         // Limpar o corpo da tabela
        $("#table-body small").empty();
@@ -87,10 +107,10 @@
 
         // Adicionar uma nova linha à tabela
         var newRow = "<tr>" +
-                "<td>" + dayOfWeek + " - " + day + "</td>" +
-                preencherDia("Manha") +
-                preencherDia("Tarde") +
-                preencherDia("Noite") +
+                "<td>" + day + " - " + dayOfWeek + "</td>" +
+                preencherDia("Manha", dayOfWeek, day) +
+                preencherDia("Tarde", dayOfWeek, day) +
+                preencherDia("Noite", dayOfWeek, day) +
                 "<td contenteditable='true'></td>" +
                 "</tr>";
 
@@ -100,11 +120,19 @@
     }
 
     // Função para preencher as colunas com base nas variáveis do controlador
-     function preencherDia(day, turno) {
+     function preencherDia(turno, dayOfWeek, day) {
+        if (dayOfWeek == "qua.") {
+        var inicio = diaSemanaDisc1//eval("inicio" + turno);
+        var aulas = day//eval("aulas" + turno);
+        var Hae = turno//eval("Hae" + turno);
+        var rubrica = isFeriado(day) ? "Feriado" : " - ";
+        }
+        else{
         var inicio = null//eval("inicio" + turno);
         var aulas = null//eval("aulas" + turno);
         var Hae = null//eval("Hae" + turno);
-        var rubrica = isFeriado(day) ? "Feriado" : " - ";
+        var rubrica = isFeriado(day) ? "Feriado" : " - "; 
+        }
 
         // Verificar se as variáveis são nulas e, se for o caso, deixar o campo em branco
         inicio = inicio !== null ? inicio : " - ";
@@ -126,7 +154,7 @@
 
 
     // Inicializar a tabela quando a página carregar
-    criarTabela();
+    criarTabela();*/
 </script>
 
 

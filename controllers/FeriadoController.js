@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Feriado = require('../models/feriado');
+const {fmDate, DataParaBanco, DataParaBancoFeriado} = require('../utilidades');
 
 exports.renderIndex = (req, res, next) => {
     res.render('feriado/index');
@@ -27,7 +28,7 @@ exports.renderNovo = (req, res, next) => {
 exports.create = (req, res, next) => {
     const nomeFeriado = req.body.nomeFeriado;
     const tipo = req.body.tipo;
-    const dataFeriado = req.body.dataFeriado;
+    const dataFeriado = DataParaBancoFeriado(req.body.dataFeriado);
     let msgOK = '1';
     let msgNOK = '0'; 
 
@@ -64,7 +65,7 @@ exports.update = (req, res, next) => {
     const id = req.body.id;
     const nomeFeriado = req.body.nomeFeriado;
     const tipo = req.body.tipo;
-    const dataFeriado = req.body.dataFeriado;
+    const dataFeriado = DataParaBancoFeriado(req.body.dataFeriado);
     let msgOK = '1';
     let msgNOK = '0';  
 

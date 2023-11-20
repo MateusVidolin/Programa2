@@ -32,5 +32,20 @@ module.exports = {
         const data = new Date(mes + "/" + dia + "/" + ano);
 
         return data;
+    },
+
+    DataParaBancoFeriado: function(dt)
+    {
+        if(!dt)
+        {
+            return null;
+        }
+        const ano = dt.substr(0, 4);
+        const mes = dt.substr(5, 2);
+        const dia = dt.substr(8, 2);
+
+        const data = new Date(mes + "/" + dia + "/" + ano);
+
+        return data;
     }
 };

@@ -10,6 +10,16 @@
             Professores registrados nas disciplinas
         </div>
         <div class="card-body">
+            <% if(msgOK == '1') {%>
+                <div class="alert alert-success">
+                    <strong>:D Operação realizada com sucesso! </strong>
+                </div>
+             <% } %>
+            <% if(msgNOK == '0') {%>
+                <div class="alert alert-danger">
+                    <strong>:( Dados já existentes!</strong>             
+                </div>
+            <% } %>
             <table class="table table-bordered">
                 <thead>
                     <th class="col-3">Professor</th>
@@ -30,8 +40,8 @@
                                 <a href="/impressaos/delete/<%= impressao.id %>" class="btn btn-danger">Excluir</a>
                             </td>
                             <td>
-
-                                <a href="/impressaos/geraRegistro/<%= impressao.id %>" class="btn btn-primary">Gerar Folha Reg.</a>
+                                
+                                <a href="/impressaos/selecionaMes/<%= impressao.id %>" class="btn btn-primary">Gerar Folha Reg.</a>
                             </td>
                         </tr>
                     <% }) %>

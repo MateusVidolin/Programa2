@@ -9,6 +9,9 @@ const {fmDate} = require('../utilidades');
 //const {fmDate, DataParaBanco} = require('../utilidades');
 
 exports.getAll = (req, res, next) => {
+    const msgOK = req.query.msgOK;
+    const msgNOK = req.query.msgNOK;
+
     Impressao.findAll({
         order: [
             ['id', 'ASC']
@@ -19,7 +22,7 @@ exports.getAll = (req, res, next) => {
             model: Professor
         }]
     }).then(impressaos => {
-        res.render('impressao/index', {impressaos: impressaos});
+        res.render('impressao/index', {impressaos: impressaos, msgOK, msgNOK});
     });
 }
 
@@ -78,38 +81,51 @@ exports.adicionarDisc = (req, res, next) => {
     });
 }
 
-/*exports.renderSelecionaMes = (req, res, next) => {
+exports.renderSelecionaMes = (req, res, next) => {
     const id = req.params.id;
-    console.log(id);
+    console.log("t1"+id);
     res.render('impressao/selecionarMes', {id: id});
 }
 
-exports.selecionaMes = (req, res, next) => {
+/*exports.selecionarMes = (req, res, next) => {
     const id = req.params.id;
     const mes = req.body.mes;
-    console.log(id);
-    res.render('impressao/geraRegistro', {id: id, mes: mes});
+    console.log("t"+id);
+    res.redirect('/impressao/gerarRegistro/?id=' + id + '/?mes=' + mes);
 
 }*/
 
 exports.renderGeraRegistro = (req, res, next) => {
     const id = req.params.id;
+    const mest = req.body.mes;
     let nomeDisciplina1 = null;
     let curso1 = null;
     let ha = null;
-    let mes = new Date;
-    mes = mes.getMonth().toString();
-    console.log(mes);
-    
+    let periodo = null;
 
-    switch(mes) {
-        case '10':
-            mes = 'Novembro'
-            break;
-            default: 
-            console.log('nao');
-    }
-    console.log(mes);
+// Função para preencher a tabela dinamicamente
+// Obter o mês e ano selecionados pelo usuário
+   let selectedDate = mest;
+    let startDate = new Date(selectedDate + "-01");
+    let endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0);
+    let dayOfWeek =new Array(31);
+    let inicioManha =new Array(31);
+    let aulasManha =new Array(31);
+    let haeManha =new Array(31);
+    let rubricaManha =new Array(31);
+    let inicioTarde =new Array(31);
+    let aulasTarde =new Array(31);
+    let haeTarde =new Array(31);
+    let rubricaTarde =new Array(31);
+    let inicioNoite =new Array(31);
+    let aulasNoite =new Array(31);
+    let haeNoite =new Array(31);
+    let rubricaNoite =new Array(31);
+    let diasMes = new Array(31).fill('');
+    let qtdDiasMes= 0;
+   let mes = "novembro";
+
+   console.log("tttttttttttttttt" );
 
     Impressao.findOne({
         where: {
@@ -127,10 +143,67 @@ exports.renderGeraRegistro = (req, res, next) => {
             ha = ((impressao.aulasDisc1)/2);
             Disciplina.findByPk(impressao.idDisciplina1).then(disciplina => {
             nomeDisciplina1 = disciplina.nomeDisciplina;
+            periodo = disciplina.periodo;
             Curso.findByPk(disciplina.cursoId).then(curso => {
             curso1 = curso.nomeCurso;
 
-            res.render('impressao/pagina', {impressao: impressao, nomeDisciplina1, curso1, ha, mes});
+              // Loop para preencher os dias do mês
+    for (let day = startDate.getDate(); day <= endDate.getDate(); day++) {
+        let currentDate = new Date(startDate.getFullYear(), startDate.getMonth(), day);
+        dayOfWeek[day] = currentDate.toLocaleDateString('pt-br',  { weekday: 'short' });
+        diasMes[day] = day;
+        qtdDiasMes += 1;
+
+    
+
+// Função para preencher as colunas 
+    if (dayOfWeek[day] == impressao.diaSemanaDisc1) {
+        if (periodo == "Manhã"){
+            inicioManha[day] = impressao.horarioDisc1;
+            aulasManha[day] = impressao.aulasDisc1;
+            haeManha[day] = impressao.hae;
+            rubricaManha[day] = isFeriado(day) ? "Feriado" : " ";
+
+        }
+        else if (periodo == "Tarde"){
+            inicioTarde[day] = impressao.horarioDisc1;
+            aulasTarde[day] = impressao.aulasDisc1;
+            haeTarde[day] = impressao.hae;
+            rubricaTarde[day] = isFeriado(day) ? "Feriado" : " ";
+
+        }
+        else{
+            inicioNoite[day] = impressao.horarioDisc1;
+            aulasNoite[day] = impressao.aulasDisc1;
+            haeNoite[day] = impressao.hae;
+            rubricaNoite[day] = isFeriado(day) ? "Feriado" : " ";
+
+        }    
+    }
+    else{
+        inicioManha[day] = null;
+        aulasManha[day] = null;
+        haeManha[day] = null;
+        rubricaManha[day] = isFeriado(day) ? "Feriado" : " ";
+        inicioTarde[day] = null;
+        aulasTarde[day] = null;
+        haeTarde[day] = null;
+        rubricaTarde[day] = isFeriado(day) ? "Feriado" : " ";
+        inicioNoite[day] = null;
+        aulasNoite[day] = null;
+        haeNoite[day] = null;
+        rubricaNoite[day] = isFeriado(day) ? "Feriado" : " ";
+    }
+
+}
+
+// Função para verificar se é feriado
+function isFeriado(day) {
+        return false;  
+    
+}
+            
+            res.render('impressao/pagina', {impressao: impressao, nomeDisciplina1, curso1, ha, mes, dayOfWeek, inicioManha, aulasManha, haeManha, rubricaManha, inicioTarde, aulasTarde, haeTarde, rubricaTarde, inicioNoite, aulasNoite, haeNoite, rubricaNoite, diasMes, qtdDiasMes});
         });
     });
     });
@@ -174,6 +247,8 @@ exports.create = (req, res, next) => {
     const hae = req.body.hae;
     const haec = req.body.haec;
     const anoImpressao = new Date();
+    let msgOK = '1';
+    let msgNOK = '0';
     
     Impressao.findOne({
         where: {
@@ -194,18 +269,19 @@ exports.create = (req, res, next) => {
                 anoImpressao: anoImpressao,
                 idDisciplina1: disciplinaId
             }).then(() => {
-                res.redirect('/impressaos');
+                res.redirect('/impressaos/?msgOK=' + msgOK);
             })
         }
         else
         {
-            res.redirect('/impressaos');
+            res.redirect('/impressaos/?msgNOK=' + msgNOK);
         }
     })
 }
 
 exports.renderEditar = (req, res, next) => {
     const id = req.params.id;
+
     Impressao.findByPk(id).then(impressao => {
         Professor.findAll({
             order: [
@@ -244,6 +320,8 @@ exports.update = (req, res, next) => {
     const hae = req.body.hae;
     const haec = req.body.haec;
     const anoImpressao = new Date();
+    let msgOK = '1';
+    let msgNOK = '0';
 
     Impressao.update({
         professorId: professorId,
@@ -261,18 +339,20 @@ exports.update = (req, res, next) => {
             id: id
         }
     }).then(() => {
-        res.redirect('/impressaos');
+        res.redirect('/impressaos/?msgOK=' + msgOK);
     });
 }
 
 exports.delete = (req, res) => {
     const id = req.params.id;
+    let msgOK = '1';
+    let msgNOK = '0';
 
     Impressao.destroy({
         where: {
             id: id
         }
     }).then(() => {
-        res.redirect('/impressaos');
+        res.redirect('/impressaos/?msgOK=' + msgOK);
     });
 }
