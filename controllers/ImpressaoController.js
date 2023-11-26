@@ -4,9 +4,8 @@ const Disciplina = require('../models/disciplina');
 const Feriado = require('../models/feriado');
 const Impressao = require('../models/impressao');
 const Professor = require('../models/professor');
-const {fmDate} = require('../utilidades');
+const {DataParaImpressao} = require('../utilidades');
 
-//const {fmDate, DataParaBanco} = require('../utilidades');
 
 exports.getAll = (req, res, next) => {
     const msgOK = req.query.msgOK;
@@ -97,17 +96,12 @@ exports.renderSelecionaMes = (req, res, next) => {
 
 exports.renderGeraRegistro = (req, res, next) => {
     const id = req.params.id;
-    const mest = req.body.mes;
+    const mesSelecionado = req.body.mes;
+    const anoSelecionado = req.body.ano;
     let nomeDisciplina1 = null;
     let curso1 = null;
     let ha = null;
     let periodo = null;
-
-// Função para preencher a tabela dinamicamente
-// Obter o mês e ano selecionados pelo usuário
-   let selectedDate = mest;
-    let startDate = new Date(selectedDate + "-01");
-    let endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0);
     let dayOfWeek =new Array(31);
     let inicioManha =new Array(31);
     let aulasManha =new Array(31);
@@ -122,10 +116,14 @@ exports.renderGeraRegistro = (req, res, next) => {
     let haeNoite =new Array(31);
     let rubricaNoite =new Array(31);
     let diasMes = new Array(31).fill('');
-    let qtdDiasMes= 0;
-   let mes = "novembro";
-
-   console.log("tttttttttttttttt" );
+    let qtdDiasMes = 0;
+  
+//Data para prencher tabela 
+    console.log(anoSelecionado);
+   let mes = DataParaImpressao(mesSelecionado, anoSelecionado);
+   console.log(mes);
+   let startDate = new Date(mes + "-01");
+   let endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0);
 
     Impressao.findOne({
         where: {
@@ -152,7 +150,7 @@ exports.renderGeraRegistro = (req, res, next) => {
         let currentDate = new Date(startDate.getFullYear(), startDate.getMonth(), day);
         dayOfWeek[day] = currentDate.toLocaleDateString('pt-br',  { weekday: 'short' });
         diasMes[day] = day;
-        qtdDiasMes += 1;
+        qtdDiasMes +=1;
 
     
 

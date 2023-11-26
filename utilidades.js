@@ -47,5 +47,56 @@ module.exports = {
         const data = new Date(mes + "/" + dia + "/" + ano);
 
         return data;
+    },
+
+    DataParaImpressao: function(mes, ano)
+    {
+        if(!mes)
+        {
+            return null;
+        }
+
+        switch(mes){
+            case 'Janeiro':
+                mesSelecionado = '01';
+                break;
+            case 'Fevereiro':
+                mesSelecionado = '02';
+                break;
+            case 'Março':
+                mesSelecionado = '03';
+                break;
+            case 'Abril':
+                mesSelecionado = '04';
+                break;
+            case 'Maio':
+                mesSelecionado = '05';
+                break;
+            case 'Junho':
+                mesSelecionado = '06';
+                break;
+            case 'Julho':
+                mesSelecionado = '07';
+                break;
+            case 'Agosto':
+                mesSelecionado = '08';
+                break;
+            case 'Setembro':
+                mesSelecionado = '09';
+                break;
+            case 'Outubro':
+                mesSelecionado = '10';
+                break;
+            case 'Novembro':
+                mesSelecionado = '11';
+                break;
+            case 'Dezembro':
+                mesSelecionado = '12';
+                break;
+           }
+
+        const data = (ano +  "/" + mesSelecionado);
+
+        return data;
     }
 };

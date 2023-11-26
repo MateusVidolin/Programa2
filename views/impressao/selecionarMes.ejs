@@ -6,20 +6,26 @@
         <div class="card-header">Mês para impressão</div>
         <div class="card-body">
             <form method="POST" action="/impressaos/selecioneMes/<%= id%>">
-                <label for="mes">Selecione o mês</label>
+                <label for="mes">Selecione o mês e Ano</label>
                 <br>
-                <div class="form-floating mb-3">
                     <div class="form-floating mb-3">
                         <select name = "mes"> 
-                            <option value = "Null"> Selecione uma opção</option>
                             <option value = "Janeiro"> Janeiro</option>
                             <option value = "Fevereiro"> Fevereiro</option>
                             <option value = "Março"> Março</option>
                             <option value = "Abril"> Abril</option>
                             <option value = "Maio"> Maio</option>
                             <option value = "Junho"> Junho</option>
-                            required>
-                    </select> 
+                            <option value = "Julho"> Julho</option>
+                            <option value = "Agosto"> Agosto</option>
+                            <option value = "Setembro"> Setembro</option>
+                            <option value = "Outubro"> Outubro</option>
+                            <option value = "Novembro"> Novembro</option>
+                            <option value = "Dezembro"> Dezembro</option>
+                        </select> 
+                    </div>
+                    <div class="form-floating mb-1">
+                          <input type="number" name="ano" class="form-control" id="ano" placeholder="Ano" required>
                     </div>
                 <div class="form-floating mb-3">
                     <button type="submit <%= id %>" class="btn btn-primary">Salvar</button>
