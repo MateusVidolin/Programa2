@@ -1,4 +1,6 @@
+const Feriado = require('../Programa2/models/feriado');
 module.exports = {
+
     fmDate: function(dt)
     {
         let dia = '';
@@ -34,19 +36,40 @@ module.exports = {
         return data;
     },
 
-    DataParaBancoFeriado: function(dt)
+    FeriadoOuDomingo: function(diaDaSemana, dia, mesAno)
     {
-        if(!dt)
-        {
-            return null;
+    const ano = mesAno.substr(0,4);
+    const mes = mesAno.substr(5,2);
+    const data = (ano+ '-' + mes + '-' +dia);
+    let verificaFeriadoOuDomingo = null;
+
+    Feriado.findOne({
+        where:{
+            dataFeriado: data
         }
-        const ano = dt.substr(0, 4);
-        const mes = dt.substr(5, 2);
-        const dia = dt.substr(8, 2);
+    }). then(feriado => {
+        if(feriado == undefined){
+            if (diaDaSemana == 'dom.')
+            {
+                verificaFeriadoOuDomingo = 'DOMINGO'
+                console.log(verificaFeriadoOuDomingo);
+                const feriadoOuDomingo = verificaFeriadoOuDomingo;
+                return feriadoOuDomingo;
+            }    
+            verificaFeriadoOuDomingo = " ";
+            const feriadoOuDomingo = verificaFeriadoOuDomingo;
+            return feriadoOuDomingo;
 
-        const data = new Date(mes + "/" + dia + "/" + ano);
-
-        return data;
+        }
+        else{
+        verificaFeriadoOuDomingo = 'FERIADO';
+        const feriadoOuDomingo = verificaFeriadoOuDomingo;
+        return feriadoOuDomingo;
+        
+        }
+    })
+    const feriadoOuDomingo = verificaFeriadoOuDomingo;
+    return feriadoOuDomingo;
     },
 
     DataParaImpressao: function(mes, ano)

@@ -4,7 +4,7 @@
 
 <body class="container">
     <div class="small">
-        <p class="text-center small"><strong> FATEC MOGI MIRIM  -  REGISTRO DE PRESENÇA DE DOCENTE - <span id="mesAno"> <%= mes%></span></strong></p>
+        <p class="text-center small"><strong> FATEC MOGI MIRIM  -  REGISTRO DE PRESENÇA DE DOCENTE - <span id="mesAno"> <%= mesSelecionado%></span></strong></p>
         <hr>
         <div class="row small">
             <div class="col sm-2 p-0">
@@ -71,15 +71,15 @@
                 <td >  <%= inicioManha[day]%> </td> 
                <td > <%= aulasManha[day]%> </td> 
                <td > <%= haeManha[day]%> </td> 
-               <td > <%= rubricaManha[day]%> </td>
+               <td class="col-sm-2 text-center"> <%= rubricaManha[day]%> </td>
                <td >  <%= inicioTarde[day]%> </td> 
                <td > <%= aulasTarde[day]%> </td> 
                <td > <%= haeTarde[day]%> </td> 
-               <td > <%= rubricaTarde[day]%> </td>
+               <td class="col-sm-2 text-center"> <%= rubricaTarde[day]%> </td>
                <td >  <%= inicioNoite[day]%> </td> 
                <td > <%= aulasNoite[day]%> </td> 
                <td > <%= haeNoite[day]%> </td> 
-               <td > <%= rubricaNoite[day]%> </td>
+               <td class="col-sm-2 text-center"> <%= rubricaNoite[day]%> </td>
                <td contenteditable='true'></td>
                </tr>
               <% } %>
