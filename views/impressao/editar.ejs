@@ -7,16 +7,7 @@
         <div class="card-body">
             <form method="POST" action="/impressaos/salvar">
                 <input type="hidden" name="id" value="<%= impressao.id %>">
-                <label for="professorId">Selecione o professor</label>
-                <br>
-                <div class="form-floating mb-3">
-                    <select class="form-control" name="professorId" id="professorId">
-                        <% professors.forEach(professor => { %>
-                            <option value="<%= professor.id %>">Nome: <%= professor.nome %> - Registro: <%= professor.numeroRegistro %></option>
-                        <%})%>
-                        required>
-                    </select>
-                </div>
+                <label><strong>Professor:</strong> <%= impressao.professor.nome%></label>
                 <br>
                 <label for="disciplinaId">Selecione as disciplinas</label>
                 <br>
@@ -28,10 +19,10 @@
                         <%})%>
                         required>
                     </select>
-                </div>
+                </div>            
                 <div class="form-floating mb-3">
                     <input 
-                        type="text" 
+                        type="time" 
                         name="horarioDisc" 
                         class="form-control" 
                         id="horarioDisc" 
@@ -69,20 +60,72 @@
                         required>
                     <label for="haec">HAEC</label>
                 </div>
-                <label for="tipo">Dia da semana</label>
+                <label for="tipo"> Dia da semana </label>
                     <div class="form-floating mb-3">
                         <select name = "diaSemanaDisc"> 
                             <option value = "Null"> Selecione uma opção</option>
-                            <option value = "Segunda-Feira"> Segunda-Feira</option>
-                            <option value = "Terça-Feira"> Terça-Feira</option>
-                            <option value = "Quarta-Feira"> Quarta-Feira</option>
-                            <option value = "Quinta-Feira"> Quinta-Feira</option>
-                            <option value = "Sexta-Feira"> Sexta-Feira</option>
-                            <option value = "Sábado"> Sábado</option>
+                            <option value = "seg."> Segunda-Feira</option>
+                            <option value = "ter."> Terça-Feira</option>
+                            <option value = "qua."> Quarta-Feira</option>
+                            <option value = "qui."> Quinta-Feira</option>
+                            <option value = "sex."> Sexta-Feira</option>
+                            <option value = "sáb."> Sábado</option>
                             required>
-                    </select> 
-                    </div>
+                        </select> 
+                    </div>  
+                <!--Adiciona os formulários relacionados ao professor-->
+                <% for(var formulario=1; formulario< qtdDisciplinas; formulario++)
+                    valorDisciplinaAtual = 'disciplinaId'+ (formulario + 1);
+                    valorhorarioAtual = 'horarioDisc'+ (formulario + 1);
+                    valorAulasAtual = 'aulasDisc' + (formulario + 1) ;
+                    valorDiaSemanaAtual = 'diaSemanaDisc' + (formulario + 1);
+                { %>
+                    <label for="<%= valorDisciplinaAtual %>" >Disciplina-<%= formulario + 1 %></label>
                 <div class="form-floating mb-3">
+                    <select class="form-control" name="<%= valorDisciplinaAtual %>" id="<%= valorDisciplinaAtual %>">
+                        <% disciplinas.forEach(disciplina => { %>
+                            <option value="<%= disciplina.id %>">Nome: <%= disciplina.nomeDisciplina %> - Código: <%= disciplina.codigoDisciplina %> - Semestre: <%= disciplina.semestre %> - Período: <%= disciplina.periodo %></option>
+                        <%})%>
+                        required>
+                    </select>
+                </div>            
+                <div class="form-floating mb-3">
+                    <input 
+                        type="time" 
+                        name="<%= valorhorarioAtual %>" 
+                        class="form-control" 
+                        id="<%= valorhorarioAtual %>" 
+                        placeholder="Horário da disciplina" 
+                        required>
+                    <label for="<%= valorhorarioAtual %>">Horário da disciplina</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        name="<%= valorAulasAtual %>" 
+                        class="form-control" 
+                        id="<%= valorAulasAtual %>" 
+                        placeholder="Quantidade de aulas" 
+                        required>
+                    <label for="<%= valorAulasAtual %>">Quantidade de aulas</label>
+                </div>
+                <label for="tipo"> Dia da semana </label>
+                    <div class="form-floating mb-3">
+                        <select name = "<%= valorDiaSemanaAtual %>"> 
+                            <option value = "Null"> Selecione uma opção</option>
+                            <option value = "seg."> Segunda-Feira</option>
+                            <option value = "ter."> Terça-Feira</option>
+                            <option value = "qua."> Quarta-Feira</option>
+                            <option value = "qui."> Quinta-Feira</option>
+                            <option value = "sex."> Sexta-Feira</option>
+                            <option value = "sáb."> Sábado</option>
+                            required>
+                        </select> 
+                    </div>
+                <%} %>
+                <div id="disciplinasContainer"> </div>  
+                <div class="form-floating mb-3">
+                    <button type="button" class="btn btn-primary" onclick="addDisciplina('<%=qtdDisciplinas%>')">Adicionar Disciplina</button>
                     <button type="submit" class="btn btn-primary">Salvar</button>
                     <a href="/impressaos" class="btn btn-warning">Cancelar</a>
                 </div>
@@ -90,5 +133,35 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    let disciplinaCount = 1;
+    let horarioDiscAtual = null;
+    let aulasDiscAtual = null;
+    let diaSemanaDiscAtual = null;
+    let disciplinaIdAtual = null;
+    let qtdDisciplinasAtualizado = false;
+    
+    function addDisciplina(qtdDisciplinasAtual) {
+        if(qtdDisciplinasAtualizado == false){
+        qtdDisciplinasAtual = parseInt(qtdDisciplinasAtual)
+        disciplinaCount = qtdDisciplinasAtual + disciplinaCount;
+        qtdDisciplinasAtualizado = true;
+        }
+      if (disciplinaCount < 10) {
+        disciplinaCount++;
+        horarioDiscAtual = 'horarioDisc' + disciplinaCount;
+        aulasDiscAtual = 'aulasDisc' + disciplinaCount;
+        diaSemanaDiscAtual = 'diaSemanaDisc' + disciplinaCount;
+        disciplinaIdAtual = 'disciplinaId' + disciplinaCount;
+        document.getElementById('disciplinasContainer').insertAdjacentHTML('beforebegin', '<label for="disciplinaId">Disciplina-'+disciplinaCount+'</label><div class="form-floating mb-3"><select class="form-control" name='+disciplinaIdAtual+' id='+disciplinaIdAtual+'> <% disciplinas.forEach(disciplina => { %><option value="<%= disciplina.id %>">Nome: <%= disciplina.nomeDisciplina %> - Código: <%= disciplina.codigoDisciplina %> - Semestre: <%= disciplina.semestre %> - Período: <%= disciplina.periodo %></option> <%})%>required></select> </div><div class="form-floating mb-3"><input type="time" name='+horarioDiscAtual+' class="form-control" id='+horarioDiscAtual+' placeholder="Horário da Disciplina" required> <label for='+horarioDiscAtual+'>Horário da disciplina</label> </div> <div class="form-floating mb-3"> <input type="text" name='+aulasDiscAtual+' class="form-control" id='+aulasDiscAtual+' placeholder="Quantidade de aulas" required> <label for='+aulasDiscAtual+'>Quantidade de aulas</label> </div> <label for="tipo">Dia da semana</label><div class="form-floating mb-3"><select name = '+diaSemanaDiscAtual+'><option value = "Null"> Selecione uma opção</option><option value = "seg."> Segunda-Feira</option><option value = "ter."> Terça-Feira</option><option value = "qua."> Quarta-Feira</option><option value = "qui."> Quinta-Feira</option><option value = "sex."> Sexta-Feira</option><option value = "sáb."> Sábado</option>required></select></div>');
+
+                    
+      } else {
+        alert('Número máximo de disciplinas atingido (10).');
+      }
+    }
+    </script>
 
 <%- include('../partials/footer.ejs') %>

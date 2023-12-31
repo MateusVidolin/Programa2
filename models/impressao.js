@@ -11,7 +11,7 @@ const Impressao = connection.define(
             allowNull: false
         },
         horarioDisc1:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: false
         },
         diaSemanaDisc1:{
@@ -27,7 +27,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc2:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc2:{
@@ -43,7 +43,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc3:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc3:{
@@ -59,7 +59,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc4:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc4:{
@@ -75,7 +75,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc5:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc5:{
@@ -91,7 +91,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc6:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc6:{
@@ -107,7 +107,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc7:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc7:{
@@ -123,7 +123,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc8:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc8:{
@@ -139,7 +139,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc9:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc9:{
@@ -155,7 +155,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc10:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc10:{
@@ -171,7 +171,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc11:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc11:{
@@ -187,7 +187,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc12:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc12:{
@@ -203,7 +203,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc13:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc13:{
@@ -219,7 +219,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc14:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc14:{
@@ -235,7 +235,7 @@ const Impressao = connection.define(
             allowNull: true
         },
         horarioDisc15:{
-            type: Sequelize.STRING,
+            type: Sequelize.TIME,
             allowNull: true
         },
         diaSemanaDisc15:{

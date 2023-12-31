@@ -4,7 +4,7 @@
 
 <body class="container">
     <div class="small">
-        <p class="text-center small"><strong> FATEC MOGI MIRIM  -  REGISTRO DE PRESENÇA DE DOCENTE - <span id="mesAno"> <%= mesSelecionado%></span></strong></p>
+        <p class="text-center small"><strong> FATEC MOGI MIRIM  -  REGISTRO DE PRESENÇA DE DOCENTE - <span id="mesAno"> <%= mesSelecionado%>/<%= ano%></span></strong></p>
         <hr>
         <div class="row small">
             <div class="col sm-2 p-0">
@@ -39,7 +39,7 @@
             </div>    
         </div>
         <!-- Tabela de presença -->
-        <table class="table-bordered small">
+        <table class="table-bordered small ">
             <thead>
                 <tr>
                     <th rowspan="2" class="col-sm text-center" >Dia</th>
@@ -49,25 +49,25 @@
                     <th rowspan="4" class="col-sm-2 text-center">Observações</th>
                 </tr>
                 <tr>
-                    <th class="col-sm">Início</th>
-                    <th class="col-sm">Aulas</th>
-                    <th class="col-sm">H.A.E</th>
-                    <th class="col-sm-2 text-center">Rubrica</th>
-                    <th class="col-sm">Início</th>
-                    <th class="col-sm">Aulas</th>
-                    <th class="col-sm">H.A.E</th>
-                    <th class="col-sm-2 text-center">Rubrica</th>
-                    <th class="col-sm">Início</th>
-                    <th class="col-sm">Aulas</th>
-                    <th class="col-sm">H.A.E</th>
-                    <th class="col-sm-2 text-center">Rubrica</th>
+                    <th class="col-sm col2">Início</th>
+                    <th class="col-sm col2">Aulas</th>
+                    <th class="col-sm col2">H.A.E</th>
+                    <th class="col-sm-2 text-center col3">Rubrica</th>
+                    <th class="col-sm col2">Início</th>
+                    <th class="col-sm col2">Aulas</th>
+                    <th class="col-sm col2">H.A.E</th>
+                    <th class="col-sm-2 text-center col3">Rubrica</th>
+                    <th class="col-sm col2">Início</th>
+                    <th class="col-sm col2">Aulas</th>
+                    <th class="col-sm col2">H.A.E</th>
+                    <th class="col-sm-2 text-center col3">Rubrica</th>
                 </tr>
             </thead>
             <tbody id="table-body" class="small">
                 <!-- Conteúdo da tabela será adicionado dinamicamente aqui -->
                 <%   for(var day=1; day <= qtdDiasMes; day++) { %>
                 <tr>
-                <td> <%= day%> - <%= dayOfWeek[day] %> </td>
+                <td> <%= day%>-<%= dayOfWeek[day] %> </td>
                 <td >  <%= inicioManha[day]%> </td> 
                <td > <%= aulasManha[day]%> </td> 
                <td > <%= haeManha[day]%> </td> 
@@ -87,75 +87,7 @@
         </table>
     </div> 
     <div class="d-print-none"><button type="button" class="btn btn-primary" onclick="window.print()">Imprimir</button></div>
-<script>
-    console.log( document.getElementsByName(dayOfWeek[1]));
-    // Função para preencher a tabela dinamicamente
-    /*
-    function criarTabela() {
-        // Limpar o corpo da tabela
-       $("#table-body small").empty();
 
-        // Obter o mês e ano selecionados pelo usuário
-        var selectedDate = '2020/03';
-        var startDate = new Date(selectedDate + "-01");
-        var endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0);
-
-        // Loop para preencher os dias do mês
-        for (var day = startDate.getDate(); day <= endDate.getDate(); day++) {
-            var currentDate = new Date(startDate.getFullYear(), startDate.getMonth(), day);
-            var dayOfWeek = currentDate.toLocaleDateString('pt-br',  { weekday: 'short' });
-
-        // Adicionar uma nova linha à tabela
-        var newRow = "<tr>" +
-                "<td>" + day + " - " + dayOfWeek + "</td>" +
-                preencherDia("Manha", dayOfWeek, day) +
-                preencherDia("Tarde", dayOfWeek, day) +
-                preencherDia("Noite", dayOfWeek, day) +
-                "<td contenteditable='true'></td>" +
-                "</tr>";
-
-            // Adicionar a nova linha ao corpo da tabela
-            $("#table-body").append(newRow);
-        }
-    }
-
-    // Função para preencher as colunas com base nas variáveis do controlador
-     function preencherDia(turno, dayOfWeek, day) {
-        if (dayOfWeek == "qua.") {
-        var inicio = diaSemanaDisc1//eval("inicio" + turno);
-        var aulas = day//eval("aulas" + turno);
-        var Hae = turno//eval("Hae" + turno);
-        var rubrica = isFeriado(day) ? "Feriado" : " - ";
-        }
-        else{
-        var inicio = null//eval("inicio" + turno);
-        var aulas = null//eval("aulas" + turno);
-        var Hae = null//eval("Hae" + turno);
-        var rubrica = isFeriado(day) ? "Feriado" : " - "; 
-        }
-
-        // Verificar se as variáveis são nulas e, se for o caso, deixar o campo em branco
-        inicio = inicio !== null ? inicio : " - ";
-        aulas = aulas !== null ? aulas : " - ";
-        Hae = Hae !== null ? Hae : " - ";
-
-        return "<td contenteditable='true'>" + inicio + "</td>" +
-               "<td contenteditable='true'>" + aulas + "</td>" +
-               "<td contenteditable='true'> "+ Hae +" </td>" +
-               "<td contenteditable='true'>" + rubrica + "</td>";
-    }
-
-    // Função para verificar se é feriado
-    function isFeriado(day) {
-        // Lógica para determinar se é feriado ou não, baseado na data
-        // Pode ser implementada conforme necessário
-        return false;
-    }
-
-
-    // Inicializar a tabela quando a página carregar
-    criarTabela();*/
-</script>
 
 
 <%- include('../partials/footer.ejs') %>

@@ -4,8 +4,8 @@ const Disciplina = require('../models/disciplina');
 const Feriado = require('../models/feriado');
 const Impressao = require('../models/impressao');
 const Professor = require('../models/professor');
-const {DataParaImpressao, FeriadoOuDomingo} = require('../utilidades');
-
+const {DataParaImpressao, FeriadoOuDomingo, HoraParaImpressao} = require('../utilidades');
+var qtdDeDisciplinasGlobal=0;
 
 exports.getAll = (req, res, next) => {
     const msgOK = req.query.msgOK;
@@ -86,13 +86,7 @@ exports.renderSelecionaMes = (req, res, next) => {
     res.render('impressao/selecionarMes', {id: id});
 }
 
-/*exports.selecionarMes = (req, res, next) => {
-    const id = req.params.id;
-    const mes = req.body.mes;
-    console.log("t"+id);
-    res.redirect('/impressao/gerarRegistro/?id=' + id + '/?mes=' + mes);
 
-}*/
 
 exports.renderGeraRegistro = (req, res, next) => {
     const id = req.params.id;
@@ -127,6 +121,8 @@ exports.renderGeraRegistro = (req, res, next) => {
    let data = null;
    let mes = mesAno.substring(5,8);
    let ano = mesAno.substring(0,4);
+   let formataHorarioAula = 0;
+   let horarioFormatado = 0;
 
     Impressao.findOne({
         where: {
@@ -168,7 +164,8 @@ exports.renderGeraRegistro = (req, res, next) => {
 // Função para preencher as colunas 
     if (dayOfWeek[day] == impressao.diaSemanaDisc1) {
         if (periodo == "Manhã"){
-            inicioManha[day] = impressao.horarioDisc1;
+            horarioFormatado = HoraParaImpressao(impressao.horarioDisc1.split(':'));
+            inicioManha[day] = horarioFormatado;
             aulasManha[day] = impressao.aulasDisc1;
             haeManha[day] = impressao.hae;
             if (dayOfWeek[day] == 'dom.'){
@@ -184,7 +181,8 @@ exports.renderGeraRegistro = (req, res, next) => {
 
         }
         else if (periodo == "Tarde"){
-            inicioTarde[day] = impressao.horarioDisc1;
+            horarioFormatado = HoraParaImpressao(impressao.horarioDisc1.split(':'))
+            inicioTarde[day] = horarioFormatado;
             aulasTarde[day] = impressao.aulasDisc1;
             haeTarde[day] = impressao.hae;
             if (dayOfWeek[day] == 'dom.'){
@@ -199,7 +197,8 @@ exports.renderGeraRegistro = (req, res, next) => {
             } 
         }
         else{
-            inicioNoite[day] = impressao.horarioDisc1;
+            horarioFormatado = HoraParaImpressao(impressao.horarioDisc1.split(':')); 
+            inicioNoite[day] = horarioFormatado;
             aulasNoite[day] = impressao.aulasDisc1;
             haeNoite[day] = impressao.hae;
             if (dayOfWeek[day] == 'dom.'){
@@ -247,44 +246,8 @@ exports.renderGeraRegistro = (req, res, next) => {
             }
         })
 
-}
-
-// Função para verificar se é feriado
-function eFeriadoOuDomingo(diaDaSemana, dia, mesAno) {
-    /*const ano = mesAno.substr(0,4);
-    const mes = mesAno.substr(5,2);
-    const data = (ano+ '-' + mes + '-' +dia);
-
-   Feriado. findOne({
-        where:{
-            dataFeriado: data
-        }
-    }). then(feriado => {
-        if(feriado == undefined) {
-            {
-                 return '';
-            }    
-        }
-        else {          
-           return {fereiado:eriado};
-        }
-        
-    });
-    console.log(feriado.hasOwnProperty(0))
-    if (feriado != Object){
-        feriadoOuDomingo = 'FERIADO';
-        return true;
-    }
-*/
-    if (diaDaSemana == 'dom.')
-    {
-        feriadoOuDomingo = 'DOMINGO'
-        return true;
-    }   
-    
-}
-            
-            res.render('impressao/pagina', {impressao: impressao, nomeDisciplina1, curso1, ha, mesSelecionado, dayOfWeek, inicioManha, aulasManha, haeManha, rubricaManha, inicioTarde, aulasTarde, haeTarde, rubricaTarde, inicioNoite, aulasNoite, haeNoite, rubricaNoite, diasMes, qtdDiasMes});
+}            
+            res.render('impressao/pagina', {impressao: impressao, nomeDisciplina1, curso1, ha, mesSelecionado, dayOfWeek, inicioManha, aulasManha, haeManha, rubricaManha, inicioTarde, aulasTarde, haeTarde, rubricaTarde, inicioNoite, aulasNoite, haeNoite, rubricaNoite, diasMes, qtdDiasMes, ano});
         });
     });
     });
@@ -293,6 +256,8 @@ function eFeriadoOuDomingo(diaDaSemana, dia, mesAno) {
 
 
 exports.renderNovo = (req, res, next) => {
+    const msgHorarioInvalido = req.query.msgHorarioInvalido;
+
     Professor.findAll({
         order: [
             ['nome', 'ASC']
@@ -315,7 +280,7 @@ exports.renderNovo = (req, res, next) => {
                 'periodo'
             ]
             }).then(disciplinas => {
-                res.render('impressao/novo', {professors: professors, disciplinas: disciplinas});
+                res.render('impressao/novo', {professors: professors, disciplinas: disciplinas, msgHorarioInvalido});
             });
         });
 }
@@ -326,54 +291,186 @@ exports.create = (req, res, next) => {
     const horarioDisciplina = req.body.horarioDisc;
     const diaSemanaDisciplina = req.body.diaSemanaDisc;
     const aulasDisciplina = req.body.aulasDisc;
+    const disciplinaId2 = req.body.disciplinaId2;
+    const horarioDisciplina2 = req.body.horarioDisc2;
+    const diaSemanaDisciplina2 = req.body.diaSemanaDisc2;
+    const aulasDisciplina2 = req.body.aulasDisc2;
+    const disciplinaId3 = req.body.disciplinaId3;
+    const horarioDisciplina3 = req.body.horarioDisc3;
+    const diaSemanaDisciplina3 = req.body.diaSemanaDisc3;
+    const aulasDisciplina3 = req.body.aulasDisc3;
+    const disciplinaId4 = req.body.disciplinaId4;
+    const horarioDisciplina4 = req.body.horarioDisc4;
+    const diaSemanaDisciplina4 = req.body.diaSemanaDisc4;
+    const aulasDisciplina4 = req.body.aulasDisc4;
+    const disciplinaId5 = req.body.disciplinaId5;
+    const horarioDisciplina5 = req.body.horarioDisc5;
+    const diaSemanaDisciplina5 = req.body.diaSemanaDisc5;
+    const aulasDisciplina5 = req.body.aulasDisc5;
+    const disciplinaId6 = req.body.disciplinaId6;
+    const horarioDisciplina6 = req.body.horarioDisc6;
+    const diaSemanaDisciplina6 = req.body.diaSemanaDisc6;
+    const aulasDisciplina6 = req.body.aulasDisc6;
+    const disciplinaId7 = req.body.disciplinaId7;
+    const horarioDisciplina7 = req.body.horarioDisc7;
+    const diaSemanaDisciplina7 = req.body.diaSemanaDisc7;
+    const aulasDisciplina7 = req.body.aulasDisc7;
+    const disciplinaId8 = req.body.disciplinaId8;
+    const horarioDisciplina8 = req.body.horarioDisc8;
+    const diaSemanaDisciplina8 = req.body.diaSemanaDisc8;
+    const aulasDisciplina8 = req.body.aulasDisc8;
+    const disciplinaId9 = req.body.disciplinaId9;
+    const horarioDisciplina9 = req.body.horarioDisc9;
+    const diaSemanaDisciplina9 = req.body.diaSemanaDisc9;
+    const aulasDisciplina9 = req.body.aulasDisc9;
+    const disciplinaId10 = req.body.disciplinaId10;
+    const horarioDisciplina10 = req.body.horarioDisc10;
+    const diaSemanaDisciplina10 = req.body.diaSemanaDisc10;
+    const aulasDisciplina10 = req.body.aulasDisc10;
     const hae = req.body.hae;
     const haec = req.body.haec;
     const anoImpressao = new Date();
     let msgOK = '1';
     let msgNOK = '0';
-    
+    let msgHorarioInvalido = '1';
+    let horarioOk = false;
+    let verificaHorarioDisciplina = 0; //Verifica se o horário da disciplina está dentro do período correto 
+    console.log(horarioDisciplina2);
+
+    Disciplina.findOne({
+        where:{
+            Id : disciplinaId 
+        }
+    }). then(disciplina => {
+       /*verificaHorarioDisciplina = parseInt(horarioDisciplina.split(":")[0]);
+        if(disciplina.periodo == 'Manhã' && (verificaHorarioDisciplina < 6 || verificaHorarioDisciplina > 13)){
+            horarioOk = false;
+        }
+        else if (disciplina.periodo == 'Tarde' && (verificaHorarioDisciplina < 13 || verificaHorarioDisciplina > 19)){
+            horarioOk = false;
+        }
+        else if (disciplina.periodo == 'Noite' && (verificaHorarioDisciplina < 19 || verificaHorarioDisciplina > 23)){
+            horarioOk = false;
+        }
+        else{
+            horarioOk = true;
+        }
+        console.log(horarioOk);*/
+        
+        
     Impressao.findOne({
         where: {
             professorId : professorId
         }
     }).then(impressao => {
-        if(impressao == undefined)
+        console.log(!horarioOk);
+        if(impressao == undefined)//if(impressao == undefined && (horarioOk)) se for checar horário
         {
             Impressao.create({
                 professorId: professorId,
                 disciplinaId: disciplinaId,
-                IdDisciplina1: disciplinaId,
+                idDisciplina1: disciplinaId,
                 horarioDisc1: horarioDisciplina,
                 diaSemanaDisc1: diaSemanaDisciplina,
                 aulasDisc1: aulasDisciplina,
+                idDisciplina2: disciplinaId2,
+                horarioDisc2: horarioDisciplina2,
+                diaSemanaDisc2: diaSemanaDisciplina2,
+                aulasDisc2: aulasDisciplina2,
+                idDisciplina3: disciplinaId3,
+                horarioDisc3: horarioDisciplina3,
+                diaSemanaDisc3: diaSemanaDisciplina3,
+                aulasDisc3: aulasDisciplina3,
+                idDisciplina4: disciplinaId4,
+                horarioDisc4: horarioDisciplina4,
+                diaSemanaDisc4: diaSemanaDisciplina4,
+                aulasDisc4: aulasDisciplina4,
+                idDisciplina5: disciplinaId5,
+                horarioDisc5: horarioDisciplina5,
+                diaSemanaDisc5: diaSemanaDisciplina5,
+                aulasDisc5: aulasDisciplina5,
+                idDisciplina6: disciplinaId6,
+                horarioDisc6: horarioDisciplina6,
+                diaSemanaDisc6: diaSemanaDisciplina6,
+                aulasDisc6: aulasDisciplina6,
+                idDisciplina7: disciplinaId7,
+                horarioDisc7: horarioDisciplina7,
+                diaSemanaDisc7: diaSemanaDisciplina7,
+                aulasDisc7: aulasDisciplina7,
+                idDisciplina8: disciplinaId8,
+                horarioDisc8: horarioDisciplina8,
+                diaSemanaDisc8: diaSemanaDisciplina8,
+                aulasDisc8: aulasDisciplina8,
+                idDisciplina9: disciplinaId9,
+                horarioDisc9: horarioDisciplina9,
+                diaSemanaDisc9: diaSemanaDisciplina9,
+                aulasDisc9: aulasDisciplina9,
+                idDisciplina10: disciplinaId10,
+                horarioDisc10: horarioDisciplina10,
+                diaSemanaDisc10: diaSemanaDisciplina10,
+                aulasDisc10: aulasDisciplina10,
                 hae: hae,
                 haec: haec,
                 anoImpressao: anoImpressao,
-                idDisciplina1: disciplinaId
+                
             }).then(() => {
                 res.redirect('/impressaos/?msgOK=' + msgOK);
             })
         }
-        else
+        /*else if (impressao == undefined && (!horarioOk))
         {
+            res.redirect('/impressaos/novo/?msgHorarioInvalido=' + msgHorarioInvalido);
+        }*/
+        else{
             res.redirect('/impressaos/?msgNOK=' + msgNOK);
         }
+    })    
     })
 }
 
 exports.renderEditar = (req, res, next) => {
     const id = req.params.id;
 
-    Impressao.findByPk(id).then(impressao => {
-        Professor.findAll({
-            order: [
-                ['nome', 'ASC']
-            ],
-            attributes: [
-                'id',
-                'nome'
+    Impressao.findOne({
+            where: {
+                id: id
+            },
+            include: [
+                {
+                model: Professor
+                }
             ]
-        }).then(professors => {
+        }).then(impressao => {
+            let qtdDisciplinas = 0;
+            //Verifica quantas disciplinas foram adicionadas para poder editar
+                if(impressao.idDisciplina2 != null){
+                    qtdDisciplinas++;
+                }
+                if(impressao.idDisciplina3 != null){
+                    qtdDisciplinas++;
+                }
+                if(impressao.idDisciplina4 != null){
+                    qtdDisciplinas++;
+                }
+                if(impressao.idDisciplina5 != null){
+                    qtdDisciplinas++;
+                }
+                if(impressao.idDisciplina6 != null){
+                    qtdDisciplinas++;
+                }
+                if(impressao.idDisciplina7 != null){
+                    qtdDisciplinas++;
+                }
+                if(impressao.idDisciplina8 != null){
+                    qtdDisciplinas++;
+                }
+                if(impressao.idDisciplina9 != null){
+                    qtdDisciplinas++;
+                }
+                if(impressao.idDisciplina10 != null){
+                    qtdDisciplinas++;
+                }
+                qtdDeDisciplinasGlobal = qtdDisciplinas;
             Disciplina.findAll({
                 order: [
                     ['nomeDisciplina', 'ASC']
@@ -386,19 +483,53 @@ exports.renderEditar = (req, res, next) => {
                     'periodo'
                 ]
                 }).then(disciplinas => {
-                    res.render('impressao/editar', {impressao: impressao, professors: professors, disciplinas: disciplinas});
+                    res.render('impressao/editar', {impressao: impressao, disciplinas: disciplinas, qtdDisciplinas});
                 });
-            });
-    });    
+            });  
 }
 
 exports.update = (req, res, next) => {
     const id = req.body.id;
-    const professorId = req.body.professorId;
     const disciplinaId = req.body.disciplinaId;
     const horarioDisciplina = req.body.horarioDisc;
     const diaSemanaDisciplina = req.body.diaSemanaDisc;
     const aulasDisciplina = req.body.aulasDisc;
+    const disciplinaId2 = req.body.disciplinaId2;
+    const horarioDisciplina2 = req.body.horarioDisc2;
+    const diaSemanaDisciplina2 = req.body.diaSemanaDisc2;
+    const aulasDisciplina2 = req.body.aulasDisc2;
+    const disciplinaId3 = req.body.disciplinaId3;
+    const horarioDisciplina3 = req.body.horarioDisc3;
+    const diaSemanaDisciplina3 = req.body.diaSemanaDisc3;
+    const aulasDisciplina3 = req.body.aulasDisc3;
+    const disciplinaId4 = req.body.disciplinaId4;
+    const horarioDisciplina4 = req.body.horarioDisc4;
+    const diaSemanaDisciplina4 = req.body.diaSemanaDisc4;
+    const aulasDisciplina4 = req.body.aulasDisc4;
+    const disciplinaId5 = req.body.disciplinaId5;
+    const horarioDisciplina5 = req.body.horarioDisc5;
+    const diaSemanaDisciplina5 = req.body.diaSemanaDisc5;
+    const aulasDisciplina5 = req.body.aulasDisc5;
+    const disciplinaId6 = req.body.disciplinaId6;
+    const horarioDisciplina6 = req.body.horarioDisc6;
+    const diaSemanaDisciplina6 = req.body.diaSemanaDisc6;
+    const aulasDisciplina6 = req.body.aulasDisc6;
+    const disciplinaId7 = req.body.disciplinaId7;
+    const horarioDisciplina7 = req.body.horarioDisc7;
+    const diaSemanaDisciplina7 = req.body.diaSemanaDisc7;
+    const aulasDisciplina7 = req.body.aulasDisc7;
+    const disciplinaId8 = req.body.disciplinaId8;
+    const horarioDisciplina8 = req.body.horarioDisc8;
+    const diaSemanaDisciplina8 = req.body.diaSemanaDisc8;
+    const aulasDisciplina8 = req.body.aulasDisc8;
+    const disciplinaId9 = req.body.disciplinaId9;
+    const horarioDisciplina9 = req.body.horarioDisc9;
+    const diaSemanaDisciplina9 = req.body.diaSemanaDisc9;
+    const aulasDisciplina9 = req.body.aulasDisc9;
+    const disciplinaId10 = req.body.disciplinaId10;
+    const horarioDisciplina10 = req.body.horarioDisc10;
+    const diaSemanaDisciplina10 = req.body.diaSemanaDisc10;
+    const aulasDisciplina10 = req.body.aulasDisc10;
     const hae = req.body.hae;
     const haec = req.body.haec;
     const anoImpressao = new Date();
@@ -406,15 +537,50 @@ exports.update = (req, res, next) => {
     let msgNOK = '0';
 
     Impressao.update({
-        professorId: professorId,
         disciplinaId: disciplinaId,
-        IdDisciplina1: disciplinaId,
+        idDisciplina1: disciplinaId,
         horarioDisc1: horarioDisciplina,
         diaSemanaDisc1: diaSemanaDisciplina,
         aulasDisc1: aulasDisciplina,
+        idDisciplina2: disciplinaId2,
+        horarioDisc2: horarioDisciplina2,
+        diaSemanaDisc2: diaSemanaDisciplina2,
+        aulasDisc2: aulasDisciplina2,
+        idDisciplina3: disciplinaId3,
+        horarioDisc3: horarioDisciplina3,
+        diaSemanaDisc3: diaSemanaDisciplina3,
+        aulasDisc3: aulasDisciplina3,
+        idDisciplina4: disciplinaId4,
+        horarioDisc4: horarioDisciplina4,
+        diaSemanaDisc4: diaSemanaDisciplina4,
+        aulasDisc4: aulasDisciplina4,
+        idDisciplina5: disciplinaId5,
+        horarioDisc5: horarioDisciplina5,
+        diaSemanaDisc5: diaSemanaDisciplina5,
+        aulasDisc5: aulasDisciplina5,
+        idDisciplina6: disciplinaId6,
+        horarioDisc6: horarioDisciplina6,
+        diaSemanaDisc6: diaSemanaDisciplina6,
+        aulasDisc6: aulasDisciplina6,
+        idDisciplina7: disciplinaId7,
+        horarioDisc7: horarioDisciplina7,
+        diaSemanaDisc7: diaSemanaDisciplina7,
+        aulasDisc7: aulasDisciplina7,
+        idDisciplina8: disciplinaId8,
+        horarioDisc8: horarioDisciplina8,
+        diaSemanaDisc8: diaSemanaDisciplina8,
+        aulasDisc8: aulasDisciplina8,
+        idDisciplina9: disciplinaId9,
+        horarioDisc9: horarioDisciplina9,
+        diaSemanaDisc9: diaSemanaDisciplina9,
+        aulasDisc9: aulasDisciplina9,
+        idDisciplina10: disciplinaId10,
+        horarioDisc10: horarioDisciplina10,
+        diaSemanaDisc10: diaSemanaDisciplina10,
+        aulasDisc10: aulasDisciplina10,
         hae: hae,
         haec: haec,
-        anoImpressao: anoImpressao
+        anoImpressao: anoImpressao,
     },
     {
         where: {

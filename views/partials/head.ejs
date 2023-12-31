@@ -8,7 +8,51 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <script src="/javascripts/bootstrap.min.js"></script>
     <script src="/javascripts/bootstrap.bundle.min.js"></script>
+    <style>
 
+        /* Estilos específicos para a impressão */
+        @media print {
+            table {
+                page-break-inside: auto;
+            }
+
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
+            thead {
+                display: table-header-group;
+            }
+
+            tfoot {
+                display: table-footer-group;
+            }
+            th.col1,
+            td.col1 {
+                width: 15%;
+            }
+
+            th.col2,
+            td.col2 {
+                width: 2%;
+            }
+            th.col3,
+            td.col3 {
+                width: 5%;
+            }
+
+            th.col4,
+            td.col4 {
+                width: 40%;
+            }
+
+            @page {
+                margin-top: 0;
+            }
+
+        }
+    </style>
 
 </head>
 <body>

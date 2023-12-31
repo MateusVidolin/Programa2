@@ -36,6 +36,17 @@ module.exports = {
         return data;
     },
 
+    HoraParaImpressao: function(horario)
+    {
+        if(!horario)
+        {
+            return null;
+        }
+        const horarioFormatado = horario[0] + ':' + horario[1]; 
+
+        return horarioFormatado;
+    },
+
     FeriadoOuDomingo: function(diaDaSemana, dia, mesAno)
     {
     const ano = mesAno.substr(0,4);
@@ -70,6 +81,21 @@ module.exports = {
     })
     const feriadoOuDomingo = verificaFeriadoOuDomingo;
     return feriadoOuDomingo;
+    },
+
+    DataParaBancoFeriado: function(dt)
+    {
+        if(!dt)
+        {
+            return null;
+        }
+        const ano = dt.substr(0, 4);
+        const mes = dt.substr(5, 2);
+        const dia = dt.substr(8, 2);
+
+        const data = new Date(mes + "/" + dia + "/" + ano);
+
+        return data;
     },
 
     DataParaImpressao: function(mes, ano)

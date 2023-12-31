@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Professor = require('../models/professor');
+const Impressao = require('../models/impressao');
 
 /*exports.renderIndex = (req, res, next) => {
     res.render('professor/index');
@@ -149,11 +150,18 @@ exports.delete = (req, res, next) => {
     let msgNOK = '0';
     const id = req.params.id;
 
-    Professor.destroy({
+    Impressao.destroy({
         where: {
-            id: id
+            professorId: id 
         }
-    }).then(() => {
+    }).then(impressao => {
+        Professor.destroy({
+            where:{
+                id: id
+               
+            }
+        }).then(() =>{
         res.redirect('/professors/?msgOK=' + msgOK);
+      })  
     });
 }
