@@ -14,16 +14,16 @@
                 <strong>Categoria:</strong> <%= impressao.professor.categoria%> <span id="categoria"></span>
             </div>
             <div class="col sm-2 p-0">
-                <strong>Curso:</strong><span id="curso1"> <%= curso1%></span> <span id="curso2"></span> <span id="curso3"></span>
+                <strong>Curso:</strong><span id="curso1"> <% nomeCursosAtribuidos.forEach(curso =>{ %> <%=curso%>, <%})%></span> <span id="curso2"></span> <span id="curso3"></span>
             </div>
         </div>
         <div class="row small">
             <div class="col sm-2 p-0">
-                <strong>Disciplinas:</strong> <%= nomeDisciplina1%><span id="IdDisciplina1"></span> <span id="disciplina2"></span> <span id="disciplina3"></span>
+                <strong>Disciplinas:</strong> <% nomeDisciplina.forEach(disciplina =>{ %> <%=disciplina%>, <%})%> 
             </div>
         <div class="row small">
             <div class="col sm-2 p-0">
-                <strong>Aulas:</strong> <%= impressao.aulasDisc1%> <span id="aulas"> </span>
+                <strong>Aulas:</strong> <%= totalAulas%> <span id="aulas"> </span>
             </div> 
             <div class="col">
                 <strong>H.A:</strong> <%= ha%><span id="ha"></span>
