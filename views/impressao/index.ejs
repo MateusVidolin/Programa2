@@ -32,7 +32,17 @@
                     <% impressaos.forEach(impressao => { %>
                         <tr>
                             <td><%= impressao.professor.nome%> - Reg.: <%= impressao.professor.numeroRegistro%></td>
-                            <td><%= impressao.disciplina.nomeDisciplina %> - Cód.: <%= impressao.disciplina.codigoDisciplina%> </td>
+                            <td> 
+                                <% nomesMateriasAtribuidas.forEach(id => { %>
+                                <% if(impressao.id == id.id){ %> 
+                                <% id.disciplinas.forEach(disciplina => { %>
+                                <% if(disciplina !== null){ %>    
+                                <%= disciplina %>/
+                                <% } %>    
+                                <% }) %>    
+                                <% } %>          
+                                <% }) %>
+                            </td>
                             <td><%= impressao.anoImpressao %></td>
                             <td>
                                 <a href="/impressaos/<%= impressao.id %>" class="btn btn-primary">Editar</a>

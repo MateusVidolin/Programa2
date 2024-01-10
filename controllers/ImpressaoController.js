@@ -5,23 +5,53 @@ const Feriado = require('../models/feriado');
 const Impressao = require('../models/impressao');
 const Professor = require('../models/professor');
 const {DataParaImpressao, FeriadoOuDomingo, HoraParaImpressao} = require('../utilidades');
-var qtdDeDisciplinasGlobal=0;
+
 
 exports.getAll = (req, res, next) => {
     const msgOK = req.query.msgOK;
     const msgNOK = req.query.msgNOK;
+    let nomeDisciplinasAtribuidas = [];
+    let posiDisciplinaAtual = 0;
 
     Impressao.findAll({
         order: [
             ['id', 'ASC']
         ],
-        include: [{
-            model: Disciplina  
-        },{
+        include: [
+            {model: Disciplina, as:'IdDisciplina1', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina2', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina3', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina4', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina5', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina6', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina7', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina8', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina9', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina10', attributes: ['nomeDisciplina']}
+
+        ,{
             model: Professor
         }]
     }).then(impressaos => {
-        res.render('impressao/index', {impressaos: impressaos, msgOK, msgNOK});
+                    const nomesMateriasAtribuidas = impressaos.map(impressao => {
+                        return{
+                            id: impressao.id,
+                            disciplinas: [
+                                impressao.IdDisciplina1 ? impressao.IdDisciplina1.nomeDisciplina: null,
+                                impressao.IdDisciplina2 ? impressao.IdDisciplina2.nomeDisciplina: null,
+                                impressao.IdDisciplina3 ? impressao.IdDisciplina3.nomeDisciplina: null,
+                                impressao.IdDisciplina4 ? impressao.IdDisciplina4.nomeDisciplina: null,
+                                impressao.IdDisciplina5 ? impressao.IdDisciplina5.nomeDisciplina: null,
+                                impressao.IdDisciplina6 ? impressao.IdDisciplina6.nomeDisciplina: null,
+                                impressao.IdDisciplina7 ? impressao.IdDisciplina7.nomeDisciplina: null,
+                                impressao.IdDisciplina8 ? impressao.IdDisciplina8.nomeDisciplina: null,
+                                impressao.IdDisciplina9 ? impressao.IdDisciplina9.nomeDisciplina: null,
+                                impressao.IdDisciplina10 ? impressao.IdDisciplina10.nomeDisciplina: null,
+                            ],
+                        };
+                    })
+                    console.log(nomesMateriasAtribuidas)
+        res.render('impressao/index', {impressaos: impressaos, nomeDisciplinasAtribuidas, nomesMateriasAtribuidas, posiDisciplinaAtual, msgOK, msgNOK});
     });
 }
 
@@ -82,7 +112,6 @@ exports.adicionarDisc = (req, res, next) => {
 
 exports.renderSelecionaMes = (req, res, next) => {
     const id = req.params.id;
-    console.log("t1"+id);
     res.render('impressao/selecionarMes', {id: id});
 }
 
@@ -100,15 +129,15 @@ exports.renderGeraRegistro = (req, res, next) => {
     let verificaNomeCursoRepetido = null;
     let abreviacaoNomeCurso = null;
     let dayOfWeek =new Array(31);
-    let inicioManha =new Array(31);
+    let inicioManha =new Array(31).fill(null);
     let aulasManha =new Array(31);
     let haeManha =new Array(31);
     let rubricaManha =new Array(31);
-    let inicioTarde =new Array(31);
+    let inicioTarde =new Array(31).fill(null);
     let aulasTarde =new Array(31);
     let haeTarde =new Array(31);
     let rubricaTarde =new Array(31);
-    let inicioNoite =new Array(31);
+    let inicioNoite =new Array(31).fill(null);
     let aulasNoite =new Array(31);
     let haeNoite =new Array(31);
     let rubricaNoite =new Array(31);
@@ -128,7 +157,6 @@ exports.renderGeraRegistro = (req, res, next) => {
    let data = null;
    let mes = mesAno.substring(5,8);
    let ano = mesAno.substring(0,4);
-   let formataHorarioAula = 0;
    let horarioFormatado = 0;
 
     Impressao.findOne({
@@ -136,10 +164,17 @@ exports.renderGeraRegistro = (req, res, next) => {
             id: id
         },
         include: [
-            {
-                model: Disciplina
-            },
-            {
+            {model: Disciplina, as:'IdDisciplina1', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina2', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina3', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina4', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina5', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina6', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina7', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina8', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina9', attributes: ['nomeDisciplina']},
+            {model: Disciplina, as:'IdDisciplina10', attributes: ['nomeDisciplina']}
+            ,{
                 model: Professor
             }
         ]
@@ -474,10 +509,25 @@ exports.renderGeraRegistro = (req, res, next) => {
                 rubricaTarde[day] = "DOMINGO";
                 rubricaNoite[day] = "DOMINGO"; 
             }
-            else{ 
-                rubricaManha[day] = " ";
-                rubricaTarde[day] = " ";
-                rubricaNoite[day] = " "; 
+            else{
+                if(inicioManha[day] == null){
+                    rubricaManha[day] = " - ";
+                }
+                else{
+                    rubricaManha[day] = " ";
+                } 
+                if(inicioTarde[day] == null){
+                    rubricaTarde[day] = " - ";
+                }
+                else{
+                    rubricaTarde[day] = " ";
+                }
+                if(inicioNoite[day] == null){
+                    rubricaNoite[day] = " - ";
+                }
+                else{
+                    rubricaNoite[day] = " ";
+                }  
             }
         }
     else{

@@ -277,7 +277,16 @@ const Impressao = connection.define(
     }
 );
 
-Impressao.belongsTo(Disciplina);
+Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina1', as: 'IdDisciplina1'});
+Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina2', as: 'IdDisciplina2'});
+Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina3', as: 'IdDisciplina3'});
+Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina4', as: 'IdDisciplina4'});
+Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina5', as: 'IdDisciplina5'});
+Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina6', as: 'IdDisciplina6'});
+Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina7', as: 'IdDisciplina7'});
+Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina8', as: 'IdDisciplina8'});
+Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina9', as: 'IdDisciplina9'});
+Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina10', as: 'IdDisciplina10'});
 Impressao.belongsTo(Professor);
 
 //Impressao.sync({force: true});

@@ -8,18 +8,18 @@
         <hr>
         <div class="row small">
             <div class="col sm-2 p-0">
-                <strong>Prof:</strong> <%= impressao.professor.numeroRegistro%> <%= impressao.professor.nome%> <span id="nome"></span>
+                <strong>Professor - </strong> <strong>Reg.:</strong><%= impressao.professor.numeroRegistro%> <strong>Nome:</strong><%= impressao.professor.nome%> <span id="nome"></span>
             </div>
             <div class="col sm-2 p-0">
                 <strong>Categoria:</strong> <%= impressao.professor.categoria%> <span id="categoria"></span>
             </div>
             <div class="col sm-2 p-0">
-                <strong>Curso:</strong><span id="curso1"> <% nomeCursosAtribuidos.forEach(curso =>{ %> <%=curso%>, <%})%></span> <span id="curso2"></span> <span id="curso3"></span>
+                <strong>Curso:</strong><span id="curso1"> <% nomeCursosAtribuidos.forEach(curso =>{ %> <%=curso%>/ <%})%></span>
             </div>
         </div>
         <div class="row small">
             <div class="col sm-2 p-0">
-                <strong>Disciplinas:</strong> <% nomeDisciplina.forEach(disciplina =>{ %> <%=disciplina%>, <%})%> 
+                <strong>Disciplinas:</strong> <% nomeDisciplina.forEach(disciplina =>{ %> <%=disciplina%>/ <%})%> 
             </div>
         <div class="row small">
             <div class="col sm-2 p-0">
