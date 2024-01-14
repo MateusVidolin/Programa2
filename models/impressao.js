@@ -277,6 +277,7 @@ const Impressao = connection.define(
     }
 );
 
+Impressao.belongsTo(Disciplina);
 Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina1', as: 'IdDisciplina1'});
 Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina2', as: 'IdDisciplina2'});
 Impressao.belongsTo(Disciplina, {foreignKey: 'idDisciplina3', as: 'IdDisciplina3'});

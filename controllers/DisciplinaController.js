@@ -78,7 +78,8 @@ exports.renderEditar = (req, res, next) => {
             ],
             attributes: [
                 'id',
-                'nomeCurso'
+                'nomeCurso',
+                'codigoCurso'
             ]
         }).then(cursos =>{
         res.render('disciplina/editar', {disciplina: disciplina, cursos: cursos});
@@ -92,6 +93,7 @@ exports.update = (req, res, next) => {
     const nomeDisciplina = req.body.nomeDisciplina;
     const semestre = req.body.semestre;
     const periodo = req.body.periodo;
+    const cursoId = req.body.cursoId;
     let msgOK = '1';
     let msgNOK = '0'; 
 
@@ -99,7 +101,8 @@ exports.update = (req, res, next) => {
         codigoDisciplina: codigoDisciplina,
         nomeDisciplina: nomeDisciplina,
         semestre: semestre,
-        periodo: periodo
+        periodo: periodo,
+        cursoId: cursoId
     },
     {
         where: {

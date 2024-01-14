@@ -50,65 +50,10 @@ exports.getAll = (req, res, next) => {
                             ],
                         };
                     })
-                    console.log(nomesMateriasAtribuidas)
         res.render('impressao/index', {impressaos: impressaos, nomeDisciplinasAtribuidas, nomesMateriasAtribuidas, posiDisciplinaAtual, msgOK, msgNOK});
     });
 }
 
-exports.renderAdicionaDisc = (req, res, next) => {
-    const id = req.params.id;
-    Impressao.findByPk(id).then(impressao => {
-        Professor.findAll({
-            order: [
-                ['nome', 'ASC']
-            ],
-            attributes: [
-                'id',
-                'nome',
-                'numeroRegistro'
-            ]
-        }).then(professors => {
-            Disciplina.findAll({
-                order: [
-                    ['nomeDisciplina', 'ASC']
-                ],
-                attributes: [
-                    'id',
-                    'nomeDisciplina',
-                    'codigoDisciplina',
-                    'semestre',
-                    'periodo'
-                ]
-                }).then(disciplinas => {
-                    res.render('impressao/adicionaDisc', {impressao: impressao, professors: professors, disciplinas: disciplinas});
-    
-                }); 
-            });
-    });   
-}
-
-exports.adicionarDisc = (req, res, next) => {
-    const id = req.body.id;
-    const disciplinaId = req.body.disciplinaId;
-    const horario = req.body.horarioDisc;
-    const diaSemana = req.body.diaSemanaDisc;
-    const aulas = req.body.aulasDisc;
-        Impressao.findOne({
-            where: {
-                id: id
-            }
-        }).then(impressao => {
-           if (impressao.IdDisciplina2 == null) {
-            impressao.IdDisciplina2 =  disciplinaId,
-            impressao.horarioDisc2 = horario,
-            impressao.diaSemanaDisc2 = diaSemana,
-            impressao.aulasDisc2 = aulas
-            impressao.save().then(() => {
-                res.redirect('/impressaos');
-            });
-        };
-    });
-}
 
 exports.renderSelecionaMes = (req, res, next) => {
     const id = req.params.id;
@@ -748,19 +693,35 @@ exports.create = (req, res, next) => {
 
 exports.renderEditar = (req, res, next) => {
     const id = req.params.id;
+    const formulario = 0;
 
     Impressao.findOne({
             where: {
                 id: id
             },
             include: [
+                {model: Disciplina, as:'IdDisciplina1', attributes: ['nomeDisciplina']},
+                {model: Disciplina, as:'IdDisciplina2', attributes: ['nomeDisciplina']},
+                {model: Disciplina, as:'IdDisciplina3', attributes: ['nomeDisciplina']},
+                {model: Disciplina, as:'IdDisciplina4', attributes: ['nomeDisciplina']},
+                {model: Disciplina, as:'IdDisciplina5', attributes: ['nomeDisciplina']},
+                {model: Disciplina, as:'IdDisciplina6', attributes: ['nomeDisciplina']},
+                {model: Disciplina, as:'IdDisciplina7', attributes: ['nomeDisciplina']},
+                {model: Disciplina, as:'IdDisciplina8', attributes: ['nomeDisciplina']},
+                {model: Disciplina, as:'IdDisciplina9', attributes: ['nomeDisciplina']},
+                {model: Disciplina, as:'IdDisciplina10', attributes: ['nomeDisciplina']}
+    
+            ,
                 {
                 model: Professor
-                }
+                },
             ]
         }).then(impressao => {
             let qtdDisciplinas = 0;
             //Verifica quantas disciplinas foram adicionadas para poder editar
+            if(impressao.idDisciplina1 != null){
+                qtdDisciplinas++;
+            }
                 if(impressao.idDisciplina2 != null){
                     qtdDisciplinas++;
                 }
@@ -788,7 +749,6 @@ exports.renderEditar = (req, res, next) => {
                 if(impressao.idDisciplina10 != null){
                     qtdDisciplinas++;
                 }
-                qtdDeDisciplinasGlobal = qtdDisciplinas;
             Disciplina.findAll({
                 order: [
                     ['nomeDisciplina', 'ASC']
@@ -801,7 +761,7 @@ exports.renderEditar = (req, res, next) => {
                     'periodo'
                 ]
                 }).then(disciplinas => {
-                    res.render('impressao/editar', {impressao: impressao, disciplinas: disciplinas, qtdDisciplinas});
+                    res.render('impressao/editar', {impressao: impressao, disciplinas: disciplinas, qtdDisciplinas, formulario});
                 });
             });  
 }
@@ -908,6 +868,7 @@ exports.update = (req, res, next) => {
         res.redirect('/impressaos/?msgOK=' + msgOK);
     });
 }
+
 
 exports.delete = (req, res) => {
     const id = req.params.id;

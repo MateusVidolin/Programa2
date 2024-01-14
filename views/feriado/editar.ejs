@@ -35,13 +35,12 @@
                     <label for="tipo">Tipo do Feriado</label>
                     <div class="form-floating mb-3">
                         <select name = "tipo"> 
-                            <option value = "Null"> Selecione uma opção</option>
+                            <option value = "<%= feriado.tipo %>"> <%= feriado.tipo %></option>
                             <option value = "Nacional"> Nacional</option>
                             <option value = "Estadual"> Estadual</option>
                             <option value = "Municipal"> Municipal</option>
                             <option value = "Ponto Facultativo"> Ponto Facultativo</option>
                             <option value = "Emenda"> Emenda</option>
-                            value="<%= feriado.tipo %>"
                         required>
                     </select> 
                     </div>

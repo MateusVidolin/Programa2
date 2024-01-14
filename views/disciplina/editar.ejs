@@ -13,8 +13,8 @@
                 <div class="form-floating mb-3">
                     <input 
                         type="text" 
-                        name="nome" 
-                        id="nome" 
+                        name="nomeDisciplina" 
+                        id="nomeDisciplina" 
                         class="form-control" 
                         placeholder="Nome da disciplina" 
                         value="<%= disciplina.nomeDisciplina %>"
@@ -35,6 +35,11 @@
                 <div class="form-floating mb-3">
                     <select class="form-control" name="cursoId" id="cursoId">
                         <% cursos.forEach(curso => { %>
+                        <% if(disciplina.cursoId == curso.id) {%>
+                        <option value = "<%= curso.id%>"> Nome do curso: <%= curso.nomeCurso%> Código: <%= curso.codigoCurso%></option>
+                        <% } %>
+                        <%})%>
+                        <% cursos.forEach(curso => { %>
                             <option value="<%= curso.id %>">Nome do curso: <%= curso.nomeCurso %> Código: <%= curso.codigoCurso %></option>
                         <%})%>
                         required>
@@ -43,21 +48,19 @@
                 <label for="semestre">Semestre da Disciplina</label>
                 <div class="form-floating mb-3">
                     <select name = "semestre"> 
-                        <option value = "Null"> Selecione uma opção</option>
+                        <option value = "<%= disciplina.semestre %>"> <%= disciplina.semestre %></option>
                         <option value = "primeiro"> Primeiro</option>
                         <option value = "segundo"> Segundo</option>
-                        value="<%= disciplina.semestre %>"
                         required>
                 </select>
                 </div>
                     <label for="periodo">Período da disciplina</label>
                     <div class="form-floating mb-3">
                         <select name = "periodo"> 
-                            <option value = "Null"> Selecione uma opção</option>
+                            <option value = "<%= disciplina.periodo %>"> <%= disciplina.periodo %></option>
                             <option value = "Manhã"> Manhã</option>
                             <option value = "Tarde"> Tarde</option>
                             <option value = "Noite"> Noite</option>
-                            value="<%= disciplina.periodo %>"
                         required>
                     </select> 
                     </div>

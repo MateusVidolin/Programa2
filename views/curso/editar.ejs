@@ -35,11 +35,10 @@
                     <label for="periodo">Período do curso</label>
                     <div class="form-floating mb-3">
                         <select name = "periodo"> 
-                            <option value = "Null"> Selecione uma opção</option>
+                            <option value = "<%= curso.periodo %>"> <%= curso.periodo %></option>
                             <option value = "Manhã"> Manhã</option>
                             <option value = "Tarde"> Tarde</option>
                             <option value = "Noite"> Noite</option>
-                            value="<%= curso.periodo %>"
                         required>
                     </select> 
                     </div>
