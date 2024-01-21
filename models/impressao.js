@@ -246,30 +246,102 @@ const Impressao = connection.define(
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        hae:{
+        hae1:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        diaHae:{
+        hae2:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        horarioHae:{
+        hae3:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        haec:{
+        hae4:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        diaHaec:{
+        diaSemanaHae1:{
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        diaSemanaHae2:{
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        diaSemanaHae3:{
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        diaSemanaHae4:{
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        horarioHae1:{
+            type: Sequelize.TIME,
+            allowNull: true
+        },
+        horarioHae2:{
+            type: Sequelize.TIME,
+            allowNull: true
+        },
+        horarioHae3:{
+            type: Sequelize.TIME,
+            allowNull: true
+        },
+        horarioHae4:{
+            type: Sequelize.TIME,
+            allowNull: true
+        },
+        haec1:{
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        horarioHaec:{
+        haec2:{
             type: Sequelize.INTEGER,
             allowNull: true
-        },  
+        },
+        haec3:{
+            type: Sequelize.INTEGER,
+            allowNull: true
+        },
+        haec4:{
+            type: Sequelize.INTEGER,
+            allowNull: true
+        },
+        diaSemanaHaec1:{
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        diaSemanaHaec2:{
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        diaSemanaHaec3:{
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        diaSemanaHaec4:{
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        horarioHaec1:{
+            type: Sequelize.TIME,
+            allowNull: true
+        },
+        horarioHaec2:{
+            type: Sequelize.TIME,
+            allowNull: true
+        },
+        horarioHaec3:{
+            type: Sequelize.TIME,
+            allowNull: true
+        },
+        horarioHaec4:{
+            type: Sequelize.TIME,
+            allowNull: true
+        }, 
         anoImpressao: {
             type: Sequelize.DATEONLY,
             allowNull: false

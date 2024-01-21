@@ -53,30 +53,10 @@
                         required>
                     <label for="aulasDisc">Quantidade de aulas</label>
                 </div>
-                <div class="form-floating mb-3">
-                    <input 
-                        type="text" 
-                        name="hae" 
-                        class="form-control" 
-                        id="hae" 
-                        placeholder="HAE" 
-                        required>
-                    <label for="hae">HAE</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input 
-                        type="text" 
-                        name="haec" 
-                        class="form-control" 
-                        id="haec" 
-                        placeholder="HAEC" 
-                        required>
-                    <label for="haec">HAEC</label>
-                </div>
                 <label for="tipo"> Dia da semana </label>
                     <div class="form-floating mb-3">
                         <select name = "diaSemanaDisc"> 
-                            <option value = "Null"> Selecione uma opção</option>
+                            <option value = "null"> Selecione uma opção</option>
                             <option value = "seg."> Segunda-Feira</option>
                             <option value = "ter."> Terça-Feira</option>
                             <option value = "qua."> Quarta-Feira</option>
@@ -85,10 +65,274 @@
                             <option value = "sáb."> Sábado</option>
                             required>
                         </select> 
-                    </div>              
+                    </div> 
+                <div class="row">
+                <div class="col-md-2">
+                    <input 
+                        type="text" 
+                        name="hae1" 
+                        class="form-control" 
+                        id="hae1" 
+                        placeholder="HAE1"
+                        >
+                </div>
+                <div class="col-md-2">
+                    <input 
+                    type="time" 
+                    name="horarioHae1" 
+                    class="form-control" 
+                    id="horarioHae1" 
+                    placeholder="Horário HAE-1" 
+                    >
+                </div>
+                <div class="col-md-6">
+                <label for="tipo"> Dia da semana HAE-1 </label>                 
+                        <select name = "diaSemanaHae1"> 
+                            <option value = "null"> Selecione uma opção</option>
+                            <option value = "seg."> Segunda-Feira</option>
+                            <option value = "ter."> Terça-Feira</option>
+                            <option value = "qua."> Quarta-Feira</option>
+                            <option value = "qui."> Quinta-Feira</option>
+                            <option value = "sex."> Sexta-Feira</option>
+                            <option value = "sáb."> Sábado</option>
+                            >
+                        </select> 
+                    </div>
+            </div>         
+                <div class="row">
+                    <div class="col-md-2">
+                        <input 
+                            type="text" 
+                            name="hae2" 
+                            class="form-control" 
+                            id="hae2" 
+                            placeholder="HAE2" 
+                            >
+                    </div>
+                    <div class="col-md-2">
+                        <input 
+                        type="time" 
+                        name="horarioHae2" 
+                        class="form-control" 
+                        id="horarioHae2" 
+                        placeholder="Horário HAE-2" 
+                        >
+                    </div>
+                    <div class="col-md-6">
+                    <label for="tipo"> Dia da semana HAE-2 </label>                 
+                            <select name = "diaSemanaHae2"> 
+                                <option value = "null"> Selecione uma opção</option>
+                                <option value = "seg."> Segunda-Feira</option>
+                                <option value = "ter."> Terça-Feira</option>
+                                <option value = "qua."> Quarta-Feira</option>
+                                <option value = "qui."> Quinta-Feira</option>
+                                <option value = "sex."> Sexta-Feira</option>
+                                <option value = "sáb."> Sábado</option>
+                                >
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input 
+                                type="text" 
+                                name="hae3" 
+                                class="form-control" 
+                                id="hae3" 
+                                placeholder="HAE3" 
+                                >
+                        </div>
+                        <div class="col-md-2">
+                            <input 
+                            type="time" 
+                            name="horarioHae3" 
+                            class="form-control" 
+                            id="horarioHae3" 
+                            placeholder="Horário HAE-3" 
+                            >
+                        </div>
+                        <div class="col-md-6">
+                        <label for="tipo"> Dia da semana HAE-3 </label>                 
+                                <select name = "diaSemanaHae3"> 
+                                    <option value = "null"> Selecione uma opção</option>
+                                    <option value = "seg."> Segunda-Feira</option>
+                                    <option value = "ter."> Terça-Feira</option>
+                                    <option value = "qua."> Quarta-Feira</option>
+                                    <option value = "qui."> Quinta-Feira</option>
+                                    <option value = "sex."> Sexta-Feira</option>
+                                    <option value = "sáb."> Sábado</option>
+                                    >
+                                </select> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <input 
+                                    type="text" 
+                                    name="hae4" 
+                                    class="form-control" 
+                                    id="hae4" 
+                                    placeholder="HAE4" 
+                                    >
+                            </div>
+                            <div class="col-md-2">
+                                <input 
+                                type="time" 
+                                name="horarioHae4" 
+                                class="form-control" 
+                                id="horarioHae4" 
+                                placeholder="Horário HAE-4" 
+                                >
+                            </div>
+                            <div class="col-md-6">
+                            <label for="tipo"> Dia da semana HAE-4 </label>                 
+                                    <select name = "diaSemanaHae4"> 
+                                        <option value = "null"> Selecione uma opção</option>
+                                        <option value = "seg."> Segunda-Feira</option>
+                                        <option value = "ter."> Terça-Feira</option>
+                                        <option value = "qua."> Quarta-Feira</option>
+                                        <option value = "qui."> Quinta-Feira</option>
+                                        <option value = "sex."> Sexta-Feira</option>
+                                        <option value = "sáb."> Sábado</option>
+                                        >
+                                    </select> 
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-2">
+                                    <input 
+                                        type="text" 
+                                        name="haec1" 
+                                        class="form-control" 
+                                        id="haec1" 
+                                        placeholder="HAEC1" 
+                                        >
+                                </div>
+                                <div class="col-md-2">
+                                    <input 
+                                    type="time" 
+                                    name="horarioHaec1" 
+                                    class="form-control" 
+                                    id="horarioHaec1" 
+                                    placeholder="Horário HAEC-1" 
+                                    >
+                                </div>
+                                <div class="col-md-6">
+                                <label for="tipo"> Dia da semana HAEC-1 </label>                 
+                                        <select name = "diaSemanaHaec1"> 
+                                            <option value = "null"> Selecione uma opção</option>
+                                            <option value = "seg."> Segunda-Feira</option>
+                                            <option value = "ter."> Terça-Feira</option>
+                                            <option value = "qua."> Quarta-Feira</option>
+                                            <option value = "qui."> Quinta-Feira</option>
+                                            <option value = "sex."> Sexta-Feira</option>
+                                            <option value = "sáb."> Sábado</option>
+                                            >
+                                        </select> 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input 
+                                            type="text" 
+                                            name="haec2" 
+                                            class="form-control" 
+                                            id="haec2" 
+                                            placeholder="HAEC2" 
+                                            >
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input 
+                                        type="time" 
+                                        name="horarioHaec2" 
+                                        class="form-control" 
+                                        id="horarioHaec2" 
+                                        placeholder="Horário HAEC-2" 
+                                        >
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label for="tipo"> Dia da semana HAEC-2 </label>                 
+                                            <select name = "diaSemanaHaec2"> 
+                                                <option value = "null"> Selecione uma opção</option>
+                                                <option value = "seg."> Segunda-Feira</option>
+                                                <option value = "ter."> Terça-Feira</option>
+                                                <option value = "qua."> Quarta-Feira</option>
+                                                <option value = "qui."> Quinta-Feira</option>
+                                                <option value = "sex."> Sexta-Feira</option>
+                                                <option value = "sáb."> Sábado</option>
+                                                >
+                                            </select> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <input 
+                                                type="text" 
+                                                name="haec3" 
+                                                class="form-control" 
+                                                id="haec3" 
+                                                placeholder="HAEC3" 
+                                                >
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input 
+                                            type="time" 
+                                            name="horarioHaec3" 
+                                            class="form-control" 
+                                            id="horarioHaec3" 
+                                            placeholder="Horário HAEC-3" 
+                                            >
+                                        </div>
+                                        <div class="col-md-6">
+                                        <label for="tipo"> Dia da semana HAEC-3 </label>                 
+                                                <select name = "diaSemanaHaec3"> 
+                                                    <option value = "Null"> Selecione uma opção</option>
+                                                    <option value = "seg."> Segunda-Feira</option>
+                                                    <option value = "ter."> Terça-Feira</option>
+                                                    <option value = "qua."> Quarta-Feira</option>
+                                                    <option value = "qui."> Quinta-Feira</option>
+                                                    <option value = "sex."> Sexta-Feira</option>
+                                                    <option value = "sáb."> Sábado</option>
+                                                    >
+                                                </select> 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <input 
+                                                    type="text" 
+                                                    name="haec4" 
+                                                    class="form-control" 
+                                                    id="haec4" 
+                                                    placeholder="HAEC4" 
+                                                    >
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input 
+                                                type="time" 
+                                                name="horarioHaec4" 
+                                                class="form-control" 
+                                                id="horarioHaec4" 
+                                                placeholder="Horário HAEC-4" 
+                                                >
+                                            </div>
+                                            <div class="col-md-6">
+                                            <label for="tipo"> Dia da semana HAEC-4 </label>                 
+                                                    <select name = "diaSemanaHaec4"> 
+                                                        <option value = "Null"> Selecione uma opção</option>
+                                                        <option value = "seg."> Segunda-Feira</option>
+                                                        <option value = "ter."> Terça-Feira</option>
+                                                        <option value = "qua."> Quarta-Feira</option>
+                                                        <option value = "qui."> Quinta-Feira</option>
+                                                        <option value = "sex."> Sexta-Feira</option>
+                                                        <option value = "sáb."> Sábado</option>
+                                                        >
+                                                    </select> 
+                                                </div>
+                                            </div>             
 
                 <div id="disciplinasContainer"> </div>        
-                <div class="form-floating mb-3">  
+                <div class="form-floating mb-3 mt-3">  
                     <button type="button" class="btn btn-primary" onclick="addDisciplina()">Adicionar Disciplina</button>             
                     <button type="submit" class="btn btn-primary">Salvar</button>
                     <a href="/impressaos" class="btn btn-warning">Cancelar</a>

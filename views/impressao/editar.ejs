@@ -43,28 +43,6 @@
                         required>
                     <label for="aulasDisc">Quantidade de aulas</label>
                 </div>
-                <div class="form-floating mb-3">
-                    <input 
-                        type="text" 
-                        name="hae" 
-                        class="form-control" 
-                        id="hae" 
-                        placeholder="HAE"
-                        value="<%= impressao.hae%>" 
-                        required>
-                    <label for="hae">HAE</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input 
-                        type="text" 
-                        name="haec" 
-                        class="form-control" 
-                        id="haec" 
-                        placeholder="HAEC"
-                        value="<%= impressao.haec%>" 
-                        required>
-                    <label for="haec">HAEC</label>
-                </div>
                 <label for="tipo"> Dia da semana </label>
                     <div class="form-floating mb-3">
                         <select name = "diaSemanaDisc"> 
@@ -77,7 +55,288 @@
                             <option value = "sáb."> Sábado</option>
                             required>
                         </select> 
-                    </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input 
+                                type="text" 
+                                name="hae1" 
+                                class="form-control" 
+                                id="hae1" 
+                                placeholder="HAE1"
+                                value="<%= impressao.hae1%>"  
+                                >
+                        </div>
+                        <div class="col-md-2">
+                            <input 
+                            type="time" 
+                            name="horarioHae1" 
+                            class="form-control" 
+                            id="horarioHae1" 
+                            placeholder="Horário HAE-1"
+                            value="<%= impressao.horarioHae1%>"  
+                            >
+                        </div>
+                        <div class="col-md-6">
+                        <label for="tipo"> Dia da semana HAE-1 </label>                 
+                                <select name = "diaSemanaHae1"> 
+                                    <option value = "<%= impressao.diaSemanaHae1%>"> <%= impressao.diaSemanaHae1%></option>
+                                    <option value = "seg."> Segunda-Feira</option>
+                                    <option value = "ter."> Terça-Feira</option>
+                                    <option value = "qua."> Quarta-Feira</option>
+                                    <option value = "qui."> Quinta-Feira</option>
+                                    <option value = "sex."> Sexta-Feira</option>
+                                    <option value = "sáb."> Sábado</option>
+                                    >
+                                </select> 
+                            </div>
+                    </div>         
+                <div class="row">
+                    <div class="col-md-2">
+                        <input 
+                            type="text" 
+                            name="hae2" 
+                            class="form-control" 
+                            id="hae2" 
+                            placeholder="HAE2"
+                            value="<%= impressao.hae2%>"  
+                            >
+                    </div>
+                    <div class="col-md-2">
+                        <input 
+                        type="time" 
+                        name="horarioHae2" 
+                        class="form-control" 
+                        id="horarioHae2" 
+                        placeholder="Horário HAE-2"
+                        value="<%= impressao.horarioHae2%>"  
+                        >
+                    </div>
+                    <div class="col-md-6">
+                    <label for="tipo"> Dia da semana HAE-2 </label>                 
+                            <select name = "diaSemanaHae2"> 
+                                <option value = "<%= impressao.diaSemanaHae2%>"> <%= impressao.diaSemanaHae2%></option>
+                                <option value = "seg."> Segunda-Feira</option>
+                                <option value = "ter."> Terça-Feira</option>
+                                <option value = "qua."> Quarta-Feira</option>
+                                <option value = "qui."> Quinta-Feira</option>
+                                <option value = "sex."> Sexta-Feira</option>
+                                <option value = "sáb."> Sábado</option>
+                                >
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input 
+                                type="text" 
+                                name="hae3" 
+                                class="form-control" 
+                                id="hae3" 
+                                placeholder="HAE3"
+                                value="<%= impressao.hae3%>"  
+                                >
+                        </div>
+                        <div class="col-md-2">
+                            <input 
+                            type="time" 
+                            name="horarioHae3" 
+                            class="form-control" 
+                            id="horarioHae3" 
+                            placeholder="Horário HAE-3"
+                            value="<%= impressao.horarioHae3%>"  
+                            >
+                        </div>
+                        <div class="col-md-6">
+                        <label for="tipo"> Dia da semana HAE-3 </label>                 
+                                <select name = "diaSemanaHae3"> 
+                                    <option value = "<%= impressao.diaSemanaHae3%>"> <%= impressao.diaSemanaHae3%></option>
+                                    <option value = "seg."> Segunda-Feira</option>
+                                    <option value = "ter."> Terça-Feira</option>
+                                    <option value = "qua."> Quarta-Feira</option>
+                                    <option value = "qui."> Quinta-Feira</option>
+                                    <option value = "sex."> Sexta-Feira</option>
+                                    <option value = "sáb."> Sábado</option>
+                                    >
+                                </select> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <input 
+                                    type="text" 
+                                    name="hae4" 
+                                    class="form-control" 
+                                    id="hae4" 
+                                    placeholder="HAE4"
+                                    value="<%= impressao.hae4%>"  
+                                    >
+                            </div>
+                            <div class="col-md-2">
+                                <input 
+                                type="time" 
+                                name="horarioHae4" 
+                                class="form-control" 
+                                id="horarioHae4" 
+                                placeholder="Horário HAE-4"
+                                value="<%= impressao.horarioHae4%>"  
+                                >
+                            </div>
+                            <div class="col-md-6">
+                            <label for="tipo"> Dia da semana HAE-4 </label>                 
+                                    <select name = "diaSemanaHae4"> 
+                                        <option value = "<%= impressao.diaSemanaHae4%>"> <%= impressao.diaSemanaHae4%></option>
+                                        <option value = "seg."> Segunda-Feira</option>
+                                        <option value = "ter."> Terça-Feira</option>
+                                        <option value = "qua."> Quarta-Feira</option>
+                                        <option value = "qui."> Quinta-Feira</option>
+                                        <option value = "sex."> Sexta-Feira</option>
+                                        <option value = "sáb."> Sábado</option>
+                                        >
+                                    </select> 
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-2">
+                                    <input 
+                                        type="text" 
+                                        name="haec1" 
+                                        class="form-control" 
+                                        id="haec1" 
+                                        placeholder="HAEC1"
+                                        value="<%= impressao.haec1%>"  
+                                        >
+                                </div>
+                                <div class="col-md-2">
+                                    <input 
+                                    type="time" 
+                                    name="horarioHaec1" 
+                                    class="form-control" 
+                                    id="horarioHaec1" 
+                                    placeholder="Horário HAEC-1"
+                                    value="<%= impressao.horarioHaec1%>"  
+                                    >
+                                </div>
+                                <div class="col-md-6">
+                                <label for="tipo"> Dia da semana HAEC-1 </label>                 
+                                        <select name = "diaSemanaHaec1"> 
+                                            <option value = "<%= impressao.diaSemanaHaec1%>"> <%= impressao.diaSemanaHaec1%></option>
+                                            <option value = "seg."> Segunda-Feira</option>
+                                            <option value = "ter."> Terça-Feira</option>
+                                            <option value = "qua."> Quarta-Feira</option>
+                                            <option value = "qui."> Quinta-Feira</option>
+                                            <option value = "sex."> Sexta-Feira</option>
+                                            <option value = "sáb."> Sábado</option>
+                                            >
+                                        </select> 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input 
+                                            type="text" 
+                                            name="haec2" 
+                                            class="form-control" 
+                                            id="haec2" 
+                                            placeholder="HAEC2"
+                                            value="<%= impressao.haec2%>"  
+                                            >
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input 
+                                        type="time" 
+                                        name="horarioHaec2" 
+                                        class="form-control" 
+                                        id="horarioHac2" 
+                                        placeholder="Horário HAEC-2"
+                                        value="<%= impressao.horarioHaec2%>"  
+                                        >
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label for="tipo"> Dia da semana HAEC-2 </label>                 
+                                            <select name = "diaSemanaHaec2"> 
+                                                <option value = "<%= impressao.diaSemanaHaec2%>"> <%= impressao.diaSemanaHaec2%></option>
+                                                <option value = "seg."> Segunda-Feira</option>
+                                                <option value = "ter."> Terça-Feira</option>
+                                                <option value = "qua."> Quarta-Feira</option>
+                                                <option value = "qui."> Quinta-Feira</option>
+                                                <option value = "sex."> Sexta-Feira</option>
+                                                <option value = "sáb."> Sábado</option>
+                                                >
+                                            </select> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <input 
+                                                type="text" 
+                                                name="haec3" 
+                                                class="form-control" 
+                                                id="haec3" 
+                                                placeholder="HAEC3"
+                                                value="<%= impressao.haec3%>"  
+                                                >
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input 
+                                            type="time" 
+                                            name="horarioHaec3" 
+                                            class="form-control" 
+                                            id="horarioHaec3" 
+                                            placeholder="Horário HAEC-3"
+                                            value="<%= impressao.horarioHaec3%>"  
+                                            >
+                                        </div>
+                                        <div class="col-md-6">
+                                        <label for="tipo"> Dia da semana HAEC-3 </label>                 
+                                                <select name = "diaSemanaHaec3"> 
+                                                    <option value = "<%= impressao.diaSemanaHaec3%>"> <%= impressao.diaSemanaHaec3%></option>
+                                                    <option value = "seg."> Segunda-Feira</option>
+                                                    <option value = "ter."> Terça-Feira</option>
+                                                    <option value = "qua."> Quarta-Feira</option>
+                                                    <option value = "qui."> Quinta-Feira</option>
+                                                    <option value = "sex."> Sexta-Feira</option>
+                                                    <option value = "sáb."> Sábado</option>
+                                                    >
+                                                </select> 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <input 
+                                                    type="text" 
+                                                    name="haec4" 
+                                                    class="form-control" 
+                                                    id="haec4" 
+                                                    placeholder="HAEC4"
+                                                    value="<%= impressao.haec4%>"  
+                                                    >
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input 
+                                                type="time" 
+                                                name="horarioHaec4" 
+                                                class="form-control" 
+                                                id="horarioHaec4" 
+                                                placeholder="Horário HAEC-4"
+                                                value="<%= impressao.horarioHaec4%>"  
+                                                >
+                                            </div>
+                                            <div class="col-md-6">
+                                            <label for="tipo"> Dia da semana HAEC-4 </label>                 
+                                                    <select name = "diaSemanaHaec4"> 
+                                                        <option value = "<%= impressao.diaSemanaHaec4%>"> <%= impressao.diaSemanaHaec4%></option>
+                                                        <option value = "seg."> Segunda-Feira</option>
+                                                        <option value = "ter."> Terça-Feira</option>
+                                                        <option value = "qua."> Quarta-Feira</option>
+                                                        <option value = "qui."> Quinta-Feira</option>
+                                                        <option value = "sex."> Sexta-Feira</option>
+                                                        <option value = "sáb."> Sábado</option>
+                                                        >
+                                                    </select> 
+                                                </div>
+                                            </div>             
+                
                 <!--Adiciona os formulários relacionados ao professor-->
                 <% if(qtdDisciplinas > 0){%>
                 <% for(formulario; formulario < qtdDisciplinas; formulario++)

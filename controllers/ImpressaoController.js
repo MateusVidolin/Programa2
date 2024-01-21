@@ -69,6 +69,8 @@ exports.renderGeraRegistro = (req, res, next) => {
     let nomeDisciplina = new Array(10);
     let nomeCursosAtribuidos = new Array(10);
     let ha = null;
+    let hae = null;
+    let haec = null;
     let periodoDisciplina = new Array(10);
     let idCursoDisciplinas = new Array(10);
     let verificaNomeCursoRepetido = null;
@@ -76,15 +78,18 @@ exports.renderGeraRegistro = (req, res, next) => {
     let dayOfWeek =new Array(31);
     let inicioManha =new Array(31).fill(null);
     let aulasManha =new Array(31);
-    let haeManha =new Array(31);
+    let haeManha =new Array(31).fill(null);
+    let haecManha =new Array(31).fill(null);
     let rubricaManha =new Array(31);
     let inicioTarde =new Array(31).fill(null);
     let aulasTarde =new Array(31);
-    let haeTarde =new Array(31);
+    let haeTarde =new Array(31).fill(null);
+    let haecTarde =new Array(31).fill(null);
     let rubricaTarde =new Array(31);
     let inicioNoite =new Array(31).fill(null);
     let aulasNoite =new Array(31);
-    let haeNoite =new Array(31);
+    let haeNoite =new Array(31).fill(null);
+    let haecNoite =new Array(31).fill(null);
     let rubricaNoite =new Array(31);
     let diasMes = new Array(31).fill('');
     let qtdDiasMes = 0;
@@ -93,6 +98,8 @@ exports.renderGeraRegistro = (req, res, next) => {
     let auxPosVazia = 0;
     const preposicoes = ['de', 'e', 'do', 'da', 'dos', 'das', 'com', 'para'];
     let palavrasSignificativas = null;
+    let verificaPeriodoHae = null;
+    let verificaPeriodoHaec = null;
     
   
 //Data para prencher tabela 
@@ -216,7 +223,8 @@ exports.renderGeraRegistro = (req, res, next) => {
             ha += impressao.aulasDisc1;
             ha += ha/2;
             totalAulas = (impressao.aulasDisc1+impressao.aulasDisc2+impressao.aulasDisc3+impressao.aulasDisc4+impressao.aulasDisc5+impressao.aulasDisc6+impressao.aulasDisc7+impressao.aulasDisc8+impressao.aulasDisc9+impressao.aulasDisc10)
-        
+            hae = impressao.hae1 + impressao.hae2 + impressao.hae3 + impressao.hae4;
+            haec = impressao.haec1 + impressao.haec2 + impressao.haec3 + impressao.haec4;
             Curso.findAll({
                 
             }).then(cursos =>{
@@ -267,213 +275,368 @@ exports.renderGeraRegistro = (req, res, next) => {
         
 
 // Função para preencher as colunas 
-    if (dayOfWeek[day] == impressao.diaSemanaDisc1 || dayOfWeek[day] == impressao.diaSemanaDisc2 || dayOfWeek[day] == impressao.diaSemanaDisc3 || dayOfWeek[day] == impressao.diaSemanaDisc4 || dayOfWeek[day] == impressao.diaSemanaDisc5 || dayOfWeek[day] == impressao.diaSemanaDisc6 || dayOfWeek[day] == impressao.diaSemanaDisc7 || dayOfWeek[day] == impressao.diaSemanaDisc8 || dayOfWeek[day] == impressao.diaSemanaDisc9 || dayOfWeek[day] == impressao.diaSemanaDisc10) {
+    if (dayOfWeek[day] == impressao.diaSemanaDisc1 || dayOfWeek[day] == impressao.diaSemanaDisc2 || dayOfWeek[day] == impressao.diaSemanaDisc3 || dayOfWeek[day] == impressao.diaSemanaDisc4 || dayOfWeek[day] == impressao.diaSemanaDisc5 || dayOfWeek[day] == impressao.diaSemanaDisc6 || dayOfWeek[day] == impressao.diaSemanaDisc7 || dayOfWeek[day] == impressao.diaSemanaDisc8 || dayOfWeek[day] == impressao.diaSemanaDisc9 || dayOfWeek[day] == impressao.diaSemanaDisc10 || dayOfWeek[day] == impressao.diaSemanaHae1 || dayOfWeek[day] == impressao.diaSemanaHae2 || dayOfWeek[day] == impressao.diaSemanaHae3 || dayOfWeek[day] == impressao.diaSemanaHae4 || dayOfWeek[day] == impressao.diaSemanaHaec1 || dayOfWeek[day] == impressao.diaSemanaHaec2 || dayOfWeek[day] == impressao.diaSemanaHaec3 || dayOfWeek[day] == impressao.diaSemanaHaec4) {
 
         if(periodoDisciplina[1]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc1){
                 horarioFormatado = HoraParaImpressao(impressao.horarioDisc1.split(':'));
                 inicioManha[day] = horarioFormatado;
                 aulasManha[day] = impressao.aulasDisc1;
-                haeManha[day] = impressao.hae;  
+                  
             }
-            else if(periodoDisciplina[2]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc2){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc2.split(':'));
-                inicioManha[day] = horarioFormatado;
-                aulasManha[day] = impressao.aulasDisc2;
-                haeManha[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[3]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc3){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc3.split(':'));
-                inicioManha[day] = horarioFormatado;
-                aulasManha[day] = impressao.aulasDisc3;
-                haeManha[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[4]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc4){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc4.split(':'));
-                inicioManha[day] = horarioFormatado;
-                aulasManha[day] = impressao.aulasDisc4;
-                haeManha[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[5]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc5){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc5.split(':'));
-                inicioManha[day] = horarioFormatado;
-                aulasManha[day] = impressao.aulasDisc5;
-                haeManha[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[6]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc6){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc6.split(':'));
-                inicioManha[day] = horarioFormatado;
-                aulasManha[day] = impressao.aulasDisc6;
-                haeManha[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[7]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc7){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc7.split(':'));
-                inicioManha[day] = horarioFormatado;
-                aulasManha[day] = impressao.aulasDisc7;
-                haeManha[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[8]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc8){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc8.split(':'));
-                inicioManha[day] = horarioFormatado;
-                aulasManha[day] = impressao.aulasDisc8;
-                haeManha[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[9]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc9){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc9.split(':'));
-                inicioManha[day] = horarioFormatado;
-                aulasManha[day] = impressao.aulasDisc9;
-                haeManha[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[10]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc10){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc10.split(':'));
-                inicioManha[day] = horarioFormatado;
-                aulasManha[day] = impressao.aulasDisc10;
-                haeManha[day] = impressao.hae;  
-            }
-            if(periodoDisciplina[1]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc1){
+                else if(periodoDisciplina[2]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc2){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioDisc2.split(':'));
+                    inicioManha[day] = horarioFormatado;
+                    aulasManha[day] = impressao.aulasDisc2;
+                    haeManha[day] = impressao.hae;  
+                }
+                    else if(periodoDisciplina[3]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc3){
+                        horarioFormatado = HoraParaImpressao(impressao.horarioDisc3.split(':'));
+                        inicioManha[day] = horarioFormatado;
+                        aulasManha[day] = impressao.aulasDisc3;
+                        haeManha[day] = impressao.hae;  
+                    }
+                        else if(periodoDisciplina[4]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc4){
+                            horarioFormatado = HoraParaImpressao(impressao.horarioDisc4.split(':'));
+                            inicioManha[day] = horarioFormatado;
+                            aulasManha[day] = impressao.aulasDisc4;
+                            haeManha[day] = impressao.hae;  
+                        }
+                            else if(periodoDisciplina[5]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc5){
+                                horarioFormatado = HoraParaImpressao(impressao.horarioDisc5.split(':'));
+                                inicioManha[day] = horarioFormatado;
+                                aulasManha[day] = impressao.aulasDisc5;
+                                haeManha[day] = impressao.hae;  
+                            }
+                                else if(periodoDisciplina[6]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc6){
+                                    horarioFormatado = HoraParaImpressao(impressao.horarioDisc6.split(':'));
+                                    inicioManha[day] = horarioFormatado;
+                                    aulasManha[day] = impressao.aulasDisc6;
+                                    haeManha[day] = impressao.hae;  
+                                }
+                                    else if(periodoDisciplina[7]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc7){
+                                        horarioFormatado = HoraParaImpressao(impressao.horarioDisc7.split(':'));
+                                        inicioManha[day] = horarioFormatado;
+                                        aulasManha[day] = impressao.aulasDisc7;
+                                        haeManha[day] = impressao.hae;  
+                                    }
+                                        else if(periodoDisciplina[8]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc8){
+                                            horarioFormatado = HoraParaImpressao(impressao.horarioDisc8.split(':'));
+                                            inicioManha[day] = horarioFormatado;
+                                            aulasManha[day] = impressao.aulasDisc8;
+                                            haeManha[day] = impressao.hae;  
+                                        }
+                                            else if(periodoDisciplina[9]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc9){
+                                                horarioFormatado = HoraParaImpressao(impressao.horarioDisc9.split(':'));
+                                                inicioManha[day] = horarioFormatado;
+                                                aulasManha[day] = impressao.aulasDisc9;
+                                                haeManha[day] = impressao.hae;  
+                                            }
+                                                else if(periodoDisciplina[10]== "Manhã" && dayOfWeek[day] == impressao.diaSemanaDisc10){
+                                                    horarioFormatado = HoraParaImpressao(impressao.horarioDisc10.split(':'));
+                                                    inicioManha[day] = horarioFormatado;
+                                                    aulasManha[day] = impressao.aulasDisc10;
+                                                    haeManha[day] = impressao.hae;  
+                                                }
+        if(periodoDisciplina[1]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc1){
                 horarioFormatado = HoraParaImpressao(impressao.horarioDisc1.split(':'));
                 inicioTarde[day] = horarioFormatado;
                 aulasTarde[day] = impressao.aulasDisc1;
                 haeTarde[day] = impressao.hae;  
             }
-            else if(periodoDisciplina[2]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc2){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc2.split(':'));
-                inicioTarde[day] = horarioFormatado;
-                aulasTarde[day] = impressao.aulasDisc2;
-                haeTarde[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[3]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc3){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc3.split(':'));
-                inicioTarde[day] = horarioFormatado;
-                aulasTarde[day] = impressao.aulasDisc3;
-                haeTarde[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[4]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc4){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc4.split(':'));
-                inicioTarde[day] = horarioFormatado;
-                aulasTarde[day] = impressao.aulasDisc4;
-                haeTarde[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[5]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc5){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc5.split(':'));
-                inicioTarde[day] = horarioFormatado;
-                aulasTarde[day] = impressao.aulasDisc5;
-                haeTarde[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[6]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc6){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc6.split(':'));
-                inicioTarde[day] = horarioFormatado;
-                aulasTarde[day] = impressao.aulasDisc6;
-                haeTarde[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[7]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc7){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc7.split(':'));
-                inicioTarde[day] = horarioFormatado;
-                aulasTarde[day] = impressao.aulasDisc7;
-                haeTarde[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[8]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc8){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc8.split(':'));
-                inicioTarde[day] = horarioFormatado;
-                aulasTarde[day] = impressao.aulasDisc8;
-                haeTarde[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[9]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc9){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc9.split(':'));
-                inicioTarde[day] = horarioFormatado;
-                aulasTarde[day] = impressao.aulasDisc9;
-                haeTarde[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[10]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc10){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc10.split(':'));
-                inicioTarde[day] = horarioFormatado;
-                aulasTarde[day] = impressao.aulasDisc10;
-                haeTarde[day] = impressao.hae;  
-            }
-            if(periodoDisciplina[1]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc1){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc1.split(':'));
-                inicioNoite[day] = horarioFormatado;
-                aulasNoite[day] = impressao.aulasDisc1;
-                haeNoite[day] = impressao.hae;  
-            }
+                else if(periodoDisciplina[2]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc2){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioDisc2.split(':'));
+                    inicioTarde[day] = horarioFormatado;
+                    aulasTarde[day] = impressao.aulasDisc2;
+                    haeTarde[day] = impressao.hae;  
+                }
+                    else if(periodoDisciplina[3]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc3){
+                        horarioFormatado = HoraParaImpressao(impressao.horarioDisc3.split(':'));
+                        inicioTarde[day] = horarioFormatado;
+                        aulasTarde[day] = impressao.aulasDisc3;
+                        haeTarde[day] = impressao.hae;  
+                    }
+                        else if(periodoDisciplina[4]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc4){
+                            horarioFormatado = HoraParaImpressao(impressao.horarioDisc4.split(':'));
+                            inicioTarde[day] = horarioFormatado;
+                            aulasTarde[day] = impressao.aulasDisc4;
+                            haeTarde[day] = impressao.hae;  
+                        }
+                            else if(periodoDisciplina[5]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc5){
+                                horarioFormatado = HoraParaImpressao(impressao.horarioDisc5.split(':'));
+                                inicioTarde[day] = horarioFormatado;
+                                aulasTarde[day] = impressao.aulasDisc5;
+                                haeTarde[day] = impressao.hae;  
+                            }
+                                else if(periodoDisciplina[6]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc6){
+                                    horarioFormatado = HoraParaImpressao(impressao.horarioDisc6.split(':'));
+                                    inicioTarde[day] = horarioFormatado;
+                                    aulasTarde[day] = impressao.aulasDisc6;
+                                    haeTarde[day] = impressao.hae;  
+                                }
+                                    else if(periodoDisciplina[7]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc7){
+                                        horarioFormatado = HoraParaImpressao(impressao.horarioDisc7.split(':'));
+                                        inicioTarde[day] = horarioFormatado;
+                                        aulasTarde[day] = impressao.aulasDisc7;
+                                        haeTarde[day] = impressao.hae;  
+                                    }
+                                        else if(periodoDisciplina[8]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc8){
+                                            horarioFormatado = HoraParaImpressao(impressao.horarioDisc8.split(':'));
+                                            inicioTarde[day] = horarioFormatado;
+                                            aulasTarde[day] = impressao.aulasDisc8;
+                                            haeTarde[day] = impressao.hae;  
+                                        }
+                                            else if(periodoDisciplina[9]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc9){
+                                                horarioFormatado = HoraParaImpressao(impressao.horarioDisc9.split(':'));
+                                                inicioTarde[day] = horarioFormatado;
+                                                aulasTarde[day] = impressao.aulasDisc9;
+                                                haeTarde[day] = impressao.hae;  
+                                            }
+                                                else if(periodoDisciplina[10]== "Tarde" && dayOfWeek[day] == impressao.diaSemanaDisc10){
+                                                    horarioFormatado = HoraParaImpressao(impressao.horarioDisc10.split(':'));
+                                                    inicioTarde[day] = horarioFormatado;
+                                                    aulasTarde[day] = impressao.aulasDisc10;
+                                                    haeTarde[day] = impressao.hae;  
+                                                }
+        if(periodoDisciplina[1]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc1){
+            horarioFormatado = HoraParaImpressao(impressao.horarioDisc1.split(':'));
+            inicioNoite[day] = horarioFormatado;
+            aulasNoite[day] = impressao.aulasDisc1;
+            haeNoite[day] = impressao.hae;  
+        }
             else if(periodoDisciplina[2]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc2){
                 horarioFormatado = HoraParaImpressao(impressao.horarioDisc2.split(':'));
                 inicioNoite[day] = horarioFormatado;
                 aulasNoite[day] = impressao.aulasDisc2;
                 haeNoite[day] = impressao.hae;  
             }
-            else if(periodoDisciplina[3]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc3){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc3.split(':'));
-                inicioNoite[day] = horarioFormatado;
-                aulasNoite[day] = impressao.aulasDisc3;
-                haeNoite[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[4]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc4){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc4.split(':'));
-                inicioNoite[day] = horarioFormatado;
-                aulasNoite[day] = impressao.aulasDisc4;
-                haeNoite[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[5]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc5){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc5.split(':'));
-                inicioNoite[day] = horarioFormatado;
-                aulasNoite[day] = impressao.aulasDisc5;
-                haeNoite[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[6]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc6){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc6.split(':'));
-                inicioNoite[day] = horarioFormatado;
-                aulasNoite[day] = impressao.aulasDisc6;
-                haeNoite[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[7]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc7){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc7.split(':'));
-                inicioNoite[day] = horarioFormatado;
-                aulasNoite[day] = impressao.aulasDisc7;
-                haeNoite[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[8]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc8){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc8.split(':'));
-                inicioNoite[day] = horarioFormatado;
-                aulasNoite[day] = impressao.aulasDisc8;
-                haeNoite[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[9]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc9){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc9.split(':'));
-                inicioNoite[day] = horarioFormatado;
-                aulasNoite[day] = impressao.aulasDisc9;
-                haeNoite[day] = impressao.hae;  
-            }
-            else if(periodoDisciplina[10]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc10){
-                horarioFormatado = HoraParaImpressao(impressao.horarioDisc10.split(':'));
-                inicioNoite[day] = horarioFormatado;
-                aulasNoite[day] = impressao.aulasDisc10;
-                haeNoite[day] = impressao.hae;  
-            }
+                else if(periodoDisciplina[3]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc3){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioDisc3.split(':'));
+                    inicioNoite[day] = horarioFormatado;
+                    aulasNoite[day] = impressao.aulasDisc3;
+                    haeNoite[day] = impressao.hae;  
+                }
+                    else if(periodoDisciplina[4]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc4){
+                        horarioFormatado = HoraParaImpressao(impressao.horarioDisc4.split(':'));
+                        inicioNoite[day] = horarioFormatado;
+                        aulasNoite[day] = impressao.aulasDisc4;
+                        haeNoite[day] = impressao.hae;  
+                    }
+                        else if(periodoDisciplina[5]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc5){
+                            horarioFormatado = HoraParaImpressao(impressao.horarioDisc5.split(':'));
+                            inicioNoite[day] = horarioFormatado;
+                            aulasNoite[day] = impressao.aulasDisc5;
+                            haeNoite[day] = impressao.hae;  
+                        }
+                            else if(periodoDisciplina[6]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc6){
+                                horarioFormatado = HoraParaImpressao(impressao.horarioDisc6.split(':'));
+                                inicioNoite[day] = horarioFormatado;
+                                aulasNoite[day] = impressao.aulasDisc6;
+                                haeNoite[day] = impressao.hae;  
+                            }
+                                else if(periodoDisciplina[7]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc7){
+                                    horarioFormatado = HoraParaImpressao(impressao.horarioDisc7.split(':'));
+                                    inicioNoite[day] = horarioFormatado;
+                                    aulasNoite[day] = impressao.aulasDisc7;
+                                    haeNoite[day] = impressao.hae;  
+                                }
+                                    else if(periodoDisciplina[8]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc8){
+                                        horarioFormatado = HoraParaImpressao(impressao.horarioDisc8.split(':'));
+                                        inicioNoite[day] = horarioFormatado;
+                                        aulasNoite[day] = impressao.aulasDisc8;
+                                        haeNoite[day] = impressao.hae;  
+                                    }
+                                        else if(periodoDisciplina[9]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc9){
+                                            horarioFormatado = HoraParaImpressao(impressao.horarioDisc9.split(':'));
+                                            inicioNoite[day] = horarioFormatado;
+                                            aulasNoite[day] = impressao.aulasDisc9;
+                                            haeNoite[day] = impressao.hae;  
+                                        }
+                                            else if(periodoDisciplina[10]== "Noite" && dayOfWeek[day] == impressao.diaSemanaDisc10){
+                                                horarioFormatado = HoraParaImpressao(impressao.horarioDisc10.split(':'));
+                                                inicioNoite[day] = horarioFormatado;
+                                                aulasNoite[day] = impressao.aulasDisc10;
+                                                haeNoite[day] = impressao.hae;  
+                                            }
             if (dayOfWeek[day] == 'dom.'){
                 rubricaManha[day] = "DOMINGO";
                 rubricaTarde[day] = "DOMINGO";
                 rubricaNoite[day] = "DOMINGO"; 
             }
-            else{
-                if(inicioManha[day] == null){
+            
+            //Preencher hae e haec
+
+          else  if(dayOfWeek[day] == impressao.diaSemanaHae1){
+                verificaPeriodoHae = impressao.horarioHae1.split(':');
+                verificaPeriodoHae = verificaPeriodoHae[0];
+                if(verificaPeriodoHae < 12){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae1.split(':'));
+                    inicioManha[day] = horarioFormatado;
+                    haeManha[day] = impressao.hae1;
+                }
+                else if(verificaPeriodoHae>=12 && verificaPeriodoHae<18){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae1.split(':'));
+                    inicioTarde[day] = horarioFormatado;
+                    haeTarde[day] = impressao.hae1;
+                }
+                else{
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae1.split(':'));
+                    inicioNoite[day] = horarioFormatado;
+                    haeNoite[day] = impressao.hae1;
+                }
+            }
+            else if(dayOfWeek[day] == impressao.diaSemanaHae2){
+                verificaPeriodoHae = impressao.horarioHae2.split(':');
+                verificaPeriodoHae = verificaPeriodoHae[0];
+                if(verificaPeriodoHae < 12){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae2.split(':'));
+                    inicioManha[day] = horarioFormatado;
+                    haeManha[day] = impressao.horarioHae2;
+                }
+                else if(verificaPeriodoHae>=12 && verificaPeriodoHae<18){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae2.split(':'));
+                    inicioTarde[day] = horarioFormatado;
+                    haeTarde[day] = impressao.hae2;
+                }
+                else{
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae2.split(':'));
+                    inicioNoite[day] = horarioFormatado;
+                    haeNoite[day] = impressao.hae2;
+                }
+            }
+            else if(dayOfWeek[day] == impressao.diaSemanaHae3){
+                verificaPeriodoHae = impressao.horarioHae3.split(':');
+                verificaPeriodoHae = verificaPeriodoHae[0];
+                if(verificaPeriodoHae < 12){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae3.split(':'));
+                    inicioManha[day] = horarioFormatado;
+                    haeManha[day] = impressao.horarioHae3;
+                }
+                else if(verificaPeriodoHae>=12 && verificaPeriodoHae<18){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae3.split(':'));
+                    inicioTarde[day] = horarioFormatado;
+                    haeTarde[day] = impressao.hae3;
+                }
+                else{
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae3.split(':'));
+                    inicioNoite[day] = horarioFormatado;
+                    haeNoite[day] = impressao.hae3;
+                }
+            }
+            else if(dayOfWeek[day] == impressao.diaSemanaHae4){
+                verificaPeriodoHae = impressao.horarioHae4.split(':');
+                verificaPeriodoHae = verificaPeriodoHae[0];
+                if(verificaPeriodoHae < 12){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae4.split(':'));
+                    inicioManha[day] = horarioFormatado;
+                    haeManha[day] = impressao.horarioHae2;
+                }
+                else if(verificaPeriodoHae>=12 && verificaPeriodoHae<18){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae4.split(':'));
+                    inicioTarde[day] = horarioFormatado;
+                    haeTarde[day] = impressao.hae4;
+                }
+                else{
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHae4.split(':'));
+                    inicioNoite[day] = horarioFormatado;
+                    haeNoite[day] = impressao.hae4;
+                }
+            }
+            if(dayOfWeek[day] == impressao.diaSemanaHaec1){
+                verificaPeriodoHaec = impressao.horarioHaec1.split(':');
+                verificaPeriodoHaec = verificaPeriodoHaec[0];
+                if(verificaPeriodoHaec < 12){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec1.split(':'));
+                    inicioManha[day] = horarioFormatado;
+                    haecManha[day] = impressao.haec1;
+                }
+                else if(verificaPeriodoHaec>=12 && verificaPeriodoHaec<18){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec1.split(':'));
+                    inicioTarde[day] = horarioFormatado;
+                    haecTarde[day] = impressao.haec1;
+                }
+                else{
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec1.split(':'));
+                    inicioNoite[day] = horarioFormatado;
+                    haecNoite[day] = impressao.haec1;
+                }
+            }
+            else if(dayOfWeek[day] == impressao.diaSemanaHaec2){
+                verificaPeriodoHaec = impressao.horarioHaec2.split(':');
+                verificaPeriodoHaec = verificaPeriodoHaec[0];
+                if(verificaPeriodoHaec < 12){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec2.split(':'));
+                    inicioManha[day] = horarioFormatado;
+                    haecManha[day] = impressao.haec2;
+                }
+                else if(verificaPeriodoHaec>=12 && verificaPeriodoHaec<18){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec2.split(':'));
+                    inicioTarde[day] = horarioFormatado;
+                    haecTarde[day] = impressao.haec2;
+                }
+                else{
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec2.split(':'));
+                    inicioNoite[day] = horarioFormatado;
+                    haecNoite[day] = impressao.haec2;
+                }
+            }
+            else if(dayOfWeek[day] == impressao.diaSemanaHaec3){
+                verificaPeriodoHaec = impressao.horarioHaec3.split(':');
+                verificaPeriodoHaec = verificaPeriodoHaec[0];
+                if(verificaPeriodoHaec < 12){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec3.split(':'));
+                    inicioManha[day] = horarioFormatado;
+                    haecManha[day] = impressao.haec3;
+                }
+                else if(verificaPeriodoHaec>=12 && verificaPeriodoHaec<18){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec3.split(':'));
+                    inicioTarde[day] = horarioFormatado;
+                    haecTarde[day] = impressao.haec3;
+                }
+                else{
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec3.split(':'));
+                    inicioNoite[day] = horarioFormatado;
+                    haecNoite[day] = impressao.haec3;
+                }
+            }
+            else if(dayOfWeek[day] == impressao.diaSemanaHaec4){
+                verificaPeriodoHaec = impressao.horarioHaec4.split(':');
+                verificaPeriodoHaec = verificaPeriodoHaec[0];
+                if(verificaPeriodoHaec < 12){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec4.split(':'));
+                    inicioManha[day] = horarioFormatado;
+                    haecManha[day] = impressao.haec4;
+                }
+                else if(verificaPeriodoHaec>=12 && verificaPeriodoHaec<18){
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec4.split(':'));
+                    inicioTarde[day] = horarioFormatado;
+                    haecTarde[day] = impressao.haec4;
+                }
+                else{
+                    horarioFormatado = HoraParaImpressao(impressao.horarioHaec4.split(':'));
+                    inicioNoite[day] = horarioFormatado;
+                    haecNoite[day] = impressao.haec4;
+                }
+            }
+            
+                if(inicioManha[day] == null && haeManha[day] == null && haecManha[day] == null ){
                     rubricaManha[day] = " - ";
                 }
                 else{
                     rubricaManha[day] = " ";
                 } 
-                if(inicioTarde[day] == null){
+                if(inicioTarde[day] == null && haeTarde[day] == null && haecTarde[day] == null){
                     rubricaTarde[day] = " - ";
                 }
                 else{
                     rubricaTarde[day] = " ";
                 }
-                if(inicioNoite[day] == null){
+                if(inicioNoite[day] == null && haeNoite[day] == null && haecNoite[day] == null){
                     rubricaNoite[day] = " - ";
                 }
                 else{
                     rubricaNoite[day] = " ";
                 }  
-            }
+            
         }
     else{
         inicioManha[day] = null;
@@ -496,6 +659,8 @@ exports.renderGeraRegistro = (req, res, next) => {
         aulasNoite[day] = null;
         haeNoite[day] = null;
     }
+    
+    //Preencher feriado
     if(day<10){data = (mes + '-' + 0 +day); }
         else {data = (mes + '-' +day);}
             feriados.forEach(feriado=>{
@@ -508,7 +673,7 @@ exports.renderGeraRegistro = (req, res, next) => {
         })
 
     }       
-            res.render('impressao/pagina', {impressao: impressao, nomeDisciplina, totalAulas, nomeCursosAtribuidos, ha, mesSelecionado, dayOfWeek, inicioManha, aulasManha, haeManha, rubricaManha, inicioTarde, aulasTarde, haeTarde, rubricaTarde, inicioNoite, aulasNoite, haeNoite, rubricaNoite, diasMes, qtdDiasMes, ano});
+            res.render('impressao/pagina', {impressao: impressao, nomeDisciplina, totalAulas, nomeCursosAtribuidos, ha, hae, haec, mesSelecionado, dayOfWeek, inicioManha, aulasManha, haeManha, haecManha, rubricaManha, inicioTarde, aulasTarde, haeTarde, haecTarde, rubricaTarde, inicioNoite, aulasNoite, haeNoite, haecNoite, rubricaNoite, diasMes, qtdDiasMes, ano});
         });
     });
     });
@@ -590,15 +755,78 @@ exports.create = (req, res, next) => {
     const horarioDisciplina10 = req.body.horarioDisc10;
     const diaSemanaDisciplina10 = req.body.diaSemanaDisc10;
     const aulasDisciplina10 = req.body.aulasDisc10;
-    const hae = req.body.hae;
-    const haec = req.body.haec;
+    let hae1 = req.body.hae1;
+    let hae2 = req.body.hae2;
+    let hae3 = req.body.hae3;
+    let hae4 = req.body.hae4;
+    let horarioHae1 = req.body.horarioHae1;
+    let horarioHae2 = req.body.horarioHae2;
+    let horarioHae3 = req.body.horarioHae3;
+    let horarioHae4 = req.body.horarioHae4;
+    let diaSemanaHae1 = req.body.diaSemanaHae1;
+    let diaSemanaHae2 = req.body.diaSemanaHae2;
+    let diaSemanaHae3 = req.body.diaSemanaHae3;
+    let diaSemanaHae4 = req.body.diaSemanaHae4;
+    let haec1 = req.body.haec1;
+    let haec2 = req.body.haec2;
+    let haec3 = req.body.haec3;
+    let haec4 = req.body.haec4;
+    let horarioHaec1 = req.body.horarioHaec1;
+    let horarioHaec2 = req.body.horarioHaec2;
+    let horarioHaec3 = req.body.horarioHaec3;
+    let horarioHaec4 = req.body.horarioHaec4;
+    let diaSemanaHaec1 = req.body.diaSemanaHaec1;
+    let diaSemanaHaec2 = req.body.diaSemanaHaec2;
+    let diaSemanaHaec3 = req.body.diaSemanaHaec3;
+    let diaSemanaHaec4 = req.body.diaSemanaHaec4;
     const anoImpressao = new Date();
     let msgOK = '1';
     let msgNOK = '0';
     let msgHorarioInvalido = '1';
     let horarioOk = false;
     let verificaHorarioDisciplina = 0; //Verifica se o horário da disciplina está dentro do período correto 
-    console.log(horarioDisciplina2);
+    
+    if(hae1 == ''){
+        hae1 = null;
+        horarioHae1 = null;
+        diaSemanaHae1 = null;
+    }
+    if(hae2 == ''){
+        hae2 = null;
+        horarioHae2 = null;
+        diaSemanaHae2 = null;
+    }
+    if(hae3 == ''){
+        hae3 = null;
+        horarioHae3 = null;
+        diaSemanaHae3 = null;
+    }
+    if(hae4 == ''){
+        hae4 = null;
+        horarioHae4 = null;
+        diaSemanaHae4 = null;
+    }
+    if(haec1 == ''){
+        haec1 = null;
+        horarioHaec1 = null;
+        diaSemanaHaec1 = null;
+    }
+    if(haec2 == ''){
+        haec2 = null;
+        horarioHaec2 = null;
+        diaSemanaHaec2 = null;
+    }
+    if(haec3 == ''){
+        haec3 = null;
+        horarioHaec3 = null;
+        diaSemanaHaec3 = null;
+    }
+    if(haec4 == ''){
+        haec4 = null;
+        horarioHaec4 = null;
+        diaSemanaHaec4 = null;
+    }
+
 
     Disciplina.findOne({
         where:{
@@ -626,7 +854,7 @@ exports.create = (req, res, next) => {
             professorId : professorId
         }
     }).then(impressao => {
-        console.log(!horarioOk);
+ 
         if(impressao == undefined)//if(impressao == undefined && (horarioOk)) se for checar horário
         {
             Impressao.create({
@@ -672,8 +900,30 @@ exports.create = (req, res, next) => {
                 horarioDisc10: horarioDisciplina10,
                 diaSemanaDisc10: diaSemanaDisciplina10,
                 aulasDisc10: aulasDisciplina10,
-                hae: hae,
-                haec: haec,
+                hae1: hae1,
+                hae2: hae2,
+                hae3: hae3,
+                hae4: hae4,
+                horarioHae1: horarioHae1,
+                horarioHae2: horarioHae2,
+                horarioHae3: horarioHae3,
+                horarioHae4: horarioHae4,
+                diaSemanaHae1: diaSemanaHae1,
+                diaSemanaHae2: diaSemanaHae2,
+                diaSemanaHae3: diaSemanaHae3,
+                diaSemanaHae4: diaSemanaHae4,
+                haec1: haec1,
+                haec2: haec2,
+                haec3: haec3,
+                haec4: haec4,
+                horarioHaec1: horarioHaec1,
+                horarioHaec2: horarioHaec2,
+                horarioHaec3: horarioHaec3,
+                horarioHaec4: horarioHaec4,
+                diaSemanaHaec1: diaSemanaHaec1,
+                diaSemanaHaec2: diaSemanaHaec2,
+                diaSemanaHaec3: diaSemanaHaec3,
+                diaSemanaHaec4: diaSemanaHaec4,
                 anoImpressao: anoImpressao,
                 
             }).then(() => {
@@ -808,11 +1058,74 @@ exports.update = (req, res, next) => {
     const horarioDisciplina10 = req.body.horarioDisc10;
     const diaSemanaDisciplina10 = req.body.diaSemanaDisc10;
     const aulasDisciplina10 = req.body.aulasDisc10;
-    const hae = req.body.hae;
-    const haec = req.body.haec;
+    let hae1 = req.body.hae1;
+    let hae2 = req.body.hae2;
+    let hae3 = req.body.hae3;
+    let hae4 = req.body.hae4;
+    let horarioHae1 = req.body.horarioHae1;
+    let horarioHae2 = req.body.horarioHae2;
+    let horarioHae3 = req.body.horarioHae3;
+    let horarioHae4 = req.body.horarioHae4;
+    let diaSemanaHae1 = req.body.diaSemanaHae1;
+    let diaSemanaHae2 = req.body.diaSemanaHae2;
+    let diaSemanaHae3 = req.body.diaSemanaHae3;
+    let diaSemanaHae4 = req.body.diaSemanaHae4;
+    let haec1 = req.body.haec1;
+    let haec2 = req.body.haec2;
+    let haec3 = req.body.haec3;
+    let haec4 = req.body.haec4;
+    let horarioHaec1 = req.body.horarioHaec1;
+    let horarioHaec2 = req.body.horarioHaec2;
+    let horarioHaec3 = req.body.horarioHaec3;
+    let horarioHaec4 = req.body.horarioHaec4;
+    let diaSemanaHaec1 = req.body.diaSemanaHaec1;
+    let diaSemanaHaec2 = req.body.diaSemanaHaec2;
+    let diaSemanaHaec3 = req.body.diaSemanaHaec3;
+    let diaSemanaHaec4 = req.body.diaSemanaHaec4;
     const anoImpressao = new Date();
     let msgOK = '1';
     let msgNOK = '0';
+
+    if(hae1 == ''){
+        hae1 = null;
+        horarioHae1 = null;
+        diaSemanaHae1 = null;
+    }
+    if(hae2 == ''){
+        hae2 = null;
+        horarioHae2 = null;
+        diaSemanaHae2 = null;
+    }
+    if(hae3 == ''){
+        hae3 = null;
+        horarioHae3 = null;
+        diaSemanaHae3 = null;
+    }
+    if(hae4 == ''){
+        hae4 = null;
+        horarioHae4 = null;
+        diaSemanaHae4 = null;
+    }
+    if(haec1 == ''){
+        haec1 = null;
+        horarioHaec1 = null;
+        diaSemanaHaec1 = null;
+    }
+    if(haec2 == ''){
+        haec2 = null;
+        horarioHaec2 = null;
+        diaSemanaHaec2 = null;
+    }
+    if(haec3 == ''){
+        haec3 = null;
+        horarioHaec3 = null;
+        diaSemanaHaec3 = null;
+    }
+    if(haec4 == ''){
+        haec4 = null;
+        horarioHaec4 = null;
+        diaSemanaHaec4 = null;
+    }
 
     Impressao.update({
         disciplinaId: disciplinaId,
@@ -856,8 +1169,30 @@ exports.update = (req, res, next) => {
         horarioDisc10: horarioDisciplina10,
         diaSemanaDisc10: diaSemanaDisciplina10,
         aulasDisc10: aulasDisciplina10,
-        hae: hae,
-        haec: haec,
+        hae1: hae1,
+        hae2: hae2,
+        hae3: hae3,
+        hae4: hae4,
+        horarioHae1: horarioHae1,
+        horarioHae2: horarioHae2,
+        horarioHae3: horarioHae3,
+        horarioHae4: horarioHae4,
+        diaSemanaHae1: diaSemanaHae1,
+        diaSemanaHae2: diaSemanaHae2,
+        diaSemanaHae3: diaSemanaHae3,
+        diaSemanaHae4: diaSemanaHae4,
+        haec1: haec1,
+        haec2: haec2,
+        haec3: haec3,
+        haec4: haec4,
+        horarioHaec1: horarioHaec1,
+        horarioHaec2: horarioHaec2,
+        horarioHaec3: horarioHaec3,
+        horarioHaec4: horarioHaec4,
+        diaSecmanaHaec1: diaSemanaHaec1,
+        diaSecmanaHaec2: diaSemanaHaec2,
+        diaSecmanaHaec3: diaSemanaHaec3,
+        diaSecmanaHaec4: diaSemanaHaec4,
         anoImpressao: anoImpressao,
     },
     {

@@ -29,10 +29,10 @@
                 <strong>H.A:</strong> <%= ha%><span id="ha"></span>
             </div>
             <div class="col">
-                <strong>H.A.E:</strong> <%= impressao.hae%><span id="hae"></span>
+                <strong>H.A.E:</strong> <%= hae%><span id="hae"></span>
             </div>
             <div class="col">
-                <strong>H.A.E.A:</strong><span id="haeaa"></span>
+                <strong>H.A.E.C:</strong> <%= haec%><span id="haec"></span>
             </div>
             <div class="col">
                 <strong>Jornada:</strong><span id="jornada"></span>
@@ -46,21 +46,21 @@
                     <th colspan="4" class="col-sm text-center">Manhã</th>
                     <th colspan="4" class="col-sm text-center">Tarde</th>
                     <th colspan="4" class="col-sm text-center">Noite</th>
-                    <th rowspan="4" class="col-sm-2 text-center">Observações</th>
+                    <th rowspan="3" class="col-sm text-center">Observações</th>
                 </tr>
                 <tr>
                     <th class="col-sm col2">Início</th>
                     <th class="col-sm col2">Aulas</th>
-                    <th class="col-sm col2">H.A.E</th>
-                    <th class="col-sm-2 text-center col3">Rubrica</th>
+                    <th class="col-sm col2">HAE/C</th>
+                    <th class="col-sm text-center col2">Rubrica</th>
                     <th class="col-sm col2">Início</th>
                     <th class="col-sm col2">Aulas</th>
-                    <th class="col-sm col2">H.A.E</th>
-                    <th class="col-sm-2 text-center col3">Rubrica</th>
+                    <th class="col-sm col2">HAE/C</th>
+                    <th class="col-sm text-center col2">Rubrica</th>
                     <th class="col-sm col2">Início</th>
                     <th class="col-sm col2">Aulas</th>
-                    <th class="col-sm col2">H.A.E</th>
-                    <th class="col-sm-2 text-center col3">Rubrica</th>
+                    <th class="col-sm col2">HAE/C</th>
+                    <th class="col-sm text-center col2">Rubrica</th>
                 </tr>
             </thead>
             <tbody id="table-body" class="small">
@@ -70,15 +70,15 @@
                 <td> <%= day%>-<%= dayOfWeek[day] %> </td>
                 <td >  <%= inicioManha[day]%> </td> 
                <td > <%= aulasManha[day]%> </td> 
-               <td > <%= haeManha[day]%> </td> 
+               <td > <%= haeManha[day]%> <%= haecManha[day]%></td> 
                <td class="col-sm-2 text-center"> <%= rubricaManha[day]%> </td>
                <td >  <%= inicioTarde[day]%> </td> 
                <td > <%= aulasTarde[day]%> </td> 
-               <td > <%= haeTarde[day]%> </td> 
+               <td > <%= haeTarde[day]%> <%= haecTarde[day]%></td> 
                <td class="col-sm-2 text-center"> <%= rubricaTarde[day]%> </td>
                <td >  <%= inicioNoite[day]%> </td> 
                <td > <%= aulasNoite[day]%> </td> 
-               <td > <%= haeNoite[day]%> </td> 
+               <td > <%= haeNoite[day]%> <%= haecNoite[day]%></td> 
                <td class="col-sm-2 text-center"> <%= rubricaNoite[day]%> </td>
                <td contenteditable='true'></td>
                </tr>
