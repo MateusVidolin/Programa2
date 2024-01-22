@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "dev": "nodemon src/server.ts",
+    "vercel-build": "npx model deploy"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
