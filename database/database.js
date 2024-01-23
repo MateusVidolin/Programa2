@@ -2,10 +2,10 @@ const Sequelize = require('sequelize');
 
 const connection = new Sequelize(
     'usuario',
-    'root',
-    '1234',
+    'admin',
+    '1234Mateus',
     {
-        host: 'localhost',
+        host: 'banco-de-dados-do-sistema-sgrp.clas2kasu747.us-east-2.rds.amazonaws.com',
         dialect: 'mysql',
         timezone: '-03:00'
     }
