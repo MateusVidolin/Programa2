@@ -21,7 +21,9 @@ exports.getAll= (req, res, next) => {
 }
 
 exports.renderNovo = (req, res, next) => {
-    res.render('feriado/novo');
+    const msgNOKCreateFeriado = req.query.msgNOKCreateFeriado;
+
+    res.render('feriado/novo', {msgNOKCreateFeriado});
 }
 
 
@@ -30,14 +32,14 @@ exports.create = (req, res, next) => {
     const tipo = req.body.tipo;
     const dataFeriado = DataParaBancoFeriado(req.body.dataFeriado);
     let msgOK = '1';
-    let msgNOK = '0'; 
+    let msgNOKCreateFeriado = '1'; 
 
     Feriado.findOne({
         where: {
             nomeFeriado : nomeFeriado
         }
     }).then(feriado => {
-        if((feriado == undefined) && (tipo!= "Null"))
+        if((feriado == undefined) && (tipo!= undefined))
         {
             Feriado.create({
                 nomeFeriado: nomeFeriado,
@@ -49,7 +51,7 @@ exports.create = (req, res, next) => {
         }
         else
         {
-            res.redirect('/feriados/?msgNOK=' + msgNOK);
+            res.redirect('/feriados/novo/?msgNOKCreateFeriado=' + msgNOKCreateFeriado);
         }
     });
 }

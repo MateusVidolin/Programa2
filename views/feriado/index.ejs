@@ -32,7 +32,19 @@
                         <tr>
                             <td><%= feriado.nomeFeriado %></td>
                             <td><%= feriado.tipo %></td>
-                            <td><%= feriado.dataFeriado %></td>
+                            <td>
+                                <script>
+                                    // Função para formatar a data no formato local
+                                    function formatarData(dataString) {
+                                        const dataBanco = new Date(dataString);
+                                        const opcoesDeFormatacao = {year: 'numeric', month: 'numeric', day: 'numeric',};
+                                        const dataFormatada = dataBanco.toLocaleDateString('pt-BR', opcoesDeFormatacao);
+                                        document.write(dataFormatada);
+                                    }
+                                    // Chamar a função com a string de data do banco de dados
+                                    formatarData('<%= feriado.dataFeriado %>');
+                                </script>
+                            </td>
                             <td>
                                 <a href="/feriados/<%= feriado.id %>" class="btn btn-primary">Editar</a>
                                 <a href="/feriados/delete/<%= feriado.id %>" class="btn btn-danger">Excluir</a>

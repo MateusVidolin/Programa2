@@ -3,13 +3,18 @@
 
 <br>
 <div class="container">
+        <% if(msgNOKCreateDisciplina == '1') {%>
+            <div class="alert alert-danger">
+                <strong>:( Preencher todos os campos!</strong>             
+            </div>
+        <% } %>
     <div class="card">
         <div class="card-header">
             Novo Disciplina
         </div>
         <div id="alerta"></div>
         <div class="card-body">
-            <form method="post" action="/disciplinas">
+            <form method="post" action="/disciplinas">    
         <div class="form-floating mb-3">
             <input 
                 type="text" 
@@ -32,6 +37,7 @@
         </div>
         <div class="form-floating mb-3">
             <select class="form-control" name="cursoId" id="cursoId">
+                <option value="" disabled selected>Selecione o curso</option>
                 <% cursos.forEach(curso => { %>
                     <option value="<%= curso.id %>">Nome do Curso: <%= curso.nomeCurso %> Código: <%= curso.codigoCurso %> </option>
                 <%})%>
@@ -41,7 +47,7 @@
         <label for="semestre">Semestre da Disciplina</label>
         <div class="form-floating mb-3">
             <select name = "semestre"> 
-                <option value = "Null"> Selecione uma opção</option>
+                <option value="null" disabled selected>Selecione o semestre</option>
                 <option value = "primeiro"> Primeiro</option>
                 <option value = "segundo"> Segundo</option>
                 required>
@@ -50,7 +56,7 @@
         <label for="periodo">Período do Disciplina</label>
         <div class="form-floating mb-3">
             <select name = "periodo"> 
-                <option value = "Null"> Selecione uma opção</option>
+                <option value="null" disabled selected>Selecione o período</option>
                 <option value = "Manhã"> Manhã</option>
                 <option value = "Tarde"> Tarde</option>
                 <option value = "Noite"> Noite</option>

@@ -20,7 +20,9 @@ exports.getAll= (req, res, next) => {
 }
 
 exports.renderNovo = (req, res, next) => {
-    res.render('curso/novo');
+    const msgNOKCreateCurso = req.query.msgNOKCreateCurso;
+
+    res.render('curso/novo', {msgNOKCreateCurso});
 }
 
 
@@ -29,14 +31,14 @@ exports.create = (req, res, next) => {
     const nomeCurso = req.body.nomeCurso;
     const periodo = req.body.periodo;
     let msgOK = '1';
-    let msgNOK = '0';
+    let msgNOKCreateCurso = '1';
 
     Curso.findOne({
         where: {
             codigoCurso : codigoCurso
         }
     }).then(curso => {
-        if((curso == undefined) && (periodo!= "Null"))
+        if((curso == undefined) && (periodo!= undefined))
         {
             Curso.create({
                 codigoCurso: codigoCurso,
@@ -48,7 +50,7 @@ exports.create = (req, res, next) => {
         }
         else
         {
-            res.redirect('/cursos/?msgNOK=' + msgNOK);
+            res.redirect('/cursos/novo/?msgNOKCreateCurso=' + msgNOKCreateCurso);
         }
     });
 }

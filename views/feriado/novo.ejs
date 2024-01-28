@@ -3,6 +3,11 @@
 
 <br>   
 <div class="container">
+    <% if(msgNOKCreateFeriado == '1') {%>
+        <div class="alert alert-danger">
+            <strong>:( Selecionar o tipo de feriado!</strong>             
+        </div>
+    <% } %>
     <div class="card">
         <div class="card-header">
             Novo Feriado
@@ -33,7 +38,7 @@
                 <label for="tipo">Tipo do Feriado</label>
                     <div class="form-floating mb-3">
                         <select name = "tipo"> 
-                            <option value = "Null"> Selecione uma opção</option>
+                            <option value="" disabled selected>Selecione uma opção</option>
                             <option value = "Nacional"> Nacional</option>
                             <option value = "Estadual"> Estadual</option>
                             <option value = "Municipal"> Municipal</option>

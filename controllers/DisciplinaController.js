@@ -21,6 +21,8 @@ exports.getAll= (req, res, next) => {
 }
 
 exports.renderNovo = (req, res, next) => {
+    const msgNOKCreateDisciplina = req.query.msgNOKCreateDisciplina;
+    
     Curso.findAll({
         order: [
             ['nomeCurso', 'ASC']
@@ -31,7 +33,7 @@ exports.renderNovo = (req, res, next) => {
             'codigoCurso'
         ]
     }).then(cursos =>{
-    res.render('disciplina/novo', {cursos: cursos});
+    res.render('disciplina/novo', {cursos: cursos, msgNOKCreateDisciplina});
     });
 }
 
@@ -43,14 +45,14 @@ exports.create = (req, res, next) => {
     const periodo = req.body.periodo;
     const cursoId = req.body.cursoId;
     let msgOK = '1';
-    let msgNOK = '0'; 
+    let msgNOKCreateDisciplina = '1'; 
 
     Disciplina.findOne({
         where: {
             codigoDisciplina : codigoDisciplina
         }
     }).then(disciplina => {
-        if((disciplina == undefined) && (periodo!= "Null"))
+        if((disciplina == undefined) && (periodo!= undefined) && (semestre!= undefined) && (nomeDisciplina!= undefined))
         {
             Disciplina.create({
                 codigoDisciplina: codigoDisciplina,
@@ -64,7 +66,7 @@ exports.create = (req, res, next) => {
         }
         else
         {
-            res.redirect('/disciplinas/?msgNOK=' + msgNOK);
+            res.redirect('/disciplinas/novo/?msgNOKCreateDisciplina=' + msgNOKCreateDisciplina);
         }
     });
 }

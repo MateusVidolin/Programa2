@@ -43,7 +43,19 @@
                                 <% } %>          
                                 <% }) %>
                             </td>
-                            <td><%= impressao.anoImpressao %></td>
+                            <td>
+                                <script>
+                                    // Função para formatar a data no formato local
+                                    function formatarData(dataString) {
+                                        const dataBanco = new Date(dataString);
+                                        const opcoesDeFormatacao = {year: 'numeric', month: 'numeric', day: 'numeric',};
+                                        const dataFormatada = dataBanco.toLocaleDateString('pt-BR', opcoesDeFormatacao);
+                                        document.write(dataFormatada);
+                                    }
+                                    // Chamar a função com a string de data do banco de dados
+                                    formatarData('<%= impressao.anoImpressao %>');
+                                </script>
+                                </td>
                             <td>
                                 <a href="/impressaos/<%= impressao.id %>" class="btn btn-primary">Editar</a>
                                 <a href="/impressaos/delete/<%= impressao.id %>" class="btn btn-danger">Excluir</a>

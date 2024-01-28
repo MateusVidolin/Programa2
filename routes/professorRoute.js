@@ -5,7 +5,6 @@ const ProfessorController = require('../controllers/ProfessorController');
 const checkLogin = require('../middleware/checkLogin');
  
 router.get('/', checkLogin, ProfessorController.getAll);
-//router.get('/', checkLogin, ProfessorController.renderIndex);
 router.get('/novo', checkLogin, ProfessorController.renderNovo);
 router.post('/', checkLogin, ProfessorController.create);
 //router.get('/busca', checkLogin, ProfessorController.renderBusca);

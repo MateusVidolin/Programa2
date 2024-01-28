@@ -32,7 +32,19 @@
                             <td><%= professor.numeroRegistro %></td>
                             <td><%= professor.area %></td>
                             <td><%= professor.categoria %></td>
-                            <td><%= professor.ano %></td>
+                            <td>
+                            <script>
+                                // Função para formatar a data no formato local
+                                function formatarData(dataString) {
+                                    const dataBanco = new Date(dataString);
+                                    const opcoesDeFormatacao = {year: 'numeric', month: 'numeric', day: 'numeric',};
+                                    const dataFormatada = dataBanco.toLocaleDateString('pt-BR', opcoesDeFormatacao);
+                                    document.write(dataFormatada);
+                                }
+                                // Chamar a função com a string de data do banco de dados
+                                formatarData('<%= professor.ano %>');
+                            </script>
+                            </td>
                             <td><%= professor.status %></td>
                             <td>
                                 <a href="/professors/<%= professor.id %>" class="btn btn-primary">Editar</a> 

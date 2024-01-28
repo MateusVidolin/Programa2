@@ -31,9 +31,10 @@ module.exports = {
         const mes = dt.substr(5, 2);
         const dia = dt.substr(8, 2);
 
-        const data = new Date(mes + "/" + dia + "/" + ano);
+        const data = new Date(ano + "/" + mes + "/" + dia);
+        const dataFormatadaParaLocal = data.toLocaleDateString();
 
-        return data;
+        return dataFormatadaParaLocal;
     },
 
     HoraParaImpressao: function(horario)

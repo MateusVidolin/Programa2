@@ -3,6 +3,11 @@
 
 <br>
 <div class="container">
+    <% if(msgNOKCreateCurso == '1') {%>
+        <div class="alert alert-danger">
+            <strong>:( Selecionar o período do curso!</strong>             
+        </div>
+    <% } %>
     <div class="card">
         <div class="card-header">
             Novo Curso
@@ -33,7 +38,7 @@
         <label for="periodo">Período do curso</label>
         <div class="form-floating mb-3">
             <select name = "periodo"> 
-                <option value = "Null"> Selecione uma opção</option>
+                <option value="" disabled selected>Selecione o período</option>
                 <option value = "Manhã"> Manhã</option>
                 <option value = "Tarde"> Tarde</option>
                 <option value = "Noite"> Noite</option>
