@@ -62,6 +62,7 @@ exports.renderSelecionaMes = (req, res, next) => {
 
 
 
+
 exports.renderGeraRegistro = (req, res, next) => {
     const id = req.params.id;
     const mesSelecionado = req.body.mes;
@@ -490,7 +491,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 if(verificaPeriodoHae < 12){
                     horarioFormatado = HoraParaImpressao(impressao.horarioHae2.split(':'));
                     inicioManha[day] = horarioFormatado;
-                    haeManha[day] = impressao.horarioHae2;
+                    haeManha[day] = impressao.hae2;
                 }
                 else if(verificaPeriodoHae>=12 && verificaPeriodoHae<18){
                     horarioFormatado = HoraParaImpressao(impressao.horarioHae2.split(':'));
@@ -509,7 +510,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 if(verificaPeriodoHae < 12){
                     horarioFormatado = HoraParaImpressao(impressao.horarioHae3.split(':'));
                     inicioManha[day] = horarioFormatado;
-                    haeManha[day] = impressao.horarioHae3;
+                    haeManha[day] = impressao.hae3;
                 }
                 else if(verificaPeriodoHae>=12 && verificaPeriodoHae<18){
                     horarioFormatado = HoraParaImpressao(impressao.horarioHae3.split(':'));
@@ -528,7 +529,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 if(verificaPeriodoHae < 12){
                     horarioFormatado = HoraParaImpressao(impressao.horarioHae4.split(':'));
                     inicioManha[day] = horarioFormatado;
-                    haeManha[day] = impressao.horarioHae2;
+                    haeManha[day] = impressao.hae4;
                 }
                 else if(verificaPeriodoHae>=12 && verificaPeriodoHae<18){
                     horarioFormatado = HoraParaImpressao(impressao.horarioHae4.split(':'));
@@ -681,6 +682,7 @@ exports.renderGeraRegistro = (req, res, next) => {
 
 
 }
+
 
 
 exports.renderNovo = (req, res, next) => {

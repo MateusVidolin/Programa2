@@ -36,6 +36,8 @@ connection.authenticate()
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
+
 // Models
 const Usuario = require('./models/usuario');
 const Professor = require('./models/professor');
