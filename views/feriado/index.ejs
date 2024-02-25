@@ -36,9 +36,19 @@
                                 <script>
                                     // Função para formatar a data no formato local
                                     function formatarData(dataString) {
-                                        const dataBanco = new Date(dataString);
-                                        const opcoesDeFormatacao = {year: 'numeric', month: 'numeric', day: 'numeric',};
+                                         // Dividir a string de data em ano, mês e dia
+                                        const partes = dataString.split('-');
+                                                                        
+                                        // Criar um objeto Date com base nas partes da data
+                                        const dataBanco = new Date(partes[0], partes[1] - 1, partes[2]);
+                                                                        
+                                        // Definir as opções de formatação
+                                        const opcoesDeFormatacao = {year: 'numeric', month: 'numeric', day: 'numeric'};
+                                                                        
+                                        // Formatando a data
                                         const dataFormatada = dataBanco.toLocaleDateString('pt-BR', opcoesDeFormatacao);
+                                                                        
+                                        // Exibir a data formatada
                                         document.write(dataFormatada);
                                     }
                                     // Chamar a função com a string de data do banco de dados
