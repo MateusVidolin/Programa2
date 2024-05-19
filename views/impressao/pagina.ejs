@@ -1,8 +1,9 @@
 <%- include('../partials/head.ejs') %>
 <%- include('../partials/menu.ejs') %>
+
 <br>
 
-<body class="container">
+<body class="container" id="tabela">
     <div class="small">
         <p class="text-center small"><strong> FATEC MOGI MIRIM  -  REGISTRO DE PRESENÇA DE DOCENTE - <span id="mesAno"> <%= mesSelecionado%>/<%= ano%></span></strong></p>
         <hr>
@@ -40,7 +41,7 @@
         </div>
         <!-- Tabela de presença -->
         <table class="table-bordered ">
-            <thead>
+            <thead id="table-head">
                 <tr>
                     <th rowspan="2" class="col-sm text-center" >Dia</th>
                     <th colspan="4" class="col-sm text-center">Manhã</th>
@@ -87,7 +88,7 @@
         </table>
     </div> 
     <div class="d-print-none"><button type="button" class="btn btn-primary" onclick="window.print()">Imprimir</button></div>
-
+    <!-- <div class="form-floating mb-3 mt-3"><button type="button" class="btn btn-primary" onclick="gerarPDF()">Gerar PDF</button></div>-->
 
 
 <%- include('../partials/footer.ejs') %>

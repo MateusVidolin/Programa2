@@ -4,6 +4,7 @@
 <br>
 <div class="container">
     <a href="/impressaos/novo" class="btn btn-primary">Registrar professor</a>
+    <a href="/impressaos/selecionaMesTodos" class="btn btn-primary">Gerar Folha Reg. para Todos Professores</a>
     <br>
     <div class="card">
         <div class="card-header">
@@ -28,45 +29,47 @@
                     <th class="col-2">Ações</th>
                     <th class="col-2">Folha de Registro</th>    
                 </thead>
-                <tbody>
-                    <% impressaos.forEach(impressao => { %>
-                        <tr>
-                            <td><%= impressao.professor.nome%> - Reg.: <%= impressao.professor.numeroRegistro%></td>
-                            <td> 
-                                <% nomesMateriasAtribuidas.forEach(id => { %>
-                                <% if(impressao.id == id.id){ %> 
-                                <% id.disciplinas.forEach(disciplina => { %>
-                                <% if(disciplina !== null){ %>    
-                                <%= disciplina %>/
-                                <% } %>    
-                                <% }) %>    
-                                <% } %>          
-                                <% }) %>
-                            </td>
-                            <td>
-                                <script>
-                                    // Função para formatar a data no formato local
-                                    function formatarData(dataString) {
-                                        const dataBanco = new Date(dataString);
-                                        const opcoesDeFormatacao = {year: 'numeric', month: 'numeric', day: 'numeric',};
-                                        const dataFormatada = dataBanco.toLocaleDateString('pt-BR', opcoesDeFormatacao);
-                                        document.write(dataFormatada);
-                                    }
-                                    // Chamar a função com a string de data do banco de dados
-                                    formatarData('<%= impressao.anoImpressao %>');
-                                </script>
+                    <tbody>
+                        <% impressaos.forEach(impressao => { %>
+                            <tr>
+                                <td><%= impressao.professor.nome%> - Reg.: <%= impressao.professor.numeroRegistro%></td>
+                                <td> 
+                                    <% nomesMateriasAtribuidas.forEach(id => { %>
+                                    <% if(impressao.id == id.id){ %> 
+                                    <% id.disciplinas.forEach(disciplina => { %>
+                                    <% if(disciplina !== null){ %>    
+                                    <%= disciplina %>/
+                                    <% } %>    
+                                    <% }) %>    
+                                    <% } %>          
+                                    <% }) %>
                                 </td>
-                            <td>
-                                <a href="/impressaos/<%= impressao.id %>" class="btn btn-primary">Editar</a>
-                                <a href="/impressaos/delete/<%= impressao.id %>" class="btn btn-danger">Excluir</a>
-                            </td>
-                            <td>
-                                
-                                <a href="/impressaos/selecionaMes/<%= impressao.id %>" class="btn btn-primary">Gerar Folha Reg.</a>
-                            </td>
-                        </tr>
-                    <% }) %>
-                </tbody>
+                                <td>
+                                    <script>
+                                        // Função para formatar a data no formato local
+                                        function formatarData(dataString) {
+                                            const dataBanco = new Date(dataString);
+                                            const opcoesDeFormatacao = {year: 'numeric', month: 'numeric', day: 'numeric',};
+                                            const dataFormatada = dataBanco.toLocaleDateString('pt-BR', opcoesDeFormatacao);
+                                            document.write(dataFormatada);
+                                        }
+                                        // Chamar a função com a string de data do banco de dados
+                                        formatarData('<%= impressao.anoImpressao %>');
+                                    </script>
+                                    </td>
+                                <td>
+                                    <a href="/impressaos/<%= impressao.id %>" class="btn btn-primary">Editar</a>
+                                    <a href="/impressaos/delete/<%= impressao.id %>" class="btn btn-danger">Excluir</a>
+                                </td>
+                                <td>
+                                    <!-- <input type="submit" value="Gerar Folha" class="btn btn-primary"/> -->
+                                    
+                                    <a href="/impressaos/selecionaMes/<%= impressao.id %>" class="btn btn-primary">Gerar Folha Reg.</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </form>
             </table>
         </div>
     </div>

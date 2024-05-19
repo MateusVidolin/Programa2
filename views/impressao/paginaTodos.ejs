@@ -1,0 +1,93 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+<br>
+
+<body class="container">
+    <div class="small">
+        <p class="text-center small"><strong> FATEC MOGI MIRIM  -  REGISTRO DE PRESENÇA DE DOCENTE - <span id="mesAno"> <%= mesSelecionado%>/<%= ano%></span></strong></p>
+        <hr>
+        <div class="row small">
+            <div class="col sm-2 p-0">
+                <strong>Professor - </strong> <strong>Reg.:</strong><%= impressao.professor.numeroRegistro%> <strong>Nome:</strong><%= impressao.professor.nome%> <span id="nome"></span>
+            </div>
+            <div class="col sm-2 p-0">
+                <strong>Categoria:</strong> <%= impressao.professor.categoria%> <span id="categoria"></span>
+            </div>
+            <div class="col sm-2 p-0">
+                <strong>Curso:</strong><span id="curso1"> <% nomeCursosAtribuidos.forEach(curso =>{ %> <%=curso%>/ <%})%></span>
+            </div>
+        </div>
+        <div class="row small">
+            <div class="col sm-2 p-0">
+                <strong>Disciplinas:</strong> <% nomeDisciplina.forEach(disciplina =>{ %> <%=disciplina%>/ <%})%> 
+            </div>
+        <div class="row small">
+            <div class="col sm-2 p-0">
+                <strong>Aulas:</strong> <%= totalAulas%> <span id="aulas"> </span>
+            </div> 
+            <div class="col">
+                <strong>H.A:</strong> <%= ha%><span id="ha"></span>
+            </div>
+            <div class="col">
+                <strong>H.A.E:</strong> <%= hae%><span id="hae"></span>
+            </div>
+            <div class="col">
+                <strong>H.A.E.C:</strong> <%= haec%><span id="haec"></span>
+            </div>
+            <div class="col">
+                <strong>Jornada:</strong><span id="jornada"></span>
+            </div>    
+        </div>
+        <!-- Tabela de presença -->
+        <table class="table-bordered ">
+            <thead>
+                <tr>
+                    <th rowspan="2" class="col-sm text-center" >Dia</th>
+                    <th colspan="4" class="col-sm text-center">Manhã</th>
+                    <th colspan="4" class="col-sm text-center">Tarde</th>
+                    <th colspan="4" class="col-sm text-center">Noite</th>
+                    <th rowspan="4" class="col-sm text-center">Observações</th>
+                </tr>
+                <tr>
+                    <th class="col-sm col2">Início</th>
+                    <th class="col-sm col2">Aulas</th>
+                    <th class="col-sm col2">HAE/C</th>
+                    <th class="col-md text-center col2">Rubrica</th>
+                    <th class="col-sm col2">Início</th>
+                    <th class="col-sm col2">Aulas</th>
+                    <th class="col-sm col2">HAE/C</th>
+                    <th class="col-md text-center col2">Rubrica</th>
+                    <th class="col-sm col2">Início</th>
+                    <th class="col-sm col2">Aulas</th>
+                    <th class="col-sm col2">HAE/C</th>
+                    <th class="col-md text-center col2">Rubrica</th>
+                </tr>
+            </thead>
+            <tbody id="table-body" class="small">
+                <!-- Conteúdo da tabela será adicionado dinamicamente aqui -->
+                <%   for(var day=1; day <= qtdDiasMes; day++) { %>
+                <tr>
+                <td> <%= day%>-<%= dayOfWeek[day] %> </td>
+                <td >  <%= inicioManha[day]%> </td> 
+               <td > <%= aulasManha[day]%> </td> 
+               <td > <%= haeManha[day]%> <%= haecManha[day]%></td> 
+               <td class="col-sm-2 text-center"> <%= rubricaManha[day]%> </td>
+               <td >  <%= inicioTarde[day]%> </td> 
+               <td > <%= aulasTarde[day]%> </td> 
+               <td > <%= haeTarde[day]%> <%= haecTarde[day]%></td> 
+               <td class="col-sm-2 text-center"> <%= rubricaTarde[day]%> </td>
+               <td >  <%= inicioNoite[day]%> </td> 
+               <td > <%= aulasNoite[day]%> </td> 
+               <td > <%= haeNoite[day]%> <%= haecNoite[day]%></td> 
+               <td class="col-sm-2 text-center"> <%= rubricaNoite[day]%> </td>
+               <td contenteditable='true'></td>
+               </tr>
+              <% } %>
+                </tbody>
+        </table>
+    </div> 
+    <div class="d-print-none"><button type="button" class="btn btn-primary" onclick="window.print()">Imprimir</button></div>
+
+
+
+<%- include('../partials/footer.ejs') %>

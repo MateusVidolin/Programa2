@@ -1,0 +1,47 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/menu.ejs') %>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">Mês para impressão</div>
+        <div class="card-body">
+            <form method="POST" action="/impressaos/selecioneMesTodos">
+                <label for="mes">Selecione o mês</label>
+                <br>
+                    <div class="form-floating mb-3">
+                        <select name = "mes"> 
+                            <option value = "Janeiro"> Janeiro</option>
+                            <option value = "Fevereiro"> Fevereiro</option>
+                            <option value = "Março"> Março</option>
+                            <option value = "Abril"> Abril</option>
+                            <option value = "Maio"> Maio</option>
+                            <option value = "Junho"> Junho</option>
+                            <option value = "Julho"> Julho</option>
+                            <option value = "Agosto"> Agosto</option>
+                            <option value = "Setembro"> Setembro</option>
+                            <option value = "Outubro"> Outubro</option>
+                            <option value = "Novembro"> Novembro</option>
+                            <option value = "Dezembro"> Dezembro</option>
+                        </select> 
+                    </div>
+                    <div class="form-floating mb-3 col-sm-2">
+                          <input 
+                            type="number" 
+                            name="ano" 
+                            class="form-control" 
+                            id="ano" 
+                            placeholder=" Digite o ano"   
+                            min="1980" max="2100" 
+                            required>
+                          <label for="ano">Digite o ano</label>
+                    </div>
+                <div class="form-floating mb-3">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="/impressaos" class="btn btn-warning">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

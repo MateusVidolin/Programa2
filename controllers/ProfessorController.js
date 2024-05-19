@@ -82,10 +82,7 @@ exports.create = (req, res, next) => {
     const status = req.body.status;
     let msgOK = '1';
     let msgNOK = '0';
-    let dataParaBanco;
-
-    dataParaBanco = DataParaBanco(ano);
- 
+    
     Professor.findOne({
         where: {
             numeroRegistro : numeroRegistro
@@ -98,7 +95,7 @@ exports.create = (req, res, next) => {
                 nome: nome,
                 area: area,
                 categoria: categoria,
-                ano: dataParaBanco,
+                ano: ano,
                 status: status
             }).then(() => {
                 res.redirect('/professors/?msgOK=' + msgOK);
