@@ -12,7 +12,7 @@ router.get('/delete/:id', checkLogin, ImpressaoController.delete);
 router.get('/selecionaMes/:id', checkLogin, ImpressaoController.renderSelecionaMes);
 router.post('/selecioneMes/:id', checkLogin, ImpressaoController.renderGeraRegistro);
 router.get('/selecionaMesTodos', checkLogin, ImpressaoController.renderSelecionaMesTodos);
-router.post('/selecioneMesTodos', checkLogin, ImpressaoController.renderGeraRegistroTodos);
+router.post('/selecioneMesTodos', checkLogin, ImpressaoController.enviaIDsProfessores);
 router.get('/:id', checkLogin, ImpressaoController.renderEditar);
 
 

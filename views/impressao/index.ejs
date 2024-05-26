@@ -11,6 +11,11 @@
             Professores registrados nas disciplinas
         </div>
         <div class="card-body">
+            <% if(filePath != undefined) {%>
+                <div class="alert alert-success">
+                    <strong>:D Arquivo Salvo em: <%= filePath %>! </strong>
+                </div>
+             <% } %>
             <% if(msgOK == '1') {%>
                 <div class="alert alert-success">
                     <strong>:D Operação realizada com sucesso! </strong>
