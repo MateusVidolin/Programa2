@@ -36,7 +36,7 @@ exports.create = (req, res, next) => {
 
     Feriado.findOne({
         where: {
-            nomeFeriado : nomeFeriado
+            dataFeriado : dataFeriado
         }
     }).then(feriado => {
         if((feriado == undefined) && (tipo!= undefined))
