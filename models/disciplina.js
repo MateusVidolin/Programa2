@@ -16,10 +16,6 @@ const Disciplina = connection.define(
         semestre: {
             type: Sequelize.STRING,
             allowNull: false
-        },
-        periodo: {
-            type: Sequelize.STRING,
-            allowNull: false
         }
     }
 );

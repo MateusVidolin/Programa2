@@ -234,6 +234,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
   let palavrasSignificativas = null;
   let verificaPeriodoHae = null;
   let verificaPeriodoHaec = null;
+  let verificaHorarioDisciplina = new Array();
   
 
   // Criando um novo documento jsPDF
@@ -316,6 +317,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
     }).then((impressao) => {
       if (impressao.idDisciplina10 != null) {
         Disciplina.findByPk(impressao.idDisciplina10).then((disciplina) => {
+          verificaHorarioDisciplina[10] = parseInt(impressao.horarioDisc10.split(":")[0]);
           nomeDisciplina[10] = disciplina.nomeDisciplina;
           periodoDisciplina[10] = disciplina.periodo;
           totalDeDisciplinas += 1;
@@ -325,6 +327,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
       }
       if (impressao.idDisciplina9 != null) {
         Disciplina.findByPk(impressao.idDisciplina9).then((disciplina) => {
+          verificaHorarioDisciplina[9] = parseInt(impressao.horarioDisc9.split(":")[0]);
           nomeDisciplina[9] = disciplina.nomeDisciplina;
           periodoDisciplina[9] = disciplina.periodo;
           totalDeDisciplinas += 1;
@@ -334,6 +337,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
       }
       if (impressao.idDisciplina8 != null) {
         Disciplina.findByPk(impressao.idDisciplina8).then((disciplina) => {
+          verificaHorarioDisciplina[8] = parseInt(impressao.horarioDisc8.split(":")[0]);
           nomeDisciplina[8] = disciplina.nomeDisciplina;
           periodoDisciplina[8] = disciplina.periodo;
           totalDeDisciplinas += 1;
@@ -343,6 +347,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
       }
       if (impressao.idDisciplina7 != null) {
         Disciplina.findByPk(impressao.idDisciplina7).then((disciplina) => {
+          verificaHorarioDisciplina[7] = parseInt(impressao.horarioDisc7.split(":")[0]);
           nomeDisciplina[7] = disciplina.nomeDisciplina;
           periodoDisciplina[7] = disciplina.periodo;
           totalDeDisciplinas += 1;
@@ -352,6 +357,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
       }
       if (impressao.idDisciplina6 != null) {
         Disciplina.findByPk(impressao.idDisciplina6).then((disciplina) => {
+          verificaHorarioDisciplina[6] = parseInt(impressao.horarioDisc6.split(":")[0]);
           nomeDisciplina[6] = disciplina.nomeDisciplina;
           periodoDisciplina[6] = disciplina.periodo;
           totalDeDisciplinas += 1;
@@ -361,6 +367,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
       }
       if (impressao.idDisciplina5 != null) {
         Disciplina.findByPk(impressao.idDisciplina5).then((disciplina) => {
+          verificaHorarioDisciplina[5] = parseInt(impressao.horarioDisc5.split(":")[0]);
           nomeDisciplina[5] = disciplina.nomeDisciplina;
           periodoDisciplina[5] = disciplina.periodo;
           totalDeDisciplinas += 1;
@@ -370,6 +377,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
       }
       if (impressao.idDisciplina4 != null) {
         Disciplina.findByPk(impressao.idDisciplina4).then((disciplina) => {
+          verificaHorarioDisciplina[4] = parseInt(impressao.horarioDisc4.split(":")[0]);
           nomeDisciplina[4] = disciplina.nomeDisciplina;
           periodoDisciplina[4] = disciplina.periodo;
           totalDeDisciplinas += 1;
@@ -379,6 +387,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
       }
       if (impressao.idDisciplina3 != null) {
         Disciplina.findByPk(impressao.idDisciplina3).then((disciplina) => {
+          verificaHorarioDisciplina[3] = parseInt(impressao.horarioDisc3.split(":")[0]);
           nomeDisciplina[3] = disciplina.nomeDisciplina;
           periodoDisciplina[3] = disciplina.periodo;
           totalDeDisciplinas += 1;
@@ -388,6 +397,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
       }
       if (impressao.idDisciplina2 != null) {
         Disciplina.findByPk(impressao.idDisciplina2).then((disciplina) => {
+          verificaHorarioDisciplina[2] = parseInt(impressao.horarioDisc2.split(":")[0]);
           nomeDisciplina[2] = disciplina.nomeDisciplina;
           periodoDisciplina[2] = disciplina.periodo;
           totalDeDisciplinas += 1;
@@ -395,8 +405,9 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
           idCursoDisciplinas[2] = disciplina.cursoId;
         });
       }
-
+  
       Disciplina.findByPk(impressao.idDisciplina1).then((disciplina) => {
+        verificaHorarioDisciplina[1] = parseInt(impressao.horarioDisc1.split(":")[0]);
         nomeDisciplina[1] = disciplina.nomeDisciplina;
         periodoDisciplina[1] = disciplina.periodo;
         idCursoDisciplinas[1] = disciplina.cursoId;
@@ -425,9 +436,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   palavrasSignificativas = curso.nomeCurso.split(" ");
                   palavrasSignificativas = palavrasSignificativas.filter(
                     (palavrasSignificativas) =>
-                      !preposicoes.includes(
-                        palavrasSignificativas.toLowerCase()
-                      )
+                      !preposicoes.includes(palavrasSignificativas.toLowerCase())
                   );
                   abreviacaoNomeCurso = palavrasSignificativas
                     .map((palavra) => palavra.charAt(0))
@@ -439,9 +448,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   palavrasSignificativas = curso.nomeCurso.split(" ");
                   palavrasSignificativas = palavrasSignificativas.filter(
                     (palavrasSignificativas) =>
-                      !preposicoes.includes(
-                        palavrasSignificativas.toLowerCase()
-                      )
+                      !preposicoes.includes(palavrasSignificativas.toLowerCase())
                   );
                   abreviacaoNomeCurso = palavrasSignificativas
                     .map((palavra) => palavra.charAt(0))
@@ -461,16 +468,12 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
               }
             }
           });
-
+  
           Feriado.findAll({
             order: [["nomeFeriado", "ASC"]],
           }).then((feriados) => {
             // Loop para preencher os dias do mês
-            for (
-              let day = startDate.getDate();
-              day <= endDate.getDate();
-              day++
-            ) {
+            for (let day = startDate.getDate(); day <= endDate.getDate(); day++) {
               let currentDate = new Date(
                 startDate.getFullYear(),
                 startDate.getMonth(),
@@ -481,7 +484,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
               });
               diasMes[day] = day;
               qtdDiasMes += 1;
-
+  
               // Função para preencher as colunas
               if (
                 dayOfWeek[day] == impressao.diaSemanaDisc1 ||
@@ -504,7 +507,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                 dayOfWeek[day] == impressao.diaSemanaHaec4
               ) {
                 if (
-                  periodoDisciplina[1] == "Manhã" &&
+                  verificaHorarioDisciplina[1] < 13 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc1
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -513,7 +516,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   inicioManha[day] = horarioFormatado;
                   aulasManha[day] = impressao.aulasDisc1;
                 } else if (
-                  periodoDisciplina[2] == "Manhã" &&
+                  verificaHorarioDisciplina[2] < 13 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc2
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -523,7 +526,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasManha[day] = impressao.aulasDisc2;
                   haeManha[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[3] == "Manhã" &&
+                  verificaHorarioDisciplina[3] < 13 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc3
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -533,7 +536,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasManha[day] = impressao.aulasDisc3;
                   haeManha[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[4] == "Manhã" &&
+                  verificaHorarioDisciplina[4] < 13 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc4
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -543,7 +546,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasManha[day] = impressao.aulasDisc4;
                   haeManha[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[5] == "Manhã" &&
+                  verificaHorarioDisciplina[5] < 13 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc5
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -553,7 +556,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasManha[day] = impressao.aulasDisc5;
                   haeManha[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[6] == "Manhã" &&
+                  verificaHorarioDisciplina[6] < 13 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc6
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -563,7 +566,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasManha[day] = impressao.aulasDisc6;
                   haeManha[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[7] == "Manhã" &&
+                  verificaHorarioDisciplina[7] < 13 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc7
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -573,7 +576,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasManha[day] = impressao.aulasDisc7;
                   haeManha[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[8] == "Manhã" &&
+                  verificaHorarioDisciplina[8] < 13 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc8
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -583,7 +586,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasManha[day] = impressao.aulasDisc8;
                   haeManha[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[9] == "Manhã" &&
+                  verificaHorarioDisciplina[9] < 13 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc9
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -593,7 +596,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasManha[day] = impressao.aulasDisc9;
                   haeManha[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[10] == "Manhã" &&
+                  verificaHorarioDisciplina[10] < 13 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc10
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -604,7 +607,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   haeManha[day] = impressao.hae;
                 }
                 if (
-                  periodoDisciplina[1] == "Tarde" &&
+                  (verificaHorarioDisciplina[1]>=13 && verificaHorarioDisciplina[1] < 19) &&
                   dayOfWeek[day] == impressao.diaSemanaDisc1
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -614,7 +617,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasTarde[day] = impressao.aulasDisc1;
                   haeTarde[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[2] == "Tarde" &&
+                  verificaHorarioDisciplina[2] < 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc2
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -624,7 +627,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasTarde[day] = impressao.aulasDisc2;
                   haeTarde[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[3] == "Tarde" &&
+                  verificaHorarioDisciplina[3] < 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc3
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -634,7 +637,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasTarde[day] = impressao.aulasDisc3;
                   haeTarde[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[4] == "Tarde" &&
+                  verificaHorarioDisciplina[4] < 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc4
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -644,7 +647,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasTarde[day] = impressao.aulasDisc4;
                   haeTarde[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[5] == "Tarde" &&
+                  verificaHorarioDisciplina[5] < 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc5
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -654,7 +657,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasTarde[day] = impressao.aulasDisc5;
                   haeTarde[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[6] == "Tarde" &&
+                  verificaHorarioDisciplina[6] < 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc6
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -664,7 +667,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasTarde[day] = impressao.aulasDisc6;
                   haeTarde[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[7] == "Tarde" &&
+                  verificaHorarioDisciplina[7] < 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc7
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -674,7 +677,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasTarde[day] = impressao.aulasDisc7;
                   haeTarde[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[8] == "Tarde" &&
+                  verificaHorarioDisciplina[8] < 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc8
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -684,7 +687,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasTarde[day] = impressao.aulasDisc8;
                   haeTarde[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[9] == "Tarde" &&
+                  verificaHorarioDisciplina[9] < 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc9
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -694,7 +697,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasTarde[day] = impressao.aulasDisc9;
                   haeTarde[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[10] == "Tarde" &&
+                  verificaHorarioDisciplina[10] < 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc10
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -705,7 +708,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   haeTarde[day] = impressao.hae;
                 }
                 if (
-                  periodoDisciplina[1] == "Noite" &&
+                  verificaHorarioDisciplina[1] >= 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc1
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -715,7 +718,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasNoite[day] = impressao.aulasDisc1;
                   haeNoite[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[2] == "Noite" &&
+                  verificaHorarioDisciplina[2] >= 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc2
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -725,7 +728,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasNoite[day] = impressao.aulasDisc2;
                   haeNoite[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[3] == "Noite" &&
+                  verificaHorarioDisciplina[3] >= 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc3
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -735,7 +738,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasNoite[day] = impressao.aulasDisc3;
                   haeNoite[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[4] == "Noite" &&
+                  verificaHorarioDisciplina[4] >= 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc4
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -745,7 +748,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasNoite[day] = impressao.aulasDisc4;
                   haeNoite[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[5] == "Noite" &&
+                  verificaHorarioDisciplina[5] >= 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc5
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -755,7 +758,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasNoite[day] = impressao.aulasDisc5;
                   haeNoite[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[6] == "Noite" &&
+                  verificaHorarioDisciplina[6] >= 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc6
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -765,7 +768,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasNoite[day] = impressao.aulasDisc6;
                   haeNoite[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[7] == "Noite" &&
+                  verificaHorarioDisciplina[7] >= 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc7
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -775,7 +778,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasNoite[day] = impressao.aulasDisc7;
                   haeNoite[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[8] == "Noite" &&
+                  verificaHorarioDisciplina[8] >= 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc8
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -785,7 +788,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasNoite[day] = impressao.aulasDisc8;
                   haeNoite[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[9] == "Noite" &&
+                  verificaHorarioDisciplina[9] >= 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc9
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -795,7 +798,7 @@ function renderGeraRegistroTodos (id, mesSelecionado, anoSelecionado, res)  {
                   aulasNoite[day] = impressao.aulasDisc9;
                   haeNoite[day] = impressao.hae;
                 } else if (
-                  periodoDisciplina[10] == "Noite" &&
+                  verificaHorarioDisciplina[10] >= 19 &&
                   dayOfWeek[day] == impressao.diaSemanaDisc10
                 ) {
                   horarioFormatado = HoraParaImpressao(
@@ -1419,7 +1422,7 @@ exports.renderGeraRegistro = (req, res, next) => {
   let palavrasSignificativas = null;
   let verificaPeriodoHae = null;
   let verificaPeriodoHaec = null;
-
+  let verificaHorarioDisciplina = new Array();
 
   //Data para prencher tabela
   let mesAno = DataParaImpressao(mesSelecionado, anoSelecionado);
@@ -1492,6 +1495,7 @@ exports.renderGeraRegistro = (req, res, next) => {
   }).then((impressao) => {
     if (impressao.idDisciplina10 != null) {
       Disciplina.findByPk(impressao.idDisciplina10).then((disciplina) => {
+        verificaHorarioDisciplina[10] = parseInt(impressao.horarioDisc10.split(":")[0]);
         nomeDisciplina[10] = disciplina.nomeDisciplina;
         periodoDisciplina[10] = disciplina.periodo;
         totalDeDisciplinas += 1;
@@ -1501,6 +1505,7 @@ exports.renderGeraRegistro = (req, res, next) => {
     }
     if (impressao.idDisciplina9 != null) {
       Disciplina.findByPk(impressao.idDisciplina9).then((disciplina) => {
+        verificaHorarioDisciplina[9] = parseInt(impressao.horarioDisc9.split(":")[0]);
         nomeDisciplina[9] = disciplina.nomeDisciplina;
         periodoDisciplina[9] = disciplina.periodo;
         totalDeDisciplinas += 1;
@@ -1510,6 +1515,7 @@ exports.renderGeraRegistro = (req, res, next) => {
     }
     if (impressao.idDisciplina8 != null) {
       Disciplina.findByPk(impressao.idDisciplina8).then((disciplina) => {
+        verificaHorarioDisciplina[8] = parseInt(impressao.horarioDisc8.split(":")[0]);
         nomeDisciplina[8] = disciplina.nomeDisciplina;
         periodoDisciplina[8] = disciplina.periodo;
         totalDeDisciplinas += 1;
@@ -1519,6 +1525,7 @@ exports.renderGeraRegistro = (req, res, next) => {
     }
     if (impressao.idDisciplina7 != null) {
       Disciplina.findByPk(impressao.idDisciplina7).then((disciplina) => {
+        verificaHorarioDisciplina[7] = parseInt(impressao.horarioDisc7.split(":")[0]);
         nomeDisciplina[7] = disciplina.nomeDisciplina;
         periodoDisciplina[7] = disciplina.periodo;
         totalDeDisciplinas += 1;
@@ -1528,6 +1535,7 @@ exports.renderGeraRegistro = (req, res, next) => {
     }
     if (impressao.idDisciplina6 != null) {
       Disciplina.findByPk(impressao.idDisciplina6).then((disciplina) => {
+        verificaHorarioDisciplina[6] = parseInt(impressao.horarioDisc6.split(":")[0]);
         nomeDisciplina[6] = disciplina.nomeDisciplina;
         periodoDisciplina[6] = disciplina.periodo;
         totalDeDisciplinas += 1;
@@ -1537,6 +1545,7 @@ exports.renderGeraRegistro = (req, res, next) => {
     }
     if (impressao.idDisciplina5 != null) {
       Disciplina.findByPk(impressao.idDisciplina5).then((disciplina) => {
+        verificaHorarioDisciplina[5] = parseInt(impressao.horarioDisc5.split(":")[0]);
         nomeDisciplina[5] = disciplina.nomeDisciplina;
         periodoDisciplina[5] = disciplina.periodo;
         totalDeDisciplinas += 1;
@@ -1546,6 +1555,7 @@ exports.renderGeraRegistro = (req, res, next) => {
     }
     if (impressao.idDisciplina4 != null) {
       Disciplina.findByPk(impressao.idDisciplina4).then((disciplina) => {
+        verificaHorarioDisciplina[4] = parseInt(impressao.horarioDisc4.split(":")[0]);
         nomeDisciplina[4] = disciplina.nomeDisciplina;
         periodoDisciplina[4] = disciplina.periodo;
         totalDeDisciplinas += 1;
@@ -1555,6 +1565,7 @@ exports.renderGeraRegistro = (req, res, next) => {
     }
     if (impressao.idDisciplina3 != null) {
       Disciplina.findByPk(impressao.idDisciplina3).then((disciplina) => {
+        verificaHorarioDisciplina[3] = parseInt(impressao.horarioDisc3.split(":")[0]);
         nomeDisciplina[3] = disciplina.nomeDisciplina;
         periodoDisciplina[3] = disciplina.periodo;
         totalDeDisciplinas += 1;
@@ -1564,6 +1575,7 @@ exports.renderGeraRegistro = (req, res, next) => {
     }
     if (impressao.idDisciplina2 != null) {
       Disciplina.findByPk(impressao.idDisciplina2).then((disciplina) => {
+        verificaHorarioDisciplina[2] = parseInt(impressao.horarioDisc2.split(":")[0]);
         nomeDisciplina[2] = disciplina.nomeDisciplina;
         periodoDisciplina[2] = disciplina.periodo;
         totalDeDisciplinas += 1;
@@ -1573,6 +1585,7 @@ exports.renderGeraRegistro = (req, res, next) => {
     }
 
     Disciplina.findByPk(impressao.idDisciplina1).then((disciplina) => {
+      verificaHorarioDisciplina[1] = parseInt(impressao.horarioDisc1.split(":")[0]);
       nomeDisciplina[1] = disciplina.nomeDisciplina;
       periodoDisciplina[1] = disciplina.periodo;
       idCursoDisciplinas[1] = disciplina.cursoId;
@@ -1672,7 +1685,7 @@ exports.renderGeraRegistro = (req, res, next) => {
               dayOfWeek[day] == impressao.diaSemanaHaec4
             ) {
               if (
-                periodoDisciplina[1] == "Manhã" &&
+                verificaHorarioDisciplina[1] < 13 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc1
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1681,7 +1694,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 inicioManha[day] = horarioFormatado;
                 aulasManha[day] = impressao.aulasDisc1;
               } else if (
-                periodoDisciplina[2] == "Manhã" &&
+                verificaHorarioDisciplina[2] < 13 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc2
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1691,7 +1704,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasManha[day] = impressao.aulasDisc2;
                 haeManha[day] = impressao.hae;
               } else if (
-                periodoDisciplina[3] == "Manhã" &&
+                verificaHorarioDisciplina[3] < 13 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc3
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1701,7 +1714,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasManha[day] = impressao.aulasDisc3;
                 haeManha[day] = impressao.hae;
               } else if (
-                periodoDisciplina[4] == "Manhã" &&
+                verificaHorarioDisciplina[4] < 13 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc4
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1711,7 +1724,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasManha[day] = impressao.aulasDisc4;
                 haeManha[day] = impressao.hae;
               } else if (
-                periodoDisciplina[5] == "Manhã" &&
+                verificaHorarioDisciplina[5] < 13 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc5
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1721,7 +1734,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasManha[day] = impressao.aulasDisc5;
                 haeManha[day] = impressao.hae;
               } else if (
-                periodoDisciplina[6] == "Manhã" &&
+                verificaHorarioDisciplina[6] < 13 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc6
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1731,7 +1744,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasManha[day] = impressao.aulasDisc6;
                 haeManha[day] = impressao.hae;
               } else if (
-                periodoDisciplina[7] == "Manhã" &&
+                verificaHorarioDisciplina[7] < 13 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc7
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1741,7 +1754,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasManha[day] = impressao.aulasDisc7;
                 haeManha[day] = impressao.hae;
               } else if (
-                periodoDisciplina[8] == "Manhã" &&
+                verificaHorarioDisciplina[8] < 13 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc8
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1751,7 +1764,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasManha[day] = impressao.aulasDisc8;
                 haeManha[day] = impressao.hae;
               } else if (
-                periodoDisciplina[9] == "Manhã" &&
+                verificaHorarioDisciplina[9] < 13 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc9
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1761,7 +1774,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasManha[day] = impressao.aulasDisc9;
                 haeManha[day] = impressao.hae;
               } else if (
-                periodoDisciplina[10] == "Manhã" &&
+                verificaHorarioDisciplina[10] < 13 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc10
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1772,7 +1785,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 haeManha[day] = impressao.hae;
               }
               if (
-                periodoDisciplina[1] == "Tarde" &&
+                (verificaHorarioDisciplina[1]>=13 && verificaHorarioDisciplina[1] < 19) &&
                 dayOfWeek[day] == impressao.diaSemanaDisc1
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1782,7 +1795,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasTarde[day] = impressao.aulasDisc1;
                 haeTarde[day] = impressao.hae;
               } else if (
-                periodoDisciplina[2] == "Tarde" &&
+                verificaHorarioDisciplina[2] < 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc2
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1792,7 +1805,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasTarde[day] = impressao.aulasDisc2;
                 haeTarde[day] = impressao.hae;
               } else if (
-                periodoDisciplina[3] == "Tarde" &&
+                verificaHorarioDisciplina[3] < 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc3
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1802,7 +1815,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasTarde[day] = impressao.aulasDisc3;
                 haeTarde[day] = impressao.hae;
               } else if (
-                periodoDisciplina[4] == "Tarde" &&
+                verificaHorarioDisciplina[4] < 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc4
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1812,7 +1825,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasTarde[day] = impressao.aulasDisc4;
                 haeTarde[day] = impressao.hae;
               } else if (
-                periodoDisciplina[5] == "Tarde" &&
+                verificaHorarioDisciplina[5] < 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc5
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1822,7 +1835,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasTarde[day] = impressao.aulasDisc5;
                 haeTarde[day] = impressao.hae;
               } else if (
-                periodoDisciplina[6] == "Tarde" &&
+                verificaHorarioDisciplina[6] < 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc6
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1832,7 +1845,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasTarde[day] = impressao.aulasDisc6;
                 haeTarde[day] = impressao.hae;
               } else if (
-                periodoDisciplina[7] == "Tarde" &&
+                verificaHorarioDisciplina[7] < 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc7
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1842,7 +1855,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasTarde[day] = impressao.aulasDisc7;
                 haeTarde[day] = impressao.hae;
               } else if (
-                periodoDisciplina[8] == "Tarde" &&
+                verificaHorarioDisciplina[8] < 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc8
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1852,7 +1865,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasTarde[day] = impressao.aulasDisc8;
                 haeTarde[day] = impressao.hae;
               } else if (
-                periodoDisciplina[9] == "Tarde" &&
+                verificaHorarioDisciplina[9] < 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc9
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1862,7 +1875,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasTarde[day] = impressao.aulasDisc9;
                 haeTarde[day] = impressao.hae;
               } else if (
-                periodoDisciplina[10] == "Tarde" &&
+                verificaHorarioDisciplina[10] < 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc10
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1873,7 +1886,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 haeTarde[day] = impressao.hae;
               }
               if (
-                periodoDisciplina[1] == "Noite" &&
+                verificaHorarioDisciplina[1] >= 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc1
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1883,7 +1896,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasNoite[day] = impressao.aulasDisc1;
                 haeNoite[day] = impressao.hae;
               } else if (
-                periodoDisciplina[2] == "Noite" &&
+                verificaHorarioDisciplina[2] >= 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc2
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1893,7 +1906,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasNoite[day] = impressao.aulasDisc2;
                 haeNoite[day] = impressao.hae;
               } else if (
-                periodoDisciplina[3] == "Noite" &&
+                verificaHorarioDisciplina[3] >= 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc3
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1903,7 +1916,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasNoite[day] = impressao.aulasDisc3;
                 haeNoite[day] = impressao.hae;
               } else if (
-                periodoDisciplina[4] == "Noite" &&
+                verificaHorarioDisciplina[4] >= 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc4
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1913,7 +1926,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasNoite[day] = impressao.aulasDisc4;
                 haeNoite[day] = impressao.hae;
               } else if (
-                periodoDisciplina[5] == "Noite" &&
+                verificaHorarioDisciplina[5] >= 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc5
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1923,7 +1936,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasNoite[day] = impressao.aulasDisc5;
                 haeNoite[day] = impressao.hae;
               } else if (
-                periodoDisciplina[6] == "Noite" &&
+                verificaHorarioDisciplina[6] >= 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc6
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1933,7 +1946,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasNoite[day] = impressao.aulasDisc6;
                 haeNoite[day] = impressao.hae;
               } else if (
-                periodoDisciplina[7] == "Noite" &&
+                verificaHorarioDisciplina[7] >= 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc7
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1943,7 +1956,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasNoite[day] = impressao.aulasDisc7;
                 haeNoite[day] = impressao.hae;
               } else if (
-                periodoDisciplina[8] == "Noite" &&
+                verificaHorarioDisciplina[8] >= 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc8
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1953,7 +1966,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasNoite[day] = impressao.aulasDisc8;
                 haeNoite[day] = impressao.hae;
               } else if (
-                periodoDisciplina[9] == "Noite" &&
+                verificaHorarioDisciplina[9] >= 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc9
               ) {
                 horarioFormatado = HoraParaImpressao(
@@ -1963,7 +1976,7 @@ exports.renderGeraRegistro = (req, res, next) => {
                 aulasNoite[day] = impressao.aulasDisc9;
                 haeNoite[day] = impressao.hae;
               } else if (
-                periodoDisciplina[10] == "Noite" &&
+                verificaHorarioDisciplina[10] >= 19 &&
                 dayOfWeek[day] == impressao.diaSemanaDisc10
               ) {
                 horarioFormatado = HoraParaImpressao(

@@ -16,7 +16,7 @@
                     <select class="form-control" name="disciplinaId" id="disciplinaId">
                         <option value="<%= impressao.idDisciplina1 %>"> Nome: <%= impressao.IdDisciplina1.nomeDisciplina %></option>
                         <% disciplinas.forEach(disciplina => { %>
-                            <option value="<%= disciplina.id %>">Nome: <%= disciplina.nomeDisciplina %> - Código: <%= disciplina.codigoDisciplina %> - Semestre: <%= disciplina.semestre %> - Período: <%= disciplina.periodo %></option>
+                            <option value="<%= disciplina.id %>">Nome: <%= disciplina.nomeDisciplina %> - Código: <%= disciplina.codigoDisciplina %> - Semestre: <%= disciplina.semestre %></option>
                         <%})%>
                         required>
                     </select>
